@@ -1,4 +1,6 @@
 
 
 class ControllerMemberContainer():
-    pass
+
+    def __init__(self, ModelMemberContainer):
+        pass
