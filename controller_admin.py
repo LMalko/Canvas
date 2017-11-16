@@ -40,3 +40,6 @@ class ControllerAdmin(ControllerMemberContainer):
 
     def view_student_list():
         pass
+
+    def create_first_admin(self):
+        return ModelAdmin(0, "admin", "admin", "qwerty")
