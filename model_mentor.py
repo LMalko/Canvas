@@ -1,7 +1,7 @@
-from model_user import User
+from model_user import ModelUser
 
 
-class Mentor(User):
+class ModelMentor(ModelUser):
     role = 'Mentor'
 
     def __init__(
