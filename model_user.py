@@ -8,7 +8,7 @@ class ModelUser():
         self.email = 
         self.login = 
 
-    def set_uid(self):
+    def set_email(self):
         pass
 
     def set_login(self):
