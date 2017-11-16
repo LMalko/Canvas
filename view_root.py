@@ -1,7 +1,15 @@
+import os
+
 
 class ViewRoot():
 
+    @staticmethod
+    def clear_screen():
+        """Clear screen - universal for ubuntu/windows platform."""
+        os.system('cls' if os.name == 'nt' else 'clear')
+
     def display_login_screen(self, txt1='', txt2=''):
+        self.clear_screen()
         _new_lines = '\n\n'*2
         if not txt1 and not txt2:
             txt1 = _new_lines + 'Enter login --> '
@@ -20,28 +28,30 @@ class ViewRoot():
             _password = input(txt2)
         return _login, _password
 
-    def display_message(message):
-        pass
-
-    def display_text(text):
-        pass
-
     @staticmethod
-    def display_start_screen(text=''):
+    def display_message(message):
+        print('\n\n' + message + '\n\n')
+
+    def display_start_screen(self, text=''):
+        self.clear_screen()
         if not text:
             text = '\n\nWelcome in Kanwas by ***ABS***\n\n\t\tsupported by ship picker...\n\n'
         print(text)
         input('\n\nPress <enter> to continue.. ')
 
-    def display_exit_screen(text=''):
-        pass
+    def display_exit_screen(self, text=''):
+        self.clear_screen()
+        if not text:
+            text = '\n\n..logged out, exit program.\n\n'
+        print(text)
 
-# a = ViewRoot()
-#
-# tmp = a.display_login_screen()
-# print(tmp)
-# print(tmp[0], tmp[1])
-# # a.display_start_screen()
+a = ViewRoot()
+
+tmp = a.display_login_screen()
+print(tmp)
+print(tmp[0], tmp[1])
+a.display_start_screen()
+a.display_exit_screen()
   #
   #
   # + __init__(): None
