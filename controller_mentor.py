@@ -6,7 +6,6 @@ from view_mentor import ViewMentor
 from controller_user import*
 
 
-
 class ControllerMentor(ControllerUser):
 
     def __init__(
@@ -23,6 +22,11 @@ class ControllerMentor(ControllerUser):
 
     def start(self):
         pass
+
+    def create_mentor(self, first_name, last_name, password, my_group):
+        '''Return ModelMentor object.'''
+        __uid = self.controller_member_container.get_new_ID()
+        return ModelMentor(__uid, first_name, last_name, password, my_group)
 
     def view_grades(self):
         pass
