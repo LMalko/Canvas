@@ -1,3 +1,6 @@
+from model_user import *
+
+
 class ControllerUser():
 
     def __init__(self, User):
