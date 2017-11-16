@@ -1,7 +1,11 @@
-class ControllerAdmin():
-    
-    def __init__(User):
+from controller_member_container import ControllerMemberContainer
+
+
+class ControllerAdmin(ControllerMemberContainer):
+
+    def __init__(User, ControllerMemberContainer):
         associated_user = User
+        controller_member_container = ControllerMemberContainer
 
     def add_mentor():
         pass
