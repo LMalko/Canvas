@@ -8,7 +8,9 @@ class ViewRoot():
             txt2 = _new_lines + 'Enter password --> '
         return self.take_user_input(txt1, txt2)
 
-    def take_user_input(self, txt1, txt2):
+    @staticmethod
+    def take_user_input(txt1, txt2):
+        '''Return login, password in tuple.'''
         _login, _password = '', ''
         while not _login:
             _login = input(txt1)
