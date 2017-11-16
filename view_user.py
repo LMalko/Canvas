@@ -7,5 +7,5 @@ class ViewUser():
         for item in collection:
             print(item)
 
-    def display_message(self):
-        pass
+    def display_message(self, message):
+        print(message)
