@@ -1,13 +1,5 @@
 class ModelUser():
 
-    def __init__(self, uid, first_name, last_name, password):
-        self.uid = uid
-        self.first_name = first_name
-        self.last_name = last_name
-        self.set_password = password
-        self.set_email()
-        self.set_login()
-
     def set_email(self):
         self.email = "{}.{}{}@canvas.com".format(self.first_name, self.last_name, self.uid)
 
