@@ -1,5 +1,4 @@
 from model_root import ModelRoot
-print("test")
 
 
 class DAOMember():
