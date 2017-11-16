@@ -1,7 +1,7 @@
 class ModelUser():
 
     def set_email(self):
-        self.email = "{}.{}{}@canvas.com".format(self.first_name, self.last_name, self.uid)
+        self.email = "{}.{}{}@kanvas.com".format(self.first_name, self.last_name, self.uid)
 
     def set_login(self):
         self.login = "{}-{}-{}".format(self.uid, self.first_name, self.last_name)
