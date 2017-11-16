@@ -1,7 +1,7 @@
 class ControllerUser():
 
     def __init__(self, User):
-        pass
+        self.user = User
         
     def change_first_name(self):
         pass
