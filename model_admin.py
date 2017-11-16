@@ -11,5 +11,4 @@ class ModelAdmin(ModelUser):
         self.last_name = last_name
         self.password = password
 
-
-
+        super().__init__(uid, first_name, last_name, password)
