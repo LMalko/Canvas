@@ -18,6 +18,9 @@ class ControllerMentor():
         self.model_attendance_container = ModelAttendanceContainer
         self.model_member_container = ModelMemberContainer
 
+    def start(self):
+        pass
+
     def view_grades(self):
         pass
         # self.view.display()  # temp!!!
