@@ -41,7 +41,11 @@ class ControllerRoot:
         '''
         Checks whether user password matches the input_password.
         '''
-        pass
+        for user_obj in self.associated_model.container_member:
+            if user_obj.login == user_login and user_obj.password == input_password:
+                return True
+        
+        return False
 
     def engage_user_controller(user_obj):
         '''
