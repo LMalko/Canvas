@@ -2,7 +2,7 @@ from model_user import ModelUser
 
 
 class ModelMentor(ModelUser):
-    role = 'Mentor'
+    role = 'mentor'
 
     def __init__(
                     self,
