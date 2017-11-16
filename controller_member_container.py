@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-
-
 class ControllerMemberContainer():
-
-    def __init__(self, ModelMemberContainer):
-        pass
-=======
-class ControllerMemberContainer():
-
+    
     def __init__(self, ModelMemberContainer):
         member_container = ModelMemberContainer()
 
@@ -27,4 +19,3 @@ class ControllerMemberContainer():
 
     def delete_member(self, UID):
         member_container = [x for x in member_container if x.uid != UID]
->>>>>>> Member
