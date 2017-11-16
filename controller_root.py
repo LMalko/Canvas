@@ -28,6 +28,7 @@ class ControllerRoot:
 
     def __init__(self):
         self.initialize_model()
+        self.view = view_root.ViewRoot()
 
     def initialize_model(self):
         self.associated_model = ModelRoot()
@@ -43,7 +44,7 @@ class ControllerRoot:
             # add it to the container via member container controller
             member_ctrl.add_member(first_admin)
 
-    def login(user_login, input_password):
+    def login(self, user_login, input_password):
         '''
         Checks whether user password matches the input_password.
         '''
@@ -53,7 +54,7 @@ class ControllerRoot:
 
         return None
 
-    def engage_user_controller(user_obj):
+    def engage_user_controller(self, user_obj):
         if user_obj.role == "admin":
             user_ctrl = ControllerAdmin(user_obj, self.associated_model.container_member)
             user_ctrl.start()
@@ -105,8 +106,8 @@ class ControllerRoot:
         return ctrl_admin.create_first_admin()
 
     def start(self):
-        view_root.ViewRoot.display_start_screen()
-        login_credentials = view_root.ViewRoot.take_user_input()
+        self.view.display_start_screen()
+        login_credentials = self.view.display_login_screen()
         # login_credentials is a tuple with (login, password)
         while login_credentials:
             user_login = login_credentials[0]
@@ -116,6 +117,6 @@ class ControllerRoot:
                 self.engage_user_controller(user_obj)
             else:
                 view_root.ViewRoot.display_message("Invalid credentials or account does not exist")
-            login_credentials = view_root.ViewRoot.take_user_input()
+            login_credentials = self.view.display_login_screen()
 
-        view_root.ViewRoot.display_exit_screen()
+        self.view.display_exit_screen()
