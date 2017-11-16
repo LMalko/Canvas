@@ -32,11 +32,11 @@ class ViewRoot():
         pass
 
 
-a = ViewRoot()
-
-tmp = a.display_login_screen()
-print(tmp)
-print(tmp[0], tmp[1])
+# a = ViewRoot()
+#
+# tmp = a.display_login_screen()
+# print(tmp)
+# print(tmp[0], tmp[1])
   #
   #
   # + __init__(): None
