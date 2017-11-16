@@ -5,11 +5,11 @@ class ModelUser():
         self.first_name = first_name
         self.last_name = last_name
         self.set_password = password
-        self.email = 
-        self.login = 
+        self.set_email()
+        self.login =
 
     def set_email(self):
-        pass
+        self.email = "{}.{}{}@canvas.com".format(self.first_name, self.last_name, self.uid)
 
     def set_login(self):
         pass
