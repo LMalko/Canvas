@@ -18,25 +18,29 @@ class ViewRoot():
             _password = input(txt2)
         return _login, _password
 
-
     def display_message(message):
         pass
 
     def display_text(text):
         pass
 
+    @staticmethod
     def display_start_screen(text=''):
-        pass
+        if not text:
+            text = '\n\nWelcome in Kanwas by ***ABS***\n\n\t\tsupported by ship picker...\n\n'
+        print(text)
+        input('\n\nPress <enter> to continue.. ')
 
     def display_exit_screen(text=''):
         pass
 
-
+#
 # a = ViewRoot()
 #
 # tmp = a.display_login_screen()
 # print(tmp)
 # print(tmp[0], tmp[1])
+# a.display_start_screen()
   #
   #
   # + __init__(): None
