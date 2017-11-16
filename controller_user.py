@@ -1,5 +1,6 @@
 from model_user import *
 from view_user import *
+import string
 
 
 class ControllerUser():
@@ -19,9 +20,16 @@ class ControllerUser():
             self.view.display_message("No such user. Try again.")
 
     def change_first_name(self):
-        # using getter get user obj
-        # get new name from input
-        # call model_member_container on user, pas new name
+        not_valid_input = True
+        while not_valid_input:
+            new_name = self.view.get_user_input("Pass new name: ")
+            if (len(new_name.strip()) != 0) and (new_name not in string.punctuation):
+                not_valid_input = False
+            else:
+                self.view.display_message("Invalid input. Try again. ")
+        user = self.__get_user()
+        user.set_first_name(new_name)
+        self.view.display_message("Name has been changed!")
 
     def change_lats_name(self):
         pass
