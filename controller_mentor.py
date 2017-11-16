@@ -1,5 +1,7 @@
 from model_mentor import ModelMentor
 from controller_task_container import ControllerTaskContainer
+from controller_attendance_container import ControllerAttendanceContainer
+from controller_member_container import ControllerMemberContainer
 from view_mentor import ViewMentor
 
 
@@ -7,16 +9,15 @@ class ControllerMentor():
 
     def __init__(
                     self,
-                    User,
-                    ModelTaskContainer,
-                    ModelAttendanceContainer,
-                    ModelMemberContainer):
-        self.associated_user = User
+                    user,
+                    task_container,
+                    attendance_container,
+                    member_container):
+        self.associated_user = user
         self.view = ViewMentor()
-        # self.controller_task_container = ControllerTaskContainer()  # tmp!
-        self.model_task_container = ModelTaskContainer
-        self.model_attendance_container = ModelAttendanceContainer
-        self.model_member_container = ModelMemberContainer
+        self.controller_task_container = ControllerTaskContainer(task_container)
+        self.controller_attendance_container = ControllerAttendanceContainer(attendance_container)
+        self.controller_member_container = ControllerMemberContainer(member_container)
 
     def start(self):
         pass
