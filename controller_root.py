@@ -43,11 +43,7 @@ class ControllerRoot:
         '''
         for user_obj in self.associated_model.container_member:
             if user_obj.login == user_login and user_obj.password == input_password:
-<<<<<<< HEAD
-                user_obj
-=======
                 return user_obj
->>>>>>> root
 
         return None
 
