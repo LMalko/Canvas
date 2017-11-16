@@ -1,4 +1,5 @@
 from controller_member_container import ControllerMemberContainer
+from model_admin import ModelAdmin
 
 
 class ControllerAdmin(ControllerMemberContainer):
