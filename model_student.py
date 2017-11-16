@@ -1,7 +1,8 @@
 from model_user import ModelUser
 
+
 class ModelStudent(ModelUser):
-    role = 'Student'
+    role = 'student'
 
     def __init__(
                     self,
