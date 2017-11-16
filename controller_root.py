@@ -13,6 +13,12 @@ import dao_attendance
 import dao_member
 import dao_task
 '''
+from controller_admin import *
+'''
+from controller_mentor import *
+from controller_office import *
+from controller_student import *
+'''
 import view_root
 from model_root import *
 
@@ -48,6 +54,27 @@ class ControllerRoot:
         return None
 
     def engage_user_controller(user_obj):
+        if user_obj.role == "admin":
+            user_ctrl = ControllerAdmin(user_obj, self.associated_model.container_member)
+            user_ctrl.start()
+        '''
+        elif user_obj.role == "mentor":
+            attnd = self.associated_model.container_attendance
+            mmbr = self.associated_model.container_member
+            tsk = self.associated_model.container_task
+            user_ctrl = ControllerMentor(user_obj, attnd, mmbr, tsk)
+            user_ctrl.start()
+
+        elif user_obj.role == "office":
+            user_ctrl = ControllerOffice(user_obj, self.associated_model.container_member)
+            user_ctrl.start()
+
+        elif user_obj.role == "student":
+            user_ctrl = ControllerStudent(user_obj, self.associated_model.container_task)
+            user_ctrl.start()
+        '''
+        else:
+            raise ValueError("not implemented role")
         '''
         Launches a user controller based on class of user_obj.
         '''
