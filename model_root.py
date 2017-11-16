@@ -1,4 +1,6 @@
 class ModelRoot():
 
     def __init__(self):
-        pass
+        self.container_attendance = []
+        self.container_task = []
+        self.container_member = []
