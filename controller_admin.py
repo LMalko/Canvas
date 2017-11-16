@@ -11,10 +11,23 @@ class ControllerAdmin(ControllerMemberContainer):
         self.view = ViewAdmin()
 
     def start(self):
-        pass
+        __choices = ['1: Add mentor', '2: View mentors list', '3: Log out']
+        __correct_choices = [str(x+1) for x in range(1, len(__choices))]
+        __user_input = ''
+        __message = '\nPlease, type Your choice: '
+        while True:
+            while __user_input not in __correct_choices:
+                self.view.display_collection(__choices)
+                __user_input = self.get_user_input(__message)
+            if __user_input == '1':
+                self.add_mentor()
+            elif __user_input == '2':
+                self.view_mentor_list()
+            elif __user_input == '3':
+                break
 
     def add_mentor():
-        pass
+        print('adding mentor ;)')
 
     def remove_mentor():
         pass
@@ -23,7 +36,7 @@ class ControllerAdmin(ControllerMemberContainer):
         pass
 
     def view_mentor_list():
-        pass
+        print('displaying mentor list ;)')
 
     def view_student_list():
         pass
