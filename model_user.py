@@ -14,8 +14,8 @@ class ModelUser():
     def set_login(self):
         self.login = "{}-{}-{}".format(self.first_name, self.last_name, self.uid)
 
-    def set_password(self):
-        pass
+    def set_password(self, new_password):
+        self.set_password = 
 
     def set_first_name(self):
         pass
