@@ -18,7 +18,7 @@ class ControllerAdmin(ControllerMemberContainer):
         while True:
             while __user_input not in __correct_choices:
                 self.view.display_collection(__choices)
-                __user_input = self.get_user_input(__message)
+                __user_input = self.view.get_user_input(__message)
             if __user_input == '1':
                 self.add_mentor()
             elif __user_input == '2':
