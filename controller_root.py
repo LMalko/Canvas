@@ -57,6 +57,8 @@ class ControllerRoot:
         if user_obj.role == "admin":
             user_ctrl = ControllerAdmin(user_obj, self.associated_model.container_member)
             user_ctrl.start()
+        else:
+            raise ValueError("not implemented role")
         '''
         elif user_obj.role == "mentor":
             attnd = self.associated_model.container_attendance
@@ -73,8 +75,6 @@ class ControllerRoot:
             user_ctrl = ControllerStudent(user_obj, self.associated_model.container_task)
             user_ctrl.start()
         '''
-        else:
-            raise ValueError("not implemented role")
         '''
         Launches a user controller based on class of user_obj.
         '''
