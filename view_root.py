@@ -45,20 +45,11 @@ class ViewRoot():
             text = '\n\n..logged out, exit program.\n\n'
         print(text)
 
-a = ViewRoot()
 
-tmp = a.display_login_screen()
-print(tmp)
-print(tmp[0], tmp[1])
-a.display_start_screen()
-a.display_exit_screen()
-  #
-  #
-  # + __init__(): None
-  # + display_login_screen(text): None
-  # + take_user_input(text, valid_condition): string
-  # + check_if_input_is_valid(valid_condition): bool
-  # + display_message(message): None
-  # + display_text(text): None
-  # + display_start_screen(text=''): None
-  # + display_exit_screen(text=''): None
+# a = ViewRoot()
+#
+# tmp = a.display_login_screen()
+# print(tmp)
+# print(tmp[0], tmp[1])
+# a.display_start_screen()
+# a.display_exit_screen()
