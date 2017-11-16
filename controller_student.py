@@ -1,9 +1,10 @@
 from model_student import ModelStudent
 from controller_task_container import ControllerTaskContainer
 from view_student import ViewStudent
+from controller_user import*
 
 
-class ControllerStudent():
+class ControllerStudent(ControllerUser):
 
     def __init__(self, user, task_container):
         self.associated_user = user

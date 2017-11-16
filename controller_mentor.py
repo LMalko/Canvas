@@ -3,9 +3,11 @@ from controller_task_container import ControllerTaskContainer
 from controller_attendance_container import ControllerAttendanceContainer
 from controller_member_container import ControllerMemberContainer
 from view_mentor import ViewMentor
+from controller_user import*
 
 
-class ControllerMentor():
+
+class ControllerMentor(ControllerUser):
 
     def __init__(
                     self,
