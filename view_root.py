@@ -14,6 +14,8 @@ class ViewRoot():
         _login, _password = '', ''
         while not _login:
             _login = input(txt1)
+        if _login == 'X':
+            return ()
         while not _password:
             _password = input(txt2)
         return _login, _password
@@ -34,13 +36,12 @@ class ViewRoot():
     def display_exit_screen(text=''):
         pass
 
-#
 # a = ViewRoot()
 #
 # tmp = a.display_login_screen()
 # print(tmp)
 # print(tmp[0], tmp[1])
-# a.display_start_screen()
+# # a.display_start_screen()
   #
   #
   # + __init__(): None
