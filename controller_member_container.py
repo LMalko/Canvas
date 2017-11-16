@@ -4,7 +4,7 @@ class ControllerMemberContainer():
         self.member_container = member_container
 
     def get_new_ID(self):
-        return max[x.uid for x in self.member_container] + 1
+        return max([x.uid for x in self.member_container]) + 1
 
     def get_member(self, UID):
         for i in self.member_container:
