@@ -7,14 +7,18 @@ class ControllerStudent():
 
     def __init__(self, User):
         self.associated_user = User
-        self.controller_task_container = ControllerTaskContainer()
+        # self.controller_task_container = ControllerTaskContainer()  # tmp!
         self.view = ViewStudent()
 
     def submit_task(self):
+        pass
         # widoki
-        self.view.display()  # temp!!!
-        self.self.controller_task_container.change_delivery_status()  # którego zadania??
-        self.view.display()  # temp!!!
+        # self.view.display()  # temp!!!
+        # self.self.controller_task_container.change_delivery_status()  # którego zadania??
+        # self.view.display()  # temp!!!
 
     def view_grades(self):
         pass
+        # self.view.display()  # temp!!!
+        # self.self.controller_task_container.change_delivery_status()  # którego zadania??
+        # self.view.display()  # temp!!!
