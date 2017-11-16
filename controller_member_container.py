@@ -5,7 +5,7 @@ class ControllerMemberContainer():
 
     def get_member(self, UID):
         for i in member_container:
-            if i.uid = uid:
+            if i.uid = UID:
                 return i.uid + i.first_name + i.last_name
 
     def get_members_by_role(self, Role):
