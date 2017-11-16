@@ -1,14 +1,21 @@
 
 class ViewRoot():
 
-    def display_login_screen(text):
-        pass
+    def display_login_screen(self, txt1='', txt2=''):
+        _new_lines = '\n\n'*2
+        if not txt1 and not txt2:
+            txt1 = _new_lines + 'Enter login --> '
+            txt2 = _new_lines + 'Enter password --> '
+        return self.take_user_input(txt1, txt2)
 
-    def take_user_input(text, valid_condition):
-        pass
+    def take_user_input(self, txt1, txt2):
+        _login, _password = '', ''
+        while not _login:
+            _login = input(txt1)
+        while not _password:
+            _password = input(txt2)
+        return _login, _password
 
-    def check_if_input_is_valid(valid_condition):
-        pass
 
     def display_message(message):
         pass
@@ -23,6 +30,11 @@ class ViewRoot():
         pass
 
 
+a = ViewRoot()
+
+tmp = a.display_login_screen()
+print(tmp)
+print(tmp[0], tmp[1])
   #
   #
   # + __init__(): None
