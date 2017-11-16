@@ -6,13 +6,13 @@ class ModelUser():
         self.last_name = last_name
         self.set_password = password
         self.set_email()
-        self.login =
+        self.set_login()
 
     def set_email(self):
         self.email = "{}.{}{}@canvas.com".format(self.first_name, self.last_name, self.uid)
 
     def set_login(self):
-        pass
+        self.login = "{}-{}-{}".format(self.first_name, self.last_name, self.uid)
 
     def set_password(self):
         pass
