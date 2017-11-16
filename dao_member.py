@@ -1,4 +1,4 @@
-from model_member_container import ModelMemberContainer
+from controller_member_container import ControllerMemberContainer
 
 
 class DAOMember():
@@ -22,4 +22,4 @@ class DAOMember():
                 myfile.write(i)
 
     def __pass_data_for_export(self):
-        return self.data_for_export = ModelMemberContainer.members
+        return self.data_for_export = ControllerMemberContainer().member_container
