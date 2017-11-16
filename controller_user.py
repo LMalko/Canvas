@@ -6,8 +6,8 @@ import string
 class ControllerUser():
 
     def __init__(self, ModelMemberContainer):
-        self.model_member_container = model_member_container
-        self.view = ViewUser
+        self.member_container = ModelMemberContainer
+        self.view = ViewUser()
 
     def __get_user(self):
 
