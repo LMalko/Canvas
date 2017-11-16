@@ -1,7 +1,12 @@
 class ModelUser():
 
-    def __init__(self):
-        pass
+    def __init__(self, uid, first_name, last_name, password):
+        self.uid = uid
+        self.first_name = first_name
+        self.last_name = last_name
+        self.set_password = password
+        self.email = 
+        self.login = 
 
     def set_uid(self):
         pass
