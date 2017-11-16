@@ -1,4 +1,6 @@
 
 
 class ControllerTaskContainer():
-    pass
+
+    def __init__(self, ContainerTask):
+        pass
