@@ -32,7 +32,7 @@ class ControllerRoot:
                 self.associated_model.container_member)
 
             # create first admin
-            first_admin = initial_admin_creation()
+            first_admin = self.initial_admin_creation()
 
             # add it to the container via member container controller
             member_ctrl.add_member(first_admin)
