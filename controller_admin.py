@@ -1,5 +1,5 @@
 class ControllerAdmin():
-
+    
     def __init__(User):
         associated_user = User
 
