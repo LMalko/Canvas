@@ -1,36 +1,36 @@
 from model_user import *
 from view_user import *
+from controller_member_container import *
+
 
 class ControllerUser():
 
-    def __init__(self, ModelMemberContainer):
-        self.member_container = ModelMemberContainer
+    def __init__(self):
+        self.controller_member_container = ControllerMemberContainer()
         self.view = ViewUser()
 
-    def __get_user(self):
+    def __get_user(self, UID):
 
         while True:
-            # print list of students - metoda z membera
             user = self.view.get_user_input("Choose user by id: ")
-            # user = get user object from container, input
+            self.controller_member_container.get_member(UID)
             if user is not None:
                 return user
             self.view.display_message("No such user. Try again.")
 
-    def change_first_name(self):
+    def change_first_name(self, UID):
         user = self.__get_user()
         new_first_name = self.validate_input("Pass new first name: ")
         user.set_first_name(new_name)
         self.view.display_message("Name has been changed!")
 
-    def change_last_name(self):
+    def change_last_name(self, UID):
         user = self.__get_user()
         new_last_name = self.validate_input("Pass new last name: ")
         user.set_last_name(new_last_name)
         self.view.display_message("Last name has been changed!")
 
-
-    def change_password(self):
+    def change_password(self, UID):
         user = self.__get_user()
         new_password = self.validate_input("Pass new password (not shorter than 6 chars): ")
         user.set_first_name(new_password)
