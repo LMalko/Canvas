@@ -1,4 +1,4 @@
-from controller_member_container import ControllerMemberContainer
+from model_root import ModelRoot
 
 
 class DAOMember():
