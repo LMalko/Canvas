@@ -5,8 +5,8 @@ from model_admin import ModelAdmin
 class ControllerAdmin(ControllerMemberContainer):
 
     def __init__(User, ControllerMemberContainer):
-        associated_user = User
-        controller_member_container = ControllerMemberContainer
+        self.associated_user = User
+        self.controller_member_container = ControllerMemberContainer
 
     def add_mentor():
         pass
