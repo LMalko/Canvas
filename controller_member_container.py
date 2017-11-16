@@ -1,7 +1,7 @@
 class ControllerMemberContainer():
-    
-    def __init__(self, ModelMemberContainer):
-        member_container = ModelMemberContainer()
+
+    def __init__(self, member_container):
+        member_container = member_container
 
     def get_member(self, UID):
         for i in member_container:
