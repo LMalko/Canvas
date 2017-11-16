@@ -13,6 +13,7 @@ import dao_attendance
 import dao_member
 import dao_task
 '''
+import view_root
 from model_root import *
 
 import controller_admin
@@ -42,9 +43,9 @@ class ControllerRoot:
         '''
         for user_obj in self.associated_model.container_member:
             if user_obj.login == user_login and user_obj.password == input_password:
-                return True
+                user_obj
 
-        return False
+        return None
 
     def engage_user_controller(user_obj):
         '''
@@ -75,3 +76,19 @@ class ControllerRoot:
     def initial_admin_creation(self):
         ctrl_admin = controller_admin.ControllerAdmin(None, None)
         return ctrl_admin.create_first_admin()
+
+    def start(self):
+        view_root.ViewRoot.display_start_screen()
+        login_credentials = view_root.ViewRoot.take_user_input()
+        # login_credentials is a tuple with (login, password)
+        while login_credentials:
+            user_login = login_credentials[0]
+            user_password = login_credentials[1]
+            user_obj = self.login(user_login, user_password)
+            if user_obj is not None:
+                self.engage_user_controller(user_obj)
+            else:
+                view_root.ViewRoot.display_message("Invalid credentials or account does not exist")
+            login_credentials = view_root.ViewRoot.take_user_input()
+
+        view_root.ViewRoot.display_exit_screen()
