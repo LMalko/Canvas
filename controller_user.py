@@ -1,11 +1,13 @@
 from model_user import *
+from view_user import *
 
 
 class ControllerUser():
 
     def __init__(self, ModelMemberContainer):
         self.model_member_container = model_member_container
-    
+        self.view = ViewUser
+        
     def __get_user(self):
         # print list of students
         # get student id from input
