@@ -1,7 +1,5 @@
 from model_user import *
 from view_user import *
-import string
-
 
 class ControllerUser():
 
