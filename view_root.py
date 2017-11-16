@@ -9,7 +9,7 @@ class ViewRoot():
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def display_login_screen(self, txt1='', txt2=''):
-        self.clear_screen()
+#        self.clear_screen()
         _new_lines = '\n\n'*2
         if not txt1 and not txt2:
             txt1 = _new_lines + 'Enter login --> '
