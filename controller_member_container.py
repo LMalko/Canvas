@@ -9,7 +9,7 @@ class ControllerMemberContainer():
     def get_member(self, UID):
         for i in self.member_container:
             if i.uid == UID:
-                return "{:04d}".format(x.uid) + " " + x.first_name + " " + x.last_name + " " + x.role
+                return "{:04d}".format(i.uid) + " " + i.first_name + " " + i.last_name + " " + i.role
 
     def get_members_by_role(self, Role):
         return ["{:04d}".format(x.uid) + " " + x.first_name + " " + x.last_name + " " + x.my_group
