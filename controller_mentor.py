@@ -11,9 +11,9 @@ class ControllerMentor(ControllerUser):
     def __init__(
                     self,
                     user,
-                    task_container,
                     attendance_container,
-                    member_container):
+                    member_container,
+                    task_container):
         self.associated_user = user
         self.view = ViewMentor()
         self.controller_task_container = ControllerTaskContainer(task_container)
