@@ -4,23 +4,23 @@ class ControllerMemberContainer():
         self.member_container = member_container
 
     def get_new_ID(self):
-        return max([x.uid for x in self.member_container]) + 1
+        return max([user.uid for user in self.member_container]) + 1
 
     def get_member(self, UID):
-        for i in self.member_container:
-            if i.uid == UID:
-                return "{:04d}".format(i.uid) + " " + i.first_name + " " + i.last_name + " " + i.role
+        for user in self.member_container:
+            if user.uid == UID:
+                return "{} {} {} {}.".format("{:04d}".format(user.uid), user.first_name, user.last_name, user.role)
 
     def get_members_by_role(self, Role):
-        return ["{:04d}".format(x.uid) + " " + x.first_name + " " + x.last_name + " " + x.my_group
-                for x in self.member_container if x.role == Role]
+        return ["{} {} {} {}.".format("{:04d}".format(user.uid), user.first_name, user.last_name, user.my_group)
+                for user in self.member_container if user.role == Role]
 
     def get_members_by_group(self, Group):
-        return ["{:04d}".format(x.uid) + " " + x.first_name + " " + x.last_name + " " + x.my_group
-                for x in self.member_container if x.my.group == Group]
+        return ["{} {} {} {}.".format("{:04d}".format(user.uid), user.first_name, user.last_name, user.my_group)
+                for user in self.member_container if user.my_group == Group]
 
     def add_member(self, User):
         self.member_container.append(User)
 
     def delete_member(self, UID):
-        self.member_container = [x for x in self.member_container if x.uid != UID]
+        self.member_container = [user for user in self.member_container if user.uid != UID]
