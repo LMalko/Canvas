@@ -52,7 +52,10 @@ class ControllerAdmin(ControllerUser):
         pass
 
     def view_mentor_list(self):
-        print('\n\ndisplaying mentor list ;)\n\n')
+        self.view.display_message('\n\nMentors list:\n')
+        __collection = self.controller_member_container.get_members_by_role('mentor')
+        self.view.display_collection(__collection)
+
 
     def view_student_list(self):
         pass
