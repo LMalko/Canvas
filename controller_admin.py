@@ -15,13 +15,14 @@ class ControllerAdmin(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        __choices = ['1: Add mentor', '2: View mentors list', '3: Log out']
+        __choices = ['1: Add mentor', '2: View mentors list', '3: Release Mentor', '4: Log out']
         __correct_choices = [str(x+1) for x in range(1, len(__choices))]
         __message = '\nPlease, type Your choice: '
         __to_continue = True
         while __to_continue:
             __user_input = ''
             while __user_input not in __correct_choices:
+                self.view.clear_screen()
                 self.view.display_collection(__choices)
                 __user_input = self.view.get_user_input(__message)
                 if __user_input == '1':
@@ -29,6 +30,8 @@ class ControllerAdmin(ControllerUser):
                 elif __user_input == '2':
                     self.view_mentor_list()
                 elif __user_input == '3':
+                    self.remove_mentor()
+                elif __user_input == '4':
                     __to_continue = False
 
     def add_mentor(self):
@@ -47,13 +50,14 @@ class ControllerAdmin(ControllerUser):
         self.controller_member_container.add_member(__user)
 
     def remove_mentor(self):
-        pass
+        self.view.display_message("\n\nLet's release Mentor..\n\n")
+        self.view_mentor_list()
+        self.view.display_message("\n\nWell, maybe not now. They're great!\n\n")
 
     def edit_mentor(self):
         pass
 
     def view_mentor_list(self):
-        self.view.clear_screen()
         self.view.display_message('\n\nMentors list:\n')
         __collection = self.controller_member_container.get_members_by_role('mentor')
         self.view.display_collection(__collection)
