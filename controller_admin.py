@@ -11,7 +11,7 @@ class ControllerAdmin(ControllerUser):
         self.associated_user = user
         self.controller_member_container = ControllerMemberContainer(member_container)
         self.view = ViewAdmin()
-        self.controller_mentor = ControllerMentor()
+        self.controller_mentor = ControllerMentor(None, None, member_container, None)
 
     def start(self):
         __choices = ['1: Add mentor', '2: View mentors list', '3: Log out']
