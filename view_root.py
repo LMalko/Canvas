@@ -29,17 +29,20 @@ class ViewRoot():
         print('\n\n' + message + '\n\n')
 
     def display_start_screen(self, text=''):
-        # self.clear_screen()
+        self.clear_screen()
         if not text:
             text = '\n\nWelcome in Kanwas by ***ABS***\n\n\t\tsupported by ship picker...\n\n'
         print(text)
         input('\n\nPress <enter> to continue.. ')
 
     def display_exit_screen(self, text=''):
-        # self.clear_screen()
+        self.clear_screen()
         if not text:
             text = '\n\n..logged out, exit program.\n\n'
         print(text)
+
+    def clear_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 
 # a = ViewRoot()
