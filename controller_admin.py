@@ -2,6 +2,7 @@ from controller_member_container import ControllerMemberContainer
 from view_admin import ViewAdmin
 from model_admin import ModelAdmin
 from controller_mentor import ControllerMentor
+from controller_user import ControllerUser
 
 
 class ControllerAdmin(ControllerUser):
@@ -30,8 +31,7 @@ class ControllerAdmin(ControllerUser):
                     __to_continue = False
 
     def add_mentor(self):
-        __message = "\n\nLet's hire Mentor..\n\n"
-        self.view.display_message(__message)
+        self.view.display_message("\n\nLet's hire Mentor..\n\n")
         __user_inputs = []
         __messages = ['Enter first name: ', 'Enter last name: ', 'Specify password: ', 'Specify group: ']
         for statement in __messages:
@@ -42,8 +42,7 @@ class ControllerAdmin(ControllerUser):
                                                     __user_inputs[1],
                                                     __user_inputs[2],
                                                     __user_inputs[3])
-        __message = "\n\nMentor hired..\n\n"
-        self.view.display_message(__message)
+        self.view.display_message("\n\nMentor hired..\n\n")
         self.controller_member_container.add_member(__user)
 
     def remove_mentor(self):
