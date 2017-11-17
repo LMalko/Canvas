@@ -1,14 +1,16 @@
 from controller_member_container import ControllerMemberContainer
 from view_admin import ViewAdmin
 from model_admin import ModelAdmin
+from controller_mentor import ControllerMentor
 
 
-class ControllerAdmin(ControllerMemberContainer):
+class ControllerAdmin(ControllerUser):
 
     def __init__(self, user, member_container):
         self.associated_user = user
         self.controller_member_container = ControllerMemberContainer(member_container)
         self.view = ViewAdmin()
+        self.controller_mentor = ControllerMentor()
 
     def start(self):
         __choices = ['1: Add mentor', '2: View mentors list', '3: Log out']
@@ -28,7 +30,21 @@ class ControllerAdmin(ControllerMemberContainer):
                     __to_continue = False
 
     def add_mentor(self):
-        print('\n\nadding mentor ;)\n\n')
+        __message = "\n\nLet's hire Mentor..\n\n"
+        self.view.display_message(__message)
+        __user_inputs = []
+        __messages = ['Enter first name: ', 'Enter last name: ', 'Specify password: ', 'Specify group: ']
+        for statement in __messages:
+            __user_input = self.validate_input(statement)
+            __user_inputs.append(__user_input)
+        __user = self.controller_mentor.create_mentor(
+                                                    __user_inputs[0],
+                                                    __user_inputs[1],
+                                                    __user_inputs[2],
+                                                    __user_inputs[3])
+        __message = "\n\nMentor hired..\n\n"
+        self.view.display_message(__message)
+        self.controller_member_container.add_member(__user)
 
     def remove_mentor(self):
         pass
