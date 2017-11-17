@@ -3,10 +3,6 @@ import os
 
 class ViewRoot():
 
-    @staticmethod
-    def clear_screen():
-        """Clear screen - universal for ubuntu/windows platform."""
-        os.system('cls' if os.name == 'nt' else 'clear')
 
     def display_login_screen(self, txt1='', txt2=''):
 #        self.clear_screen()
