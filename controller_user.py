@@ -13,7 +13,7 @@ class ControllerUser():
 
         while True:
             user = self.view.get_user_input("Choose user by id: ")
-            self.controller_member_container.get_member(UID)
+            user = self.controller_member_container.get_member(UID)
             if user is not None:
                 return user
             self.view.display_message("No such user. Try again.")
