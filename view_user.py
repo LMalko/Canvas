@@ -1,3 +1,6 @@
+import os
+
+
 class ViewUser():
 
     def get_user_input(self, message):
