@@ -48,11 +48,14 @@ class ControllerAdmin(ControllerUser):
                                                     __user_inputs[3])
         self.view.display_message("\n\nMentor hired..\n\n")
         self.controller_member_container.add_member(__user)
+        self.view.get_user_input('\nPress <enter> to continue.. ')  # pause
 
     def remove_mentor(self):
         self.view.display_message("\n\nLet's release Mentor..\n\n")
         self.view_mentor_list()
-        self.view.display_message("\n\nWell, maybe not now. They're great!\n\n")
+        self.view.get_user_input('\nChoose Mentor by UID.. ')
+        self.view.display_message("\n\nWell abort, abort process! They're great!\n\n")
+        self.view.get_user_input('\nPress <enter> to continue.. ')  # pause
 
     def edit_mentor(self):
         pass
@@ -61,7 +64,8 @@ class ControllerAdmin(ControllerUser):
         self.view.display_message('\n\nMentors list:\n')
         __collection = self.controller_member_container.get_members_by_role('mentor')
         self.view.display_collection(__collection)
-        self.view.display_message('\n\n')
+        self.view.get_user_input('\n\nPress <enter> to continue.. ')  # pause
+
 
     def view_student_list(self):
         pass
