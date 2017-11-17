@@ -8,7 +8,7 @@ class ControllerStudent(ControllerUser):
 
     def __init__(self, user, task_container):
         self.associated_user = user
-        self.controller_task_container = ControllerTaskContainer(self.task_container)
+        self.controller_task_container = ControllerTaskContainer(task_container)
         self.view = ViewStudent()
 
     def start(self):
