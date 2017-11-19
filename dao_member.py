@@ -3,6 +3,7 @@ from controller_admin import *
 from controller_mentor import *
 from controller_office import *
 from controller_student import *
+from controller_member_container import *
 
 
 class DAOMember():
@@ -10,7 +11,10 @@ class DAOMember():
     def __init__(self, filename):
         self.filename = filename
         self.role_class_pairs = {}
-        self.role_class_pairs.update()
+        self.role_class_pairs.update(ControllerAdmin.get_role_class_pair())
+        self.role_class_pairs.update(ControllerMentor.get_role_class_pair())
+        self.role_class_pairs.update(ControllerStudent.get_role_class_pair())
+        self.role_class_pairs.update(ControllerOffice.get_role_class_pair())
 
     def import_data(self):
         return __extract_imported_data()
