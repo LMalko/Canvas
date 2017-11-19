@@ -27,6 +27,7 @@ class ControllerStudent(ControllerUser):
         # self.self.controller_task_container.change_delivery_status()  # którego zadania??
         # self.view.display()  # temp!!!
 
-    def get_role_class_pair(self):
+    @classmethod
+    def get_role_class_pair(cls):
         return {ModelStudent.role:ModelStudent}
 
