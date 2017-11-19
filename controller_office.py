@@ -14,6 +14,7 @@ class ControllerOffice(ControllerUser):
     def view_student_list(self):
         pass
 
-    def get_role_class_pair(self):
+    @classmethod
+    def get_role_class_pair(cls):
         return {ModelOffice.role:ModelOffice}
 
