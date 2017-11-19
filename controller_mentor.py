@@ -48,3 +48,7 @@ class ControllerMentor(ControllerUser):
 
     def remove_student(self):
         pass
+
+    def get_role_class_pair(self):
+        return {ModelMentor.role:ModelMentor}
+
