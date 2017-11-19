@@ -4,7 +4,10 @@ from controller_mentor import *
 from controller_office import *
 from controller_student import *
 from controller_member_container import *
-
+'''
+Model danych:
+role|uid|first_name|last|name|password|my_group
+'''
 
 class DAOMember():
 
@@ -17,15 +20,17 @@ class DAOMember():
         self.role_class_pairs.update(ControllerOffice.get_role_class_pair())
 
     def import_data(self):
-        return __extract_imported_data()
-
-    def __extract_imported_data(self):
-        self.imported_data = []
         with open(self.filename, "r", encoding="utf-8") as myfile:
-            for item in myfile.split("\n"):
-                ####
-                self.imported_data.append(line)
-        return self.imported_data
+            file_content = myfile.readlines()
+        return self.__extract_imported_data(file_content)
+
+    def __extract_imported_data(self, file_content):
+        imported_data = []
+        for line in file_content:
+            user_role, *args = line.split('|')
+            imported_data.append(self.role_class_pairs[user_role](*args))
+        
+        return imported_data
 
     def export_data(self):
         with open(self.filename, "w", encoding="utf-8") as myfile:
