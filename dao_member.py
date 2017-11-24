@@ -10,7 +10,11 @@ role|uid|first_name|last|name|password|my_group
 '''
 
 class DAOMember():
-
+'''
+    role_class_pairs dict contains:
+            keys - class attribute 'role' ((str)
+            values - class ModelUser object
+'''
     def __init__(self, filename):
         self.filename = filename
         self.role_class_pairs = {}
