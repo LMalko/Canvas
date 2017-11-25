@@ -40,16 +40,17 @@ class DAOMember():
         return imported_data
 
     def export_data(self, users_collection):
+        data_to_export = self.__pack_data_for_export(users_collection)
         with open(self.filename, "w", encoding="utf-8") as myfile:
-            for i in self.data_for_export:
+            for i in data_for_export:
                 myfile.write(i)
 
     def __pack_data_for_export(self, users_collection):
-        data_to_export = ''
+        data_to_export = []
         for user in users_collection:
             for ctrl in self.controller_model_pairs:
                 if isinstance(user, self.controller_model_pairs[ctrl]):
                     user_data = ctrl.get_user_data_to_export(user)
-                    data_to_export += "|".join(user_data) + '\n'
+                    data_to_export.append("|".join(user_data) + '\n')
                     break
         return data_to_export
