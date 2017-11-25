@@ -89,7 +89,6 @@ class ControllerRoot:
         # load members
         member_dao = dao_member.DAOMember("data.csv")
         members = member_dao.import_data()
-        print(members)
         self.associated_model.container_member = members
         '''
         # load attendance
