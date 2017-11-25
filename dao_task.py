@@ -4,17 +4,15 @@ from controller_task import *
 
 class DAOTask():
 
-    def __init__(self, filename):
+    def __init__(self, filename='task_data.csv'):
         self.filename = filename
         self.ctrl_task = ControllerTask()
 
     def import_data(self):
-        imported_data = []
         with open(self.filename, "r", encoding="utf-8") as myfile:
-            for line in myfile.split("\n"):
-                imported_data.append(line)
+            imported_data = myfile.read()
 
-        return __extract_imported_data(imported_data)
+        return self.__extract_imported_data(imported_data.strip().split("\n"))
 
     def __extract_imported_data(self, imported_data):
         tasks_collection = []
