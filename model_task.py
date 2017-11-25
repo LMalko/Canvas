@@ -31,3 +31,10 @@ class ModelTask():
                                                                                                    self.task_ID,
                                                                                                    self.user_ID,
                                                                                                    self.grade)
+    def get_data_for_export(self):
+        return [self.name = name,
+                self.task_ID = task_ID,
+                self.user_ID = user_ID,
+                self.grade = grade,
+                self.is_done = is_done,
+                self.is_graded = is_graded]
