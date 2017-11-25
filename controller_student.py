@@ -26,3 +26,11 @@ class ControllerStudent(ControllerUser):
         # self.view.display()  # temp!!!
         # self.self.controller_task_container.change_delivery_status()  # którego zadania??
         # self.view.display()  # temp!!!
+
+    @classmethod
+    def get_controller_model_pair(cls):
+        return {cls:ModelStudent}
+
+    @classmethod
+    def create_user_from_imported_data(cls, *args):
+        return ModelStudent(*args)

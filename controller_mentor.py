@@ -48,3 +48,12 @@ class ControllerMentor(ControllerUser):
 
     def remove_student(self):
         pass
+
+    @classmethod
+    def get_controller_model_pair(cls):
+        return {cls:ModelMentor}
+
+    @classmethod
+    def create_user_from_imported_data(cls, *args):
+        return ModelMentor(*args)
+

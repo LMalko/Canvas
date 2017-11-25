@@ -11,3 +11,6 @@ class ModelOffice(ModelUser):
         self.password = password
         self.set_email()
         self.set_login()
+
+    def get_data_for_export(self):
+        return [self.role, self.uid, self.first_name, self.last_name, self.password]

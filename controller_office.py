@@ -1,4 +1,5 @@
 from model_office import ModelOffice
+from controller_user import *
 
 
 class ControllerOffice(ControllerUser):
@@ -13,3 +14,12 @@ class ControllerOffice(ControllerUser):
 
     def view_student_list(self):
         pass
+
+    @classmethod
+    def get_controller_model_pair(cls):
+        return {cls:ModelOffice}
+
+    @classmethod
+    def create_user_from_imported_data(cls, *args):
+        return ModelOffice(*args)
+
