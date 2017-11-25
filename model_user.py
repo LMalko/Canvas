@@ -18,6 +18,7 @@ class ModelUser():
         self.first_name = new_last_name
         self.set_email()
         self.set_login()
-
-    def get_role_attribute(self):
-        return self.role
+    
+    @classmethod
+    def get_role_attribute(cls):
+        return cls.role
