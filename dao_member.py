@@ -18,10 +18,10 @@ class DAOMember():
     def __init__(self, filename):
         self.filename = filename
         self.controller_model_pairs = {}
-        self.controller_model_pairs.update(ControllerAdmin.get_role_class_pair())
-        self.controller_model_pairs.update(ControllerMentor.get_role_class_pair())
-        self.controller_model_pairs.update(ControllerStudent.get_role_class_pair())
-        self.controller_model_pairs.update(ControllerOffice.get_role_class_pair())
+        self.controller_model_pairs.update(ControllerAdmin.get_controller_model_pair())
+        self.controller_model_pairs.update(ControllerMentor.get_controller_model_pair())
+        self.controller_model_pairs.update(ControllerStudent.get_controller_model_pair())
+        self.controller_model_pairs.update(ControllerOffice.get_controller_model_pair())
 
     def import_data(self):
         with open(self.filename, "r", encoding="utf-8") as myfile:
@@ -32,6 +32,7 @@ class DAOMember():
         imported_data = []
         for line in file_content:
             user_role, *args = line.split('|')
+            print("{:>10}:{}".format(user_role, *args))
             for ctrl in self.controller_model_pairs:
                 if ctrl.get_user_role(self.controller_model_pairs[ctrl]) == user_role:
                     import_data.append(ctrl.create_user_from_imported_data(*args))
@@ -54,3 +55,6 @@ class DAOMember():
                     data_to_export.append("|".join(user_data) + '\n')
                     break
         return data_to_export
+
+test_dao = DAOMember("data.csv")
+users_collection = test_dao.import_data()
