@@ -35,7 +35,7 @@ class DAOMember():
             print("{:>10}:{}".format(user_role, *args))
             for ctrl in self.controller_model_pairs:
                 if ctrl.get_user_role(self.controller_model_pairs[ctrl]) == user_role:
-                    import_data.append(ctrl.create_user_from_imported_data(*args))
+                    imported_data.append(ctrl.create_user_from_imported_data(*args))
                     break
         
         return imported_data
