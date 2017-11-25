@@ -49,3 +49,8 @@ class ControllerUser():
     @classmethod
     def get_user_role(cls, user_class):
         return user_classe.get_role_attribute()
+
+    @classmethod
+    def get_user_data_to_export(cls, user):
+        return user.get_data_for_export()
+
