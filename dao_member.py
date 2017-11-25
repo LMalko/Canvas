@@ -31,8 +31,8 @@ class DAOMember():
     def __extract_imported_data(self, file_content):
         imported_data = []
         for line in file_content:
-            user_role, *args = line.split('|')
-            print("{:>10}:{}".format(user_role, *args))
+            user_role, *args = line.strip().split('|')
+            print("{:>10}:{}".format(user_role, args))
             for ctrl in self.controller_model_pairs:
                 if ctrl.get_user_role(self.controller_model_pairs[ctrl]) == user_role:
                     imported_data.append(ctrl.create_user_from_imported_data(*args))
@@ -58,3 +58,4 @@ class DAOMember():
 
 test_dao = DAOMember("data.csv")
 users_collection = test_dao.import_data()
+print(users_collection)
