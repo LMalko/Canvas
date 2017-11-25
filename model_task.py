@@ -35,6 +35,6 @@ class ModelTask():
         return [self.name,
                 self.task_ID,
                 self.user_ID,
-                self.grade,
-                self.is_done,
-                self.is_graded]
+                str(self.grade),
+                str(self.is_done),
+                str(self.is_graded)]
