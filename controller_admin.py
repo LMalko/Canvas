@@ -74,6 +74,6 @@ class ControllerAdmin(ControllerUser):
         return ModelAdmin(0, "admin", "admin", "qwerty")
     
     @classmethod
-    def get_role_class_pair(cls):
-        return {ModelAdmin.role:ModelAdmin}
+    def get_controller_model_pair(cls):
+        return {cls:ModelAdmin}
 

@@ -50,6 +50,6 @@ class ControllerMentor(ControllerUser):
         pass
 
     @classmethod
-    def get_role_class_pair(cls):
-        return {ModelMentor.role:ModelMentor}
+    def get_controller_model_pair(cls):
+        return {cls:ModelMentor}
 

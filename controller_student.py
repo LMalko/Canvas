@@ -28,6 +28,6 @@ class ControllerStudent(ControllerUser):
         # self.view.display()  # temp!!!
 
     @classmethod
-    def get_role_class_pair(cls):
-        return {ModelStudent.role:ModelStudent}
+    def get_controller_model_pair(cls):
+        return {cls:ModelStudent}
 
