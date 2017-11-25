@@ -53,3 +53,7 @@ class ControllerMentor(ControllerUser):
     def get_controller_model_pair(cls):
         return {cls:ModelMentor}
 
+    @classmethod
+    def create_user_from_imported_data(cls, *args):
+        return ModelMentor(*args)
+
