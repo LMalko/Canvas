@@ -43,7 +43,7 @@ class DAOMember():
     def export_data(self, users_collection):
         data_to_export = self.__pack_data_for_export(users_collection)
         with open(self.filename, "w", encoding="utf-8") as myfile:
-            for i in data_for_export:
+            for i in data_to_export:
                 myfile.write(i)
 
     def __pack_data_for_export(self, users_collection):
@@ -56,6 +56,3 @@ class DAOMember():
                     break
         return data_to_export
 
-test_dao = DAOMember("data.csv")
-users_collection = test_dao.import_data()
-print(users_collection)

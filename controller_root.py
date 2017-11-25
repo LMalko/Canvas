@@ -10,15 +10,17 @@ import model_member_container
 import model_task_container
 
 import dao_attendance
+'''
 import dao_member
+'''
 import dao_task
 '''
 from controller_admin import *
-'''
+
 from controller_mentor import *
 from controller_office import *
 from controller_student import *
-'''
+
 import view_root
 from model_root import *
 
@@ -83,11 +85,13 @@ class ControllerRoot:
 
     def initialize_containers(self):
         # uncomment below when DAOs are implemented
-        '''
+
         # load members
-        member_dao = dao_member.DAOMember("members.csv")
-        members = dao_member.import_data()
+        member_dao = dao_member.DAOMember("data.csv")
+        members = member_dao.import_data()
+        print(members)
         self.associated_model.container_member = members
+        '''
         # load attendance
         attendance_dao = dao_attendance.DAOAttendance("attendance.csv")
         attendance = dao_attendance.import_data()
@@ -97,7 +101,7 @@ class ControllerRoot:
         tasks = dao_task.import_data()
         self.associated_model.container_task = tasks
         '''
-        self.associated_model.container_member = [] # we assume emptiness for now
+        # self.associated_model.container_member = [] # we assume emptiness for now
         self.associated_model.container_task = []
         self.associated_model.container_attendance = []
 
