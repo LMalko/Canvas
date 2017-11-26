@@ -60,11 +60,12 @@ class ControllerMentor(ControllerUser):
         return ModelMentor(*args)
 
     def get_random_student_group(self, size=2):
-        shuffle(self.controller_member_container)
-        groups_of_two = list(zip_longest([member for member in self.controller_member_container
-                             if self.controller_member_container.index(member) % 2 == 0],
-                             [member for member in self.controller_member_container
-                             if self.controller_member_container.index(member) % 2 != 0],
+        students = [x for x in self.controller_member_container if x.role == 'student']
+        shuffle(students)
+        groups_of_two = list(zip_longest([member.name for member in students
+                             if students.index(member) % 2 == 0],
+                             [member.name for member in students
+                             if students.index(member) % 2 != 0],
                              fillvalue="Should join other group(s)"))
         if size == 2:
             return groups_of_two
