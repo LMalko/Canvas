@@ -4,6 +4,8 @@ from controller_attendance_container import ControllerAttendanceContainer
 from controller_member_container import ControllerMemberContainer
 from view_mentor import ViewMentor
 from controller_user import*
+from itertools import zip_longest, chain
+from random import shuffle
 
 
 class ControllerMentor(ControllerUser):
@@ -51,9 +53,23 @@ class ControllerMentor(ControllerUser):
 
     @classmethod
     def get_controller_model_pair(cls):
-        return {cls:ModelMentor}
+        return {cls: ModelMentor}
 
     @classmethod
     def create_user_from_imported_data(cls, *args):
         return ModelMentor(*args)
 
+    def get_random_student_group(self, size=2):
+        shuffle(self.controller_member_container)
+        groups_of_two = list(zip_longest([member for member in self.controller_member_container
+                             if self.controller_member_container.index(member) % 2 == 0],
+                             [member for member in self.controller_member_container
+                             if self.controller_member_container.index(member) % 2 != 0],
+                             fillvalue="Should join other group(s)"))
+        if size == 2:
+            return groups_of_two
+        if size == 4:
+            return [list(chain.from_iterable(group_of_four)) for group_of_four in
+                    list(zip([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
+                         [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0]))]
+        return "No such option"
