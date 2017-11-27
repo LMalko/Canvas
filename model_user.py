@@ -7,7 +7,7 @@ class ModelUser():
         self.login = "{}-{}-{}".format(self.uid, self.first_name, self.last_name)
 
     def set_password(self, new_password):
-        self.set_password = new_password
+        self.password = new_password
 
     def set_first_name(self, new_first_name):
         self.first_name = new_first_name
