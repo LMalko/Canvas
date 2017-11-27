@@ -13,6 +13,9 @@ class ModelStudent(ModelUser):
         self.set_login()
         self.my_group = my_group
 
+    def get_my_group(self):
+        return self.my_group
+    
     def get_data_for_export(self):
         return [self.role, self.uid, self.first_name, self.last_name, self.password, self.my_group]
 
