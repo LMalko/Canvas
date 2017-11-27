@@ -76,14 +76,7 @@ class ControllerAdmin(ControllerUser):
             self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
             continue
 
-    def get_mentor_list(self):
-        self.view.display_message('\n\nMentors list:\n')
-        __collection = self.controller_member_container.get_members_by_role('mentor')
-        self.view.display_collection(__collection)
-        self.view.get_user_input('\n\nPress <enter> to continue.. ')
-
-    def get_student_list(self):
-        self.view.display_collection(self.controller_member_container.get_members_by_role('student'))
+    def get_members_display(self, members):
 
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")

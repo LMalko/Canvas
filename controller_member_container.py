@@ -9,15 +9,13 @@ class ControllerMemberContainer():
     def get_member(self, UID):
         for user in self.member_container:
             if user.uid == UID:
-                return "{} {} {} {}.".format("{:>4}".format(user.uid), user.first_name, user.last_name, user.role)
+                return user
 
     def get_members_by_role(self, Role):
-        return ["{} {} {} {}.".format("{:>4}".format(user.uid), user.first_name, user.last_name, user.my_group)
-                for user in self.member_container if user.role == Role]
+        return [user for user in self.member_container if user.role == Role]
 
     def get_members_by_group(self, Group):
-        return ["{} {} {} {}.".format("{:>4}".format(user.uid), user.first_name, user.last_name, user.my_group)
-                for user in self.member_container if user.my_group == Group]
+        return [user for user in self.member_container if user.my_group == Group]
 
     def add_member(self, User):
         self.member_container.append(User)
