@@ -14,7 +14,8 @@ class ControllerTaskContainer():
         self.container_task.add_task(task)
 
     def del_task_from_container(self):
-        self.container_task.del_task()  ## dokończyć
+        task = self.take_and_validate_particulat_task_choice()
+        self.container_task.del_task(task)
 
     def change_task_delivery_status(self):
         pass
@@ -47,9 +48,6 @@ class ControllerTaskContainer():
         for task in all_tasks:
             if task.get_taks_id() == chosen_task_id:
                 task.rename_task(new_task_name)
-
-    def __get_task(self):
-        pass
 
     def create_and_deploy_task(self):
         task_id = self.get_max_task_id
