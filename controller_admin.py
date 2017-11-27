@@ -59,17 +59,16 @@ class ControllerAdmin(ControllerUser):
 
     def edit_mentor(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
-        self.view.display_message("Choose mentor by ID.\n\n")
-        self.view_mentor_list()
+        _mentor_to_change = ControllerUser()._get_user()
         while True:
-            _mentor_ID = input("Mentor's ID is: ")
             _mentor_detail_to_change = input("You need to change: first name (1), last name (2) or password (3) ?")
             if _mentor_detail_to_change == "1":
-                return ControllerUser().change_first_name(_mentor_ID)
+                return ControllerUser().change_first_name(_mentor_to_change.uid)
             elif _mentor_detail_to_change == "2":
-                return ControllerUser().change_last_name(_mentor_ID)
+                return ControllerUser().change_last_name(_mentor_to_change.uid)
             elif _mentor_detail_to_change == "3":
-                return ControllerUser().change_password(_mentor_ID)
+                return ControllerUser().change_password(_mentor_to_change.uid)
+            self.view.display_message("\n\nRead instructions properly and try again.\n")
             continue
 
     def view_mentor_list(self):
