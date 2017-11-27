@@ -9,9 +9,9 @@ class ModelTask():
         self.is_done = is_done
         self.is_graded = is_graded
 
-    def mark_as_done(self):
+    def change_delivery_status(self):
 
-        self.is_done = True
+        self.is_done = not self.is_done
 
     def mark_as_graded(self):
 
