@@ -46,6 +46,12 @@ class ControllerUser():
                 self.view.display_message("Invalid input. Try again. ")
         return user_input
 
+    def get_member_id(self, member):
+        return member.get_id()
+
+    def get_member_display(self, member):
+        return member.get_member_display()
+
     @classmethod
     def get_user_role(cls, user_class):
         return user_class.get_role_attribute()
