@@ -77,6 +77,7 @@ class ControllerAdmin(ControllerUser):
             continue
 
     def get_members_display(self, members):
+        pass
 
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")
