@@ -7,7 +7,11 @@ class ModelAttendance():
         self.user_presence.update({actuall_date: status})
 
     def count_attendance_percentage(self):
-        return (sum(self.user_presence.values()) / len(self.user_presence)) * 100
+        percentage_multiplier = 100
+        return (sum(self.user_presence.values()) / len(self.user_presence)) * percentage_multiplier
 
-    def get_attendance(self):
+    def get_user_presence(self):
         return self.user_presence
+
+    def get_data_to_export(self):
+        pass  # dla Ani :)
