@@ -58,6 +58,9 @@ class ControllerTaskContainer():
             if task.get_task_name() == chosen_task_name:
                 task.rename_task(new_task_name)
         self.view_task_container.display_message("Task {} renamed to {}".format(chosen_task_name, new_task_name))
+##################################
+        chosen_task_id = self.take_and_validate_task_id_choice()
+        new_task_name = self.get_valid_input()
 
 
 
@@ -80,10 +83,10 @@ class ControllerTaskContainer():
         #### z members container gest students group, wybieranie grupy już tam, zt listę obiektów studentów danej grupy
         pass
     
-    def get_valid_input(self, user_input):
+    def get_valid_input(self, message):
         invalid_input = True
         while invalid_input:
-            user_input = self.view_task_container.get_user_input()
+            user_input = self.view_task_container.get_user_input(message)
             if len(user_input.strip()) != 0:
                 invalid_input = False
 
@@ -110,6 +113,7 @@ class ControllerTaskContainer():
 
         invalid_choice = True
         while invalid_choice:
+            self.view_task_container.display_collection(self.get_task_by_id)
             user_choice = self.view_task_container.get_user_input("Choose task by id: ")
             for task in all_tasks:
                 if task.get_task_id() == user_choice:
