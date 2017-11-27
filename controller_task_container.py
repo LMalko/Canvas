@@ -18,7 +18,8 @@ class ControllerTaskContainer():
         self.container_task.del_task(task)
 
     def change_task_delivery_status(self):
-        pass
+        task = self.take_and_validate_particulat_task_choice()
+        task.change_delivery_status()
 
     def grade_task(self):
         pass
