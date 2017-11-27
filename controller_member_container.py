@@ -1,7 +1,11 @@
+from view_member_container import ViewMemberContainer
+
+
 class ControllerMemberContainer():
 
     def __init__(self, member_container):
         self.member_container = member_container
+        self.view_member_container = ViewMemberContainer()
 
     def get_new_ID(self):
         return str(max([int(user.uid) for user in self.member_container]) + 1)
@@ -13,10 +17,15 @@ class ControllerMemberContainer():
 
     def get_members_by_role(self, Role):
         return [user for user in self.member_container if user.role == Role]
-# get students by group z petlą walidacją czy ta grupa istnieje z metod get_my.group
-    def get_students_by_group(self, Group):
+
+    def get_students_by_group(self):
         students = get_members_by_role(self, 'student')
-        return [student for student in students if ]
+        while True:
+            student_group = self.view_member_container.take_user_input("Choose group: ")
+            students_from_student_group = [student for student in students if get_my_group(student) == student_group]
+            if students_from_student_group:
+                return students_from_student_group
+            self.view_member_container.display_message("No such group !!!")
 
     def add_member(self, User):
         self.member_container.append(User)
