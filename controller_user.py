@@ -9,7 +9,7 @@ class ControllerUser():
         self.controller_member_container = ControllerMemberContainer()
         self.view = ViewUser()
 
-    def _get_user(self, UID):
+    def _get_user(self):
 
         while True:
             user = self.view.get_user_input("Choose user by id: ")
