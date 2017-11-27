@@ -4,7 +4,7 @@ class ModelTaskContainer():
         self.task_container = []
 
     def add_task(self, ModelTask):
-        pass
+        self.task_container.append(ModelTask)
 
     def del_task(self, ModelTask):
         pass
