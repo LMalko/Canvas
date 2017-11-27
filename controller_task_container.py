@@ -1,14 +1,14 @@
 from model_task import*
 from model_attendance_container import*
 from view_controller_task_container import*
-from controller_student import *
+from controller_user import*
 
 class ControllerTaskContainer():
 
-    def __init__(self, container_member, container_task):
+    def __init__(self, container_task):  # container_member wrzucić do inita, jeśli bedziepotrzebny w deployment 
         self.container_task = container_task
         self.view_task_container = ViewControllerTaskContainer()
-        self.ctrl_student = ControllerStudent()
+        self.ctrl_user = ControllerUser
 
     def add_task_to_container(self, task):
         self.container_task.add_task(task)
@@ -23,8 +23,8 @@ class ControllerTaskContainer():
 
     def grade_task(self):
         task = self.take_and_validate_particulat_task_choice()
-
         possible_grades = ['-3', '0', '4', '7', '10', '12']
+
         invalid_input = True
         while invalid_input:
             grade = self.view_task_container.get_user_input("Pass tasks grade: ")
@@ -33,31 +33,13 @@ class ControllerTaskContainer():
                 task.set_grade(grade)
                 invalid_input = False
 
-
-    def change_task_grade(self):
-        all_tasks = self.container_task.get_all_tasks()
-        for count, task in enumerate(all_tasks, 1):
-            self.view_task_container.display_message("{}. {}".format(coune, task.task_display()))
-        self.view_task_container.display_message("Choose Task by it's number: ")
-
-        invalid_input = True
-        while invalid_input
-############################
-            if (len(chosen_task_name) == 1) & (chosen_task_name.isdigit()) & (int(chosen_task_name) in range(1, len(set(tasks_names)+1))):
-                invalid_input = False
-
-        
-        invalid_input = True
-        while invalid_input:
-
-
     def rename_task(self):
         chosen_task_id = self.take_and_validate_task_id_choice()
         new_task_name = self.get_valid_input("Pass new task name: ")
 
         all_tasks = self.container_task.get_all_tasks()
         for task in all_tasks:
-            if task.get_taks_id() == chosen_task_id:
+            if task.get_task_id() == chosen_task_id:
                 task.rename_task(new_task_name)
 
     def create_and_deploy_task(self):
@@ -66,7 +48,7 @@ class ControllerTaskContainer():
         target_group = self.get_target_group_for_task_deployment()  #zt listę obiektów studentów DOKOŃCZYĆ!!!
         
         for student in target_group:
-            student_id = self.ctrl_student.get_member_id(student)
+            student_id = self.ctrl_user.get_member_id(student)
             self.add_task_to_container(ModelTask(task_name, task_id, student_id))
 
     def get_target_group_for_task_deployment(self):
@@ -103,13 +85,13 @@ class ControllerTaskContainer():
 
         invalid_choice = True
         while invalid_choice:
-            self.view_task_container.display_collection(self.get_task_by_id)
+            self.view_task_container.display_collection(self.get_task_by_id())
             user_choice = self.view_task_container.get_user_input("Choose task by id: ")
             for task in all_tasks:
                 if task.get_task_id() == user_choice:
                     invalid_choice = False
                     break
-        return user_choice  ##task id          
+        return user_choice
 
     def take_and_validate_particulat_task_choice(self):
         all_tasks = self.container_task.get_all_tasks()
@@ -129,3 +111,17 @@ class ControllerTaskContainer():
                     break
         return chosen_task
 
+
+from dao_task import *
+from model_task_container import*
+dao = DAOTask()
+mtc = ModelTaskContainer()
+mtc.task_container = dao.import_data()
+view = ViewControllerTaskContainer
+
+ctrl_task_cont = ControllerTaskContainer(mtc)
+print(ctrl_task_cont.del_task_from_container())
+
+all_tasks = ctrl_task_cont.container_task.get_all_tasks()
+for task in all_tasks:
+    print(task.task_display())
