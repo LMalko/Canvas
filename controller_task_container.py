@@ -40,39 +40,20 @@ class ControllerTaskContainer():
 
 
     def rename_task(self):
-        # get by task id, nie po numerze, bo mniej sprawdzania
-        tasks_names = []
-        for task in self.container_task():
-            tasks_names.append(task.get_task_name())
-
-        # self.view_task_container.display_message("Choose number of task to change:")
-        for count, name in enumerate({set(tasks_names)}, 1):
-            self.view_task_container.display_message("\t{}. {}".format(count, name))
-        invalid_input = True
-        while invalid_input:
-            chosen_task_name = self.get_valid_input("Choose number of task to change: ")
-            if (len(chosen_task_name) == 1) & (chosen_task_name.isdigit()) & (int(chosen_task_name) in range(1, len(set(tasks_names)+1))):
-                invalid_input = False
-        new_task_name = self.get_valid_input("Pass new task name: ")
-        for task in self.container_task:
-            if task.get_task_name() == chosen_task_name:
-                task.rename_task(new_task_name)
-        self.view_task_container.display_message("Task {} renamed to {}".format(chosen_task_name, new_task_name))
-##################################
         chosen_task_id = self.take_and_validate_task_id_choice()
-        new_task_name = self.get_valid_input()
+        new_task_name = self.get_valid_input("Pass new task name: ")
 
-
+        all_tasks = self.container_task.get_all_tasks()
+        for task in all_tasks:
+            if task.get_taks_id() == chosen_task_id:
+                task.rename_task(new_task_name)
 
     def __get_task(self):
         pass
 
-    def get_taks_id(self):
-        pass
-
     def create_and_deploy_task(self):
         task_id = self.get_max_task_id
-        task_name = self.get_valid_input()
+        task_name = self.get_valid_input("Pass tasks name: ")
         target_group = self.get_target_group_for_task_deployment()  #zt listę obiektów studentów DOKOŃCZYĆ!!!
         
         for student in target_group:
@@ -121,5 +102,21 @@ class ControllerTaskContainer():
                     break
         return user_choice  ##task id          
 
+    def take_and_validate_particulat_task_choice(self):
+        all_tasks = self.container_task.get_all_tasks()
 
+        chosen_task = None
+        invalid_choice = True
+        while invalid_choice:
+            for task in all_tasks:
+                self.view_task_container.display_message(task.task_display())
+
+            task_id_choice = self.view_task_container.get_user_input("Choose task by task id: ")
+            user_id_choice = self.view_task_container.get_user_input("Choose task by user id: ")
+            for task in all_tasks:
+                if (task.get_task_id() == task_id_choice) & (task.get_user_id() == user_id_choice):
+                    chosen_task = task
+                    invalid_choice = False
+                    break
+        return chosen_task
 
