@@ -13,9 +13,10 @@ class ControllerMemberContainer():
 
     def get_members_by_role(self, Role):
         return [user for user in self.member_container if user.role == Role]
-
-    def get_members_by_group(self, Group):
-        return [user for user in self.member_container if user.my_group == Group]
+# get students by group z petlą walidacją czy ta grupa istnieje z metod get_my.group
+    def get_students_by_group(self, Group):
+        students = get_members_by_role(self, 'student')
+        return [student for student in students if ]
 
     def add_member(self, User):
         self.member_container.append(User)
