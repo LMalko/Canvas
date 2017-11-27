@@ -9,9 +9,6 @@ class ModelTaskContainer():
     def del_task(self, task):
         self.task_container.remove(task)
 
-    def get_task(self, task_id):
-        pass
-
-    def get_max_id(self):
-        pass
+    def get_all_tasks(self):
+        return self.task_container
 
