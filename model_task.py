@@ -50,6 +50,3 @@ class ModelTask():
 
     def get_task_by_id(self):
         return "{} : {}".format(self.task_ID, self.name)
-
-    # def get_task_by_id(self):
-    #     return "{} : {}".format(self.task_ID, self.name)
