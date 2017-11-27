@@ -27,7 +27,10 @@ class ModelTask():
 
     def get_task_id(self):
         return self.task_ID
-    
+
+    def get_task_name(self):
+        return self.name
+
     def task_display(self):
 
         return "Task: '{}' of ID number: {} assignet to user: {} has earned a grade of {}.".format(self.name,
