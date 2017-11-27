@@ -73,17 +73,17 @@ class ControllerAdmin(ControllerUser):
                 return ControllerUser().change_last_name(_mentor_to_change.uid)
             elif _mentor_detail_to_change == "3":
                 return ControllerUser().change_password(_mentor_to_change.uid)
-            self.view.display_message("\n\nRead instructions properly and try again.\n")
+            self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
             continue
 
-    def view_mentor_list(self):
+    def get_mentor_list(self):
         self.view.display_message('\n\nMentors list:\n')
         __collection = self.controller_member_container.get_members_by_role('mentor')
         self.view.display_collection(__collection)
         self.view.get_user_input('\n\nPress <enter> to continue.. ')
 
-    def view_student_list(self):
-        pass
+    def get_student_list(self):
+        self.view.display_collection(self.controller_member_container.get_members_by_role('student'))
 
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")
