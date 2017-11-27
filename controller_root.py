@@ -84,12 +84,11 @@ class ControllerRoot:
         pass
 
     def initialize_containers(self):
-        # uncomment below when DAOs are implemented
-
         # load members
         member_dao = dao_member.DAOMember("data.csv")
         members = member_dao.import_data()
         self.associated_model.container_member = members
+        # uncomment below when appropriate DAOs are implemented
         '''
         # load attendance
         attendance_dao = dao_attendance.DAOAttendance("attendance.csv")
@@ -110,7 +109,7 @@ class ControllerRoot:
 
     def start(self):
         self.view.display_start_screen()
-        login_credentials = self.view.display_login_screen()
+        login_credentials = self.view.get_login_credentials()
         # login_credentials is a tuple with (login, password)
         while login_credentials:
             user_login = login_credentials[0]
@@ -119,7 +118,7 @@ class ControllerRoot:
             if user_obj is not None:
                 self.engage_user_controller(user_obj)
             else:
-                view_root.ViewRoot.display_message("Invalid credentials or account does not exist")
-            login_credentials = self.view.display_login_screen()
+                self.view.display_message("Invalid credentials or account does not exist")
+            login_credentials = self.view.get_login_credentials()
 
         self.view.display_exit_screen()
