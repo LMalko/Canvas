@@ -77,7 +77,8 @@ class ControllerAdmin(ControllerUser):
             continue
 
     def get_members_display(self, members):
-        pass
+        for person in members:
+            self.view.display_message(ControllerUser.get_member_display(person))
 
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")
