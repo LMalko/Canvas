@@ -19,13 +19,28 @@ class ControllerTaskContainer():
     def change_task_delivery_status(self):
         pass
 
-    def change_task_graded_status(self):
+    def grade_task(self):
         pass
 
     def change_task_grade(self):
-        pass
+        all_tasks = self.container_task.get_all_tasks()
+        for count, task in enumerate(all_tasks, 1):
+            self.view_task_container.display_message("{}. {}".format(coune, task.task_display()))
+        self.view_task_container.display_message("Choose Task by it's number: ")
+
+        invalid_input = True
+        while invalid_input
+############################
+            if (len(chosen_task_name) == 1) & (chosen_task_name.isdigit()) & (int(chosen_task_name) in range(1, len(set(tasks_names)+1))):
+                invalid_input = False
+
+        
+        invalid_input = True
+        while invalid_input:
+
 
     def rename_task(self):
+        # get by task id, nie po numerze, bo mniej sprawdzania
         tasks_names = []
         for task in self.container_task():
             tasks_names.append(task.get_task_name())
@@ -35,14 +50,16 @@ class ControllerTaskContainer():
             self.view_task_container.display_message("\t{}. {}".format(count, name))
         invalid_input = True
         while invalid_input:
-            chosen_task_name = self.get_valid_input("Choose number of task to change:)
+            chosen_task_name = self.get_valid_input("Choose number of task to change: ")
+            if (len(chosen_task_name) == 1) & (chosen_task_name.isdigit()) & (int(chosen_task_name) in range(1, len(set(tasks_names)+1))):
+                invalid_input = False
+        new_task_name = self.get_valid_input("Pass new task name: ")
+        for task in self.container_task:
+            if task.get_task_name() == chosen_task_name:
+                task.rename_task(new_task_name)
+        self.view_task_container.display_message("Task {} renamed to {}".format(chosen_task_name, new_task_name))
 
-    def get_max_task_id(self):
-        all_tasks = self.container_task.get_all_tasks()
-        all_id = []
-        for task in all_tasks:
-            all_id.append(int(task.get_task_id()))
-        return "{:0>4}".format(max(all_id)+1)
+
 
     def __get_task(self):
         pass
@@ -50,10 +67,11 @@ class ControllerTaskContainer():
     def get_taks_id(self):
         pass
 
-    def create_task(self):
+    def create_and_deploy_task(self):
         task_id = self.get_max_task_id
         task_name = self.get_valid_input()
         target_group = self.get_target_group_for_task_deployment()  #zt listę obiektów studentów DOKOŃCZYĆ!!!
+        
         for student in target_group:
             student_id = self.ctrl_student.get_member_id(student)
             self.add_task_to_container(ModelTask(task_name, task_id, student_id))
@@ -63,7 +81,6 @@ class ControllerTaskContainer():
         pass
     
     def get_valid_input(self, user_input):
-        
         invalid_input = True
         while invalid_input:
             user_input = self.view_task_container.get_user_input()
@@ -72,15 +89,33 @@ class ControllerTaskContainer():
 
         return user_input
 
-        
-###
-# + __get_task(task_id): ModelTask  #
-# + task_display(): str
-# + all_tasks_display(): list
-# + certain_student_tasks_display(): list
-# + certain_task_students_display(): list
+    def get_max_task_id(self):
+        all_tasks = self.container_task.get_all_tasks()
+        all_id = []
+        for task in all_tasks:
+            all_id.append(int(task.get_task_id()))
+        return "{:0>4}".format(max(all_id)+1)
 
-# ###
-# +rename_task(ModelTask):None
-# +get_task_id(ModelTask):str/int
-# +task_display(ModelTask):str
+    def get_task_by_id(self):
+        all_tasks = self.container_task.get_all_tasks()
+        tasks_by_id = []
+        
+        for task in all_tasks:
+            tasks_by_id.append(task.get_task_by_id())
+
+        return sorted(list(set(tasks_by_id)))
+
+    def take_and_validate_task_id_choice(self):
+        all_tasks = self.container_task.get_all_tasks()
+
+        invalid_choice = True
+        while invalid_choice:
+            user_choice = self.view_task_container.get_user_input("Choose task by id: ")
+            for task in all_tasks:
+                if task.get_task_id() == user_choice:
+                    invalid_choice = False
+                    break
+        return user_choice  ##task id          
+
+
+
