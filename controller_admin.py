@@ -48,34 +48,49 @@ class ControllerAdmin(ControllerUser):
                                                     __user_inputs[3])
         self.view.display_message("\n\nMentor hired..\n\n")
         self.controller_member_container.add_member(__user)
-        self.view.get_user_input('\nPress <enter> to continue.. ')  # pause
+        self.view.get_user_input('\nPress <enter> to continue.. ')
 
     def remove_mentor(self):
         self.view.display_message("\n\nLet's release Mentor..\n\n")
         self.view_mentor_list()
         self.view.get_user_input('\nChoose Mentor by UID.. ')
         self.view.display_message("\n\nWell abort, abort process! They're great!\n\n")
-        self.view.get_user_input('\nPress <enter> to continue.. ')  # pause
+        self.view.get_user_input('\nPress <enter> to continue.. ')
 
     def edit_mentor(self):
-        pass
+        self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
+        while True:
+            self.view_mentor_list()
+            _mentor_to_change = ControllerUser()._get_user()
+            if _mentor_to_change in [user for user in self.controller_member_container.get_members_by_role('mentor')]:
+                break
+            self.view.display_message("\n\nThis user is not mentor!\n")
+        while True:
+            _mentor_detail_to_change = input("You need to change: first name (1), last name (2) or password (3) ?")
+            if _mentor_detail_to_change == "1":
+                return ControllerUser().change_first_name(_mentor_to_change.uid)
+            elif _mentor_detail_to_change == "2":
+                return ControllerUser().change_last_name(_mentor_to_change.uid)
+            elif _mentor_detail_to_change == "3":
+                return ControllerUser().change_password(_mentor_to_change.uid)
+            self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
+            continue
 
-    def view_mentor_list(self):
+    def get_mentor_list(self):
         self.view.display_message('\n\nMentors list:\n')
         __collection = self.controller_member_container.get_members_by_role('mentor')
         self.view.display_collection(__collection)
-        self.view.get_user_input('\n\nPress <enter> to continue.. ')  # pause
+        self.view.get_user_input('\n\nPress <enter> to continue.. ')
 
-
-    def view_student_list(self):
-        pass
+    def get_student_list(self):
+        self.view.display_collection(self.controller_member_container.get_members_by_role('student'))
 
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")
-    
+
     @classmethod
     def get_controller_model_pair(cls):
-        return {cls:ModelAdmin}
+        return {cls: ModelAdmin}
 
     @classmethod
     def create_user_from_imported_data(cls, *args):
