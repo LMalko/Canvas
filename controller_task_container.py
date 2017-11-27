@@ -26,7 +26,16 @@ class ControllerTaskContainer():
         pass
 
     def rename_task(self):
-        pass
+        tasks_names = []
+        for task in self.container_task():
+            tasks_names.append(task.get_task_name())
+
+        # self.view_task_container.display_message("Choose number of task to change:")
+        for count, name in enumerate({set(tasks_names)}, 1):
+            self.view_task_container.display_message("\t{}. {}".format(count, name))
+        invalid_input = True
+        while invalid_input:
+            chosen_task_name = self.get_valid_input("Choose number of task to change:)
 
     def get_max_task_id(self):
         all_tasks = self.container_task.get_all_tasks()
@@ -62,7 +71,6 @@ class ControllerTaskContainer():
                 invalid_input = False
 
         return user_input
-
 
         
 ###
