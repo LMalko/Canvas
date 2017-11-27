@@ -28,6 +28,9 @@ class ModelTask():
     def get_task_id(self):
         return self.task_ID
 
+    def get_user_id(self):
+        return self.user_ID
+
     def get_task_name(self):
         return self.name
 
@@ -44,3 +47,9 @@ class ModelTask():
                 str(self.grade),
                 str(self.is_done),
                 str(self.is_graded)]
+
+    def get_task_by_id(self):
+        return "{} : {}".format(self.task_ID, self.name)
+
+    # def get_task_by_id(self):
+    #     return "{} : {}".format(self.task_ID, self.name)
