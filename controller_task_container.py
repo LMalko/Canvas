@@ -22,7 +22,17 @@ class ControllerTaskContainer():
         task.change_delivery_status()
 
     def grade_task(self):
-        pass
+        task = self.take_and_validate_particulat_task_choice()
+
+        possible_grades = ['-3', '0', '4', '7', '10', '12']
+        invalid_input = True
+        while invalid_input:
+            grade = self.view_task_container.get_user_input("Pass tasks grade: ")
+            if grade in possible_grades:
+                task.mark_as_graded()
+                task.set_grade(grade)
+                invalid_input = False
+
 
     def change_task_grade(self):
         all_tasks = self.container_task.get_all_tasks()
