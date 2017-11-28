@@ -9,6 +9,9 @@ class ControllerAttendanceContainer():
     def create_student_attendance(self, student_uid):
         return ModelAttendance(student_uid)
 
+    def set_new_attendance(self, new_collection):
+        self.attendance_container.set_new_attendance(new_collection)
+
     def add_student_attendance(self, ModelAttendance):
         self.attendance_container.add_student_attendance(ModelAttendance)
 

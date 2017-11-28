@@ -3,6 +3,10 @@ class ModelAttendanceContainer():
     def __init__(self):
         self.attendance = []
 
+    def set_new_attendance(self, new_collection):
+        '''Replace attendance with new collection.'''
+        self.attendance = new_collection
+
     def add_student_attendance(self, ModelAttendance):
         self.attendance.append(ModelAttendance)
 

@@ -20,7 +20,7 @@ class DAOAttendance():
             data = line.split('|')
             attendance = ModelAttendance(data[0])
             if len(data) > 1:
-                attendance.set_new_student_presence({data[x]: data[x+1] for x in range(1, len(data)-1, 2)})
+                attendance.set_new_student_presence({data[x]: float(data[x+1]) for x in range(1, len(data)-1, 2)})
             attendance_collection.append(attendance)
         return attendance_collection
 

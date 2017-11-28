@@ -7,6 +7,10 @@ class ModelAttendance():
     def set_student_uid(self, new_student_uid):
         self.student_uid = new_student_uid
 
+    def set_new_student_presence(self, new_dict):
+        '''Replace student presence with new dict.'''
+        self.student_presence = new_dict
+
     def set_presence_status(self, actuall_date, status):
         self.student_presence.update({actuall_date: status})
 
