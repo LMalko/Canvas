@@ -25,6 +25,9 @@ class ControllerMemberContainer():
             if user.uid == uid:
                 return user
 
+    def get_member_id(self, member):
+        return member.uid
+
     def get_members_by_role(self, role):
         self.view_member_container.clear_screen()
         all_members = self.member_container.get_all_members()
@@ -44,7 +47,5 @@ class ControllerMemberContainer():
     def add_member(self, user):
         self.member_container.add_member(user)
 
-    def delete_member(self, uid):
-        member_to_be_deleted = self.get_user(uid)
-        if member_to_be_deleted is not None:
-            self.member_container.delete_member(member_to_be_deleted)
+    def delete_member(self, member):
+        self.member_container.delete_member(member)
