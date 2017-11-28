@@ -162,12 +162,12 @@ mmc.members = dao_members.import_data()
 ctrl_mc = ControllerMemberContainer(mmc)
 ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
 
-# target_group = ctrl_mc.get_students_by_group() póki nie działa
+target_group = ctrl_mc.get_students_by_group() # póki nie działa
+ctrl_task_cont.create_and_deploy_task(target_group)
 student = ctrl_mc.get_member('0014')
-
 ctrl_task_cont.get_student_tasks('0014')
 # print('\n')
-# dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
+dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
 # all_tasks = ctrl_task_cont.container_task.get_all_tasks()
 # for task in all_tasks:
 #     print("{}".format(task.get_mentor_task_display()))
