@@ -57,7 +57,7 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "5":
                     self.get_task_display()
                 elif user_input == "6":
-                    self.def grade_task()
+                    self.grade_task()
                 elif user_input == "7":
                     self.get_grades_for_task_display()
                 elif user_input == "8":
