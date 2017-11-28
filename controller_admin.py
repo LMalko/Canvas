@@ -3,6 +3,7 @@ from view_admin import ViewAdmin
 from model_admin import ModelAdmin
 from controller_mentor import ControllerMentor
 from controller_user import ControllerUser
+import sys
 
 
 class ControllerAdmin(ControllerUser):
@@ -19,7 +20,7 @@ class ControllerAdmin(ControllerUser):
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
-        while to_continue:
+        while True:
             user_input = ''
             while user_input not in correct_choices:
                 self.view.clear_screen()
@@ -32,7 +33,8 @@ class ControllerAdmin(ControllerUser):
                 elif user_input == "3":
                     self.remove_mentor()
                 elif user_input == "4":
-                    to_continue = False
+                    self.view.clear_screen()
+                    sys.exit()
 
     def add_mentor(self):
         self.view.display_message("\n\nLet's hire Mentor..\n\n")
@@ -45,16 +47,17 @@ class ControllerAdmin(ControllerUser):
                                                     user_inputs[1],
                                                     user_inputs[2],
                                                     user_inputs[3])
+        self.view.clear_screen()
         self.view.display_message("\n\nMentor hired..\n\n")
         self.controller_member_container.add_member(user)
-        self.view.get_user_input("\nPress <enter> to continue.. ")
+        self.view.get_user_input("\nPress anything to continue.")
 
     def remove_mentor(self):
         self.view.display_message("\n\nLet's release Mentor..\n\n")
         self.get_members_display(self.controller_member_container.get_members_by_role('mentor'))
         mentor_to_release = self.controller_member_container.get_user()
-        self.controller_member_container.member_container.remove(mentor_to_release)
-        self.view.display_message("\n\nDone !!!\n\n")
+        self.controller_member_container.delete_member(mentor_to_release)
+        self.view.take_user_input("Done !! Press anything to continue.")
 
     def edit_mentor(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
