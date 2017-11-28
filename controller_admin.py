@@ -53,14 +53,14 @@ class ControllerAdmin(ControllerUser):
     def remove_mentor(self):
         self.view.display_message("\n\nLet's release Mentor..\n\n")
         self.view_mentor_list()
-        mentor_to_release = self.controller_user._get_user()
+        mentor_to_release = self.controller_user.get_user()
         self.controller_member_container.pop(mentor_to_release)
 
     def edit_mentor(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
         while True:
             self.view_mentor_list()
-            mentor_to_change = self.controller_user._get_user()
+            mentor_to_change = self.controller_user.get_user()
             if mentor_to_change in [user for user in self.controller_member_container.get_members_by_role('mentor')]:
                 break
             self.view.display_message("\n\nThis user is not mentor!\n")
