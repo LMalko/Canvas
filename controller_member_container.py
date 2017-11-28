@@ -11,7 +11,7 @@ class ControllerMemberContainer():
 
     def get_user(self):
         while True:
-            user_id = view.get_user_input("Choose by id: ")
+            user_id = self.view_member_container.get_user_input("Choose by id: ")
             user = self.get_member(user_id)
             if user is not None:
                 return user
@@ -30,7 +30,7 @@ class ControllerMemberContainer():
         all_members = self.member_container.get_all_members()
         self.view_member_container.display_collection([self.model_member_container.get_member_display(user)
                                                        for user in all_members if user.role == role])
-        return self.view_member_container.take_user_input("\n\nSkończyłeś już? To wciśnij jakiś klawisz.")
+        return self.view_member_container.take_user_input("\n\nJeśli skończyłeś juz patrzeć to wciśnij coś.\n")
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
