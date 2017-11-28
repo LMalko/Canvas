@@ -31,21 +31,12 @@ class ControllerStudent(ControllerUser):
                     to_continue = False
 
     def submit_task(self):
-        pass
+        self.controller_task_container.change_task_delivery_status(self.associated_user.get_member_id())
 
     def view_grades(self):
-        pass
-        # self.view.display()  # temp!!!
-        # self.self.controller_task_container.change_delivery_status()  # którego zadania??
-        # self.view.display()  # temp!!!
+        self.controller_task_container.get_student_tasks(self.associated_user.get_member_id())
 
     def get_my_group(self, student):
         return student.get_my_group()
 
-    @classmethod
-    def get_controller_model_pair(cls):
-        return {cls: ModelStudent}
 
-    @classmethod
-    def create_user_from_imported_data(cls, *args):
-        return ModelStudent(*args)

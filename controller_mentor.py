@@ -139,13 +139,6 @@ class ControllerMentor(ControllerUser):
         self.controller_member_container.remove(student_to_release)
         self.view.display_message("\n\nDone !!!\n\n")
 
-    @classmethod
-    def get_controller_model_pair(cls):
-        return {cls: ModelMentor}
-
-    @classmethod
-    def create_user_from_imported_data(cls, *args):
-        return ModelMentor(*args)
 
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container if x.role == 'student']

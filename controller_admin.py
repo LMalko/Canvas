@@ -85,10 +85,4 @@ class ControllerAdmin(ControllerUser):
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")
 
-    @classmethod
-    def get_controller_model_pair(cls):
-        return {cls: ModelAdmin}
 
-    @classmethod
-    def create_user_from_imported_data(cls, *args):
-        return ModelAdmin(*args)

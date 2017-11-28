@@ -31,10 +31,3 @@ class ControllerOffice(ControllerUser):
         for person in members:
             self.view.display_message(ControllerUser.get_member_display(person))
 
-    @classmethod
-    def get_controller_model_pair(cls):
-        return {cls: ModelOffice}
-
-    @classmethod
-    def create_user_from_imported_data(cls, *args):
-        return ModelOffice(*args)
