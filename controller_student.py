@@ -31,8 +31,7 @@ class ControllerStudent(ControllerUser):
                     to_continue = False
 
     def submit_task(self):
-metoda z kontroler pokaz taski
-metoda zmien status na wyslane
+        pass
 
     def view_grades(self):
         pass

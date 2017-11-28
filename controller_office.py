@@ -5,7 +5,7 @@ from controller_user import *
 
 class ControllerOffice(ControllerUser):
 
-    def __init__(self, user, attendance_container, member_container, task_container):
+    def __init__(self, user, member_container):
         self.associated_user = user
         self.view = ViewOffice()
         self.controller_member_container = ControllerMemberContainer(member_container)
@@ -23,7 +23,7 @@ class ControllerOffice(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == '1':
-                    self.get_members_display(ControllerMemberContainer.get_members_by_role('student'))
+                    self.get_members_display(self.controller_member_container.get_members_by_role('student'))
                 elif user_input == '2':
                     to_continue = False
 
