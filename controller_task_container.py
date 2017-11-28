@@ -113,28 +113,28 @@ class ControllerTaskContainer():
         return chosen_task
 
 
-from dao_task import *
-from model_task_container import*
-from dao_member import*
-from model_member_container import*
+# from dao_task import *
+# from model_task_container import*
+# from dao_member import*
+# from model_member_container import*
 
-dao_task = DAOTask()
-dao_members = DAOMember()
+# dao_task = DAOTask()
+# dao_members = DAOMember()
 
-mtc = ModelTaskContainer()
-mtc.task_container = dao_task.import_data()
+# mtc = ModelTaskContainer()
+# mtc.task_container = dao_task.import_data()
 
-mmc = ModelMemberContainer()
-mmc.members = dao_members.import_data()
+# mmc = ModelMemberContainer()
+# mmc.members = dao_members.import_data()
 
-view = ViewControllerTaskContainer
+# view = ViewControllerTaskContainer
 
-ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
+# ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
 
-ctrl_task_cont.create_and_deploy_task()
+# ctrl_task_cont.create_and_deploy_task()
 
-all_tasks = ctrl_task_cont.container_task.get_all_tasks()
-for task in all_tasks:
-    print(task.task_display())
+# all_tasks = ctrl_task_cont.container_task.get_all_tasks()
+# for task in all_tasks:
+#     print(task.task_display())
     
-dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
+# dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
