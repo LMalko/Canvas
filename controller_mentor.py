@@ -29,13 +29,14 @@ class ControllerMentor(ControllerUser):
                    "4: Remove student",
                    "5: View task list",
                    "6: Grade task",
-                   "7: Add task",
-                   "8: Edit task",
-                   "9: Grade student's attendance",
-                   "10: Check attendance",
-                   "11: Get random groups of two",
-                   "12: Get random groups of four",
-                   "13: Log out"]
+                   "7: View grades for task",
+                   "8: Add task",
+                   "9: Edit task",
+                   "10: Check today's attendance",
+                   "11: Check attendance",
+                   "12: Get random groups of two",
+                   "13: Get random groups of four",
+                   "14: Log out"]
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
@@ -66,10 +67,12 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "10":
                     pass
                 elif user_input == "11":
-                    self.view.display_collection(self.get_random_student_group())  
+                    pass
                 elif user_input == "12":
-                    self.view.display_collection(self.get_random_student_group(4)) 
+                    self.view.display_collection(self.get_random_student_group())  
                 elif user_input == "13":
+                    self.view.display_collection(self.get_random_student_group(4)) 
+                elif user_input == "14":
                     to_continue = False
 
     def create_mentor(self, first_name, last_name, password, my_group):
@@ -100,18 +103,21 @@ class ControllerMentor(ControllerUser):
 
     def grade_task(self):
         pass
-     
+
     def add_task(self):
         pass
-    
-    def edit_task(self):
-        pass
 
-    def get_grades_display(self):
+    def edit_task(self):
         pass
 
     def grade_attendance(self):
             pass
+
+    def get_grades_display(self):
+        pass
+    
+    def get_attendance_display(self):
+        pass
 
     def get_members_display(self, members):
         for person in members:
