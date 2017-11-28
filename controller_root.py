@@ -1,30 +1,27 @@
 '''
 import controller_attendance_container
 '''
-import controller_member_container
+from controller_member_container import ControllerMemberContainer
+from controller_task_container import ControllerTaskContainer
 '''
-import controller_task_container
-
 import model_attendance_container
 '''
-import model_member_container
+from model_member_container import ModelMemberContainer
+from model_task_container import ModelTaskContainer
 '''
-import model_task_container
-
 import dao_attendance
 '''
 import dao_member
-'''
 import dao_task
-'''
-from controller_admin import *
 
-from controller_mentor import *
-from controller_office import *
-from controller_student import *
+from controller_admin import ControllerAdmin
+
+from controller_mentor import ControllerMentor
+from controller_office import ControllerOffice
+from controller_student import ControllerStudent
 
 import view_root
-from model_root import *
+from model_root import ModelRoot
 
 import controller_admin
 
@@ -39,8 +36,7 @@ class ControllerRoot:
         self.initialize_containers()
         if not self.associated_model.container_member:
             # the user db is empty, instantiate memb. contain. control. to add first admin
-            member_ctrl = controller_member_container.ControllerMemberContainer(\
-                self.associated_model.container_member)
+            member_ctrl = ControllerMemberContainer(self.associated_model.container_member)
 
             # create first admin
             first_admin = self.initial_admin_creation()
@@ -52,7 +48,7 @@ class ControllerRoot:
         '''
         Checks whether user password matches the input_password.
         '''
-        for user_obj in self.associated_model.container_member:
+        for user_obj in self.associated_model.container_member.get_all_members():
             if user_obj.login == user_login and user_obj.password == input_password:
                 return user_obj
 
@@ -83,7 +79,6 @@ class ControllerRoot:
         '''
         Launches a user controller based on class of user_obj.
         '''
-        pass
 
     def initialize_containers(self):
         # load members
@@ -95,19 +90,28 @@ class ControllerRoot:
             member_container.add_member(member)
 
         self.associated_model.container_member = member_container
+
+        # load tasks
+        task_dao = dao_task.DAOTask("tasks.csv")
+        task_object_collection = dao_task.import_data()
+        # initialize task container object
+        task_container = ModelTaskContainer()
+        for task in task_object_collection:
+            task_container.add_task(task)
+        self.associated_model.container_task = task_container
+
         # uncomment below when appropriate DAOs are implemented
+        self.associated_model.container_attendance = ModelAttendanceContainer() # empty
         '''
         # load attendance
         attendance_dao = dao_attendance.DAOAttendance("attendance.csv")
-        attendance = dao_attendance.import_data()
-        self.associated_model.container_attendance = attendance
-        # load tasks
-        task_dao = dao_task.DAOTask("tasks.csv")
-        tasks = dao_task.import_data()
-        self.associated_model.container_task = tasks
+        attendance_object_collection = dao_attendance.import_data()
+        # initialize attendance container object
+        attendance_container = ModelAttendanceContainer()
+        for attendance in attendance_object_collection:
+            attendance_container.add_user_attendance(attendance)
+        self.associated_model.container_attendance = attendance_container
         '''
-        self.associated_model.container_task = []
-        self.associated_model.container_attendance = []
 
     def initial_admin_creation(self):
         ctrl_admin = controller_admin.ControllerAdmin(None, None)
