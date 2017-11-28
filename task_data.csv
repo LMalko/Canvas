@@ -1,6 +1,14 @@
-cokolwiek|002|007|None|True|False
-whatever|005|002|None|False|False
-UberKanwass|009|001|12/12|True|True
-UberKanwass|009|001|12/12|True|True
-Battleshipy|010|001|None|True|True
-Second Test|0011|002|None|False|False
+whatever|0005|002|None|0|0
+UberKanwass|0009|001|12/12|1|1
+UberKanwass|0009|001|12/12|1|1
+Battleshipy|0010|001|None|1|1
+Geometry|0012|0014|None|0|0
+Geometry|0012|0015|None|0|0
+Geometry|0012|0016|None|0|0
+Geometry|0012|0017|None|0|0
+Geometry|0012|0018|None|0|0
+Matrix|0013|0014|None|0|0
+Matrix|0013|0015|None|0|0
+Matrix|0013|0016|None|0|0
+Matrix|0013|0017|None|0|0
+Matrix|0013|0018|None|0|0
