@@ -65,7 +65,7 @@ class ControllerAdmin(ControllerUser):
                 break
             self.view.display_message("\n\nThis user is not mentor!\n")
         while True:
-            mentor_detail_to_change = input("You need to change: first name (1), last name (2) or password (3) ?")
+            mentor_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ?")
             if mentor_detail_to_change == "1":
                 return self.controller_user.change_first_name(self.controller_user.get_member_id(mentor_to_change))
             elif mentor_detail_to_change == "2":
