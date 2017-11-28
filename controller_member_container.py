@@ -3,21 +3,21 @@ from view_member_container import ViewMemberContainer
 
 class ControllerMemberContainer():
 
-    def __init__(self, member_container):
-        self.member_container = member_container
+    def __init__(self, member_container_object):
+        self.member_container = member_container_object
         self.view_member_container = ViewMemberContainer()
 
     def get_new_ID(self):
-        return str(max([int(user.uid) for user in self.member_container]) + 1)
+        return str(max([int(user.uid) for user in self.member_container.get_all_members()]) + 1)
 
-    def get_member(self, UID):
-        for user in self.member_container:
-            if user.uid == UID:
+    def get_member(self, uid):
+        for user in self.member_container.get_all_members():
+            if user.uid == uid:
                 return user
 
-    def get_members_by_role(self, Role):
+    def get_members_by_role(self, role):
         all_members = self.member_container.get_all_members()
-        return [user for user in all_members if user.role == Role]
+        return [user for user in all_members if user.role == role]
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
@@ -28,8 +28,10 @@ class ControllerMemberContainer():
                 return students_from_student_group
             self.view_member_container.display_message("No such group !!!")
 
-    def add_member(self, User):
-        self.member_container.append(User)
+    def add_member(self, user):
+        self.member_container.add_member(user)
 
-    def delete_member(self, UID):
-        self.member_container = [user for user in self.member_container if user.uid != UID]
+    def delete_member(self, uid):
+        member_to_be_deleted = self.get_user(uid)
+        if member_to_be_deleted is not None:
+            self.member_container.delete_member(member_to_be_deleted)
