@@ -1,5 +1,4 @@
 from model_attendance_container import ModelAttendanceContainer
-from controller_attendance_container import ControllerAttendanceContainer
 
 
 class DAOAttendance():
@@ -22,17 +21,24 @@ class DAOAttendance():
         #     tasks_collection.append(ModelTask(*data))
         # return tasks_collection
 
-    def export_data(self, tasks_collection):
+    def export_data(self, attendance_collection):
         pass
         # data_to_export = self.__pack_data_for_export(tasks_collection)
         # with open(self.filename, "w", encoding="utf-8") as myfile:
         #     for line in data_to_export:
         #         myfile.write(line)
 
-    def __pack_data_for_export(self, tasks_collection):
-        pass
-        # data_to_export = []
-        # for task in tasks_collection:
+    def pack_data_for_export(self, attendance_collection):
+        data_to_export = []
+        print(attendance_collection)
+        for student in attendance_collection:
+            print(collection)
+            # for 
+
+
+
+
+        # for task in attendance_collection:
         #     data = "|".join(task.get_data_to_export()) + '\n'
         #     data_to_export.append(data)
         #
