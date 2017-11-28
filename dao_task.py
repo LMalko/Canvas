@@ -13,12 +13,16 @@ class DAOTask():
         return self.__extract_imported_data(imported_data.strip().split("\n"))
 
     def __extract_imported_data(self, imported_data):
+        grade_attribute_index = 3
+        is_done_attribute_index = 4
+        is_graded_attribute_index = 5
+
         tasks_collection = []
         for line in imported_data:
             data = line.split('|')
-            data[3] = None if data[3] == 'None' else data[3]
-            data[4] = int(data[4])
-            data[5] = int(data[5])
+            data[grade_attribute_index] = None if data[grade_attribute_index] == 'None' else data[grade_attribute_index]
+            data[4] = int(data[is_done_attribute_index])
+            data[5] = int(data[is_graded_attribute_index])
             tasks_collection.append(ModelTask(*data))
         return tasks_collection
 
