@@ -16,6 +16,9 @@ class DAOTask():
         tasks_collection = []
         for line in imported_data:
             data = line.split('|')
+            data[3] = None if data[3] == 'None' else data[3]
+            data[4] = int(data[4])
+            data[5] = int(data[5])
             tasks_collection.append(ModelTask(*data))
         return tasks_collection
 
