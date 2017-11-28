@@ -48,9 +48,9 @@ class ControllerMentor(ControllerUser):
                 if user_input == "1":
                     self.get_members_display(ControllerMemberContainer.get_members_by_role('student'))
                 elif user_input == "2":
-
+                    self.edit_student_details()
                 elif user_input == "3":
-
+                    self.add_student()
                 elif user_input == "4":
                     self.remove_student()
                 elif user_input == "5":
@@ -73,6 +73,25 @@ class ControllerMentor(ControllerUser):
     def create_mentor(self, first_name, last_name, password, my_group):
         uid = self.controller_member_container.get_new_ID()
         return ModelMentor(uid, first_name, last_name, password, my_group)
+
+    def edit_student_details():
+        self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
+        while True:
+            self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+            student_to_change = self.controller_user.get_user()
+            if student_to_change in [user for user in self.controller_member_container.get_members_by_role('student')]:
+                break
+            self.view.display_message("\n\nThis user is not a student!\n")
+        while True:
+            student_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ?")
+            if student_detail_to_change == "1":
+                return self.controller_user.change_first_name(self.controller_user.get_member_id(student_to_change))
+            elif student_detail_to_change == "2":
+                return self.controller_user.change_last_name(self.controller_user.get_member_id(student_to_change))
+            elif student_detail_to_change == "3":
+                return self.controller_user.change_password(self.controller_user.get_member_id(student_to_change))
+            self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
+        continue
 
     def view_grades(self):
         pass
