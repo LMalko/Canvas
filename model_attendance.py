@@ -26,9 +26,9 @@ class ModelAttendance():
     def __repr__(self):
         return 'ModelAttendance({})'.format(self.student_uid)
 
-    # def get_data_to_export(self):
-    #     data_to_export = [self.student_uid]
-    #     for date, presence in self.student_presence.items():
-    #         data_to_export.append(date)
-    #         data_to_export.append(str(presence))
-    #     return data_to_export
+    def get_data_to_export(self):
+        data_to_export = [self.student_uid]
+        for date, presence in self.student_presence.items():
+            data_to_export.append(date)
+            data_to_export.append(str(presence))
+        return data_to_export
