@@ -53,15 +53,15 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "4":
                     self.remove_student()
                 elif user_input == "5":
-
+                    pass
                 elif user_input == "6":
-
+                    pass
                 elif user_input == "7":
-
+                    pass
                 elif user_input == "8":
-                    
+                    pass
                 elif user_input == "9":
-
+                    self.check_attendance()
                 elif user_input == "10":
                     self.view.display_collection(self.get_random_student_group())  
                 elif user_input == "11":
@@ -93,6 +93,7 @@ class ControllerMentor(ControllerUser):
         continue
 
     def view_grades(self):
+        pass
         ###################################################DO ZROBIEBNIA
 
     def get_members_display(self, members):
@@ -100,6 +101,7 @@ class ControllerMentor(ControllerUser):
             self.view.display_message(self.controller_user.get_member_display(person))
 
     def grade_task(self):
+        pass
         ###################################################DO ZROBIEBNIA
 
     def add_student(self):
