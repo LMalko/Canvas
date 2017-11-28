@@ -6,11 +6,11 @@ from controller_member_container import*
 
 class ControllerTaskContainer():
 
-    def __init__(self, container_member, container_task):  # container_member wrzucić do inita, jeśli bedziepotrzebny w deployment 
+    def __init__(self, container_member, container_task):
         self.container_task = container_task
         self.view_task_container = ViewControllerTaskContainer()
-        self.ctrl_user = ControllerUser
-        self.ctrl_member_container = ControllerMemberContainer()
+        self.ctrl_user = ControllerUser()
+        self.ctrl_member_container = ControllerMemberContainer(container_member)
 
     def add_task_to_container(self, task):
         self.container_task.add_task(task)
@@ -45,16 +45,15 @@ class ControllerTaskContainer():
                 task.rename_task(new_task_name)
 
     def create_and_deploy_task(self):
-        task_id = self.get_max_task_id
+        task_id = self.get_max_task_id()
         task_name = self.get_valid_input("Pass tasks name: ")
-        target_group = self.get_target_group_for_task_deployment()  #zt listę obiektów studentów DOKOŃCZYĆ!!!
+        target_group = self.get_target_group_for_task_deployment()
         
         for student in target_group:
             student_id = self.ctrl_user.get_member_id(student)
             self.add_task_to_container(ModelTask(task_name, task_id, student_id))
 
     def get_target_group_for_task_deployment(self):
-        #### z members container gest students group, wybieranie grupy już tam, zt listę obiektów studentów danej grupy
         return self.ctrl_member_container.get_students_by_group()
     
     def get_valid_input(self, message):
@@ -131,8 +130,11 @@ mmc.members = dao_members.import_data()
 view = ViewControllerTaskContainer
 
 ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
-print(ctrl_task_cont.get_target_group_for_task_deployment())
+
+ctrl_task_cont.create_and_deploy_task()
 
 all_tasks = ctrl_task_cont.container_task.get_all_tasks()
 for task in all_tasks:
     print(task.task_display())
+    
+dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
