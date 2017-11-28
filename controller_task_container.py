@@ -2,13 +2,15 @@ from model_task import*
 from model_attendance_container import*
 from view_controller_task_container import*
 from controller_user import*
+from controller_member_container import*
 
 class ControllerTaskContainer():
 
-    def __init__(self, container_task):  # container_member wrzucić do inita, jeśli bedziepotrzebny w deployment 
+    def __init__(self, container_member, container_task):  # container_member wrzucić do inita, jeśli bedziepotrzebny w deployment 
         self.container_task = container_task
         self.view_task_container = ViewControllerTaskContainer()
         self.ctrl_user = ControllerUser
+        self.ctrl_member_container = ControllerMemberContainer()
 
     def add_task_to_container(self, task):
         self.container_task.add_task(task)
@@ -53,7 +55,7 @@ class ControllerTaskContainer():
 
     def get_target_group_for_task_deployment(self):
         #### z members container gest students group, wybieranie grupy już tam, zt listę obiektów studentów danej grupy
-        pass
+        return self.ctrl_member_container.get_students_by_group()
     
     def get_valid_input(self, message):
         invalid_input = True
@@ -114,13 +116,22 @@ class ControllerTaskContainer():
 
 from dao_task import *
 from model_task_container import*
-dao = DAOTask()
+from dao_member import*
+from model_member_container import*
+
+dao_task = DAOTask()
+dao_members = DAOMember()
+
 mtc = ModelTaskContainer()
-mtc.task_container = dao.import_data()
+mtc.task_container = dao_task.import_data()
+
+mmc = ModelMemberContainer()
+mmc.members = dao_members.import_data()
+
 view = ViewControllerTaskContainer
 
-ctrl_task_cont = ControllerTaskContainer(mtc)
-print(ctrl_task_cont.del_task_from_container())
+ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
+print(ctrl_task_cont.get_target_group_for_task_deployment())
 
 all_tasks = ctrl_task_cont.container_task.get_all_tasks()
 for task in all_tasks:
