@@ -12,6 +12,9 @@ class ModelTask():
     def change_delivery_status(self):
 
         self.is_done = not self.is_done
+        if self.is_done == False:
+            self.grade = None
+            self.is_graded == False
 
     def mark_as_graded(self):
 

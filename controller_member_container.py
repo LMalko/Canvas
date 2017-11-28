@@ -16,13 +16,14 @@ class ControllerMemberContainer():
                 return user
 
     def get_members_by_role(self, Role):
-        return [user for user in self.member_container if user.role == Role]
+        all_members = self.member_container.get_all_members()
+        return [user for user in all_members if user.role == Role]
 
     def get_students_by_group(self):
-        students = get_members_by_role(self, 'student')
+        students = self.get_members_by_role('student')
         while True:
             student_group = self.view_member_container.take_user_input("Choose group: ")
-            students_from_student_group = [student for student in students if get_my_group(student) == student_group]
+            students_from_student_group = [student for student in students if student.get_my_group() == student_group]
             if students_from_student_group:
                 return students_from_student_group
             self.view_member_container.display_message("No such group !!!")

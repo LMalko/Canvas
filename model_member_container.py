@@ -1,16 +1,13 @@
-from controller_member_container import ControllerMemberContainer
-
-
 class ModelMemberContainer():
 
     def __init__(self):
-        self.members = ControllerMemberContainer().member_container
+        self.members = []
 
-    def add_member(self, User):
-        ControllerMemberContainer().member_container.append(User)
+    def add_member(self, user):
+        self.members.append(user)
 
-    def delete_member(self, User):
-        ControllerMemberContainer().delete_member(User.uid)
+    def delete_member(self, user):
+        self.members.remove(user)
 
-    def get_member(self, uid):
-        ControllerMemberContainer().get_member(uid)
+    def get_all_members(self):
+        return self.members

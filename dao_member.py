@@ -1,27 +1,15 @@
-from model_root import ModelRoot
-from controller_admin import *
-from controller_mentor import *
-from controller_office import *
-from controller_student import *
-from controller_member_container import *
-'''
-Model danych:
-role|uid|first_name|last_name|password|my_group
-'''
+from model_admin import*
+from model_mentor import*
+from model_office import*
+from model_student import*
+from controller_user import*
+
 
 class DAOMember():
-    '''
-        controller_model_pairs dict contains:
-                keys - Controller (class)
-                values - ModelUser (class)
-    '''
-    def __init__(self, filename):
+
+    def __init__(self, filename='data.csv'):
         self.filename = filename
-        self.controller_model_pairs = {}
-        self.controller_model_pairs.update(ControllerAdmin.get_controller_model_pair())
-        self.controller_model_pairs.update(ControllerMentor.get_controller_model_pair())
-        self.controller_model_pairs.update(ControllerStudent.get_controller_model_pair())
-        self.controller_model_pairs.update(ControllerOffice.get_controller_model_pair())
+        self.ctrl_user = ControllerUser()
 
     def import_data(self):
         with open(self.filename, "r", encoding="utf-8") as myfile:
@@ -32,11 +20,14 @@ class DAOMember():
         imported_data = []
         for line in file_content:
             user_role, *args = line.strip().split('|')
-            print("{:>10}:{}".format(user_role, args))
-            for ctrl in self.controller_model_pairs:
-                if ctrl.get_user_role(self.controller_model_pairs[ctrl]) == user_role:
-                    imported_data.append(ctrl.create_user_from_imported_data(*args))
-                    break
+            if user_role == 'admin':
+                imported_data.append(ModelAdmin(*args))
+            elif user_role == 'mentor':
+                imported_data.append(ModelMentor(*args))
+            elif user_role == 'office':
+                imported_data.append(ModelOffice(*args))
+            elif user_role == 'student':
+                imported_data.append(ModelStudent(*args))
         
         return imported_data
 
@@ -49,10 +40,13 @@ class DAOMember():
     def __pack_data_for_export(self, users_collection):
         data_to_export = []
         for user in users_collection:
-            for ctrl in self.controller_model_pairs:
-                if isinstance(user, self.controller_model_pairs[ctrl]):
-                    user_data = ctrl.get_user_data_to_export(user)
-                    data_to_export.append("|".join(user_data) + '\n')
-                    break
+            user_data = self.ctrl_user.get_user_data_to_export(user)
+            data_to_export.append("|".join(user_data) + '\n')
+
         return data_to_export
 
+# tt = DAOMember()
+# data = tt.import_data()
+# print(data)
+# data.append(ModelStudent('0014', 'Super', 'Student', 'piwo', 'A'))
+# tt.export_data(data)
