@@ -98,7 +98,7 @@ class ControllerRoot:
 
         # load attendance
         attendance_dao = dao_attendance.DAOAttendance()
-        attendance_object_collection = dao_attendance.import_data()
+        attendance_object_collection = attendance_dao.import_data()
         # initialize attendance container object
         attendance_container = ModelAttendanceContainer()
         for attendance in attendance_object_collection:
