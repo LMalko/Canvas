@@ -1,29 +1,22 @@
-'''
-import controller_attendance_container
-'''
+from controller_attendance_container import ControllerAttendanceContainer
 from controller_member_container import ControllerMemberContainer
 from controller_task_container import ControllerTaskContainer
-'''
-import model_attendance_container
-'''
+
+from model_attendance_container import ModelAttendanceContainer
 from model_member_container import ModelMemberContainer
 from model_task_container import ModelTaskContainer
-'''
+
 import dao_attendance
-'''
 import dao_member
 import dao_task
 
 from controller_admin import ControllerAdmin
-
 from controller_mentor import ControllerMentor
 from controller_office import ControllerOffice
 from controller_student import ControllerStudent
 
 import view_root
 from model_root import ModelRoot
-
-import controller_admin
 
 class ControllerRoot:
 
@@ -92,8 +85,8 @@ class ControllerRoot:
         self.associated_model.container_member = member_container
 
         # load tasks
-        task_dao = dao_task.DAOTask("tasks.csv")
-        task_object_collection = dao_task.import_data()
+        task_dao = dao_task.DAOTask()
+        task_object_collection = task_dao.import_data()
         # initialize task container object
         task_container = ModelTaskContainer()
         for task in task_object_collection:
@@ -102,19 +95,18 @@ class ControllerRoot:
 
         # uncomment below when appropriate DAOs are implemented
         self.associated_model.container_attendance = ModelAttendanceContainer() # empty
-        '''
+
         # load attendance
-        attendance_dao = dao_attendance.DAOAttendance("attendance.csv")
-        attendance_object_collection = dao_attendance.import_data()
+        attendance_dao = dao_attendance.DAOAttendance()
+        attendance_object_collection = attendance_dao.import_data()
         # initialize attendance container object
         attendance_container = ModelAttendanceContainer()
         for attendance in attendance_object_collection:
-            attendance_container.add_user_attendance(attendance)
+            attendance_container.add_student_attendance(attendance)
         self.associated_model.container_attendance = attendance_container
-        '''
 
     def initial_admin_creation(self):
-        ctrl_admin = controller_admin.ControllerAdmin(None, None)
+        ctrl_admin = ControllerAdmin(None, None)
         return ctrl_admin.create_first_admin()
 
     def start(self):
