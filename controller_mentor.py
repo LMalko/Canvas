@@ -66,9 +66,9 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "10":
                     self.get_attendance_display()
                 elif user_input == "11":
-                    self.view.display_collection(self.get_random_student_group())  
+                    self.view.display_collection(self.get_random_student_group())
                 elif user_input == "12":
-                    self.view.display_collection(self.get_random_student_group(4)) 
+                    self.view.display_collection(self.get_random_student_group(4))
                 elif user_input == "13":
                     to_continue = False
 
@@ -79,7 +79,8 @@ class ControllerMentor(ControllerUser):
         self.controller_task_container.grade_task()
 
     def add_task(self):
-        self.controller_task_container.create_and_deploy_task()
+        target_group = self.controller_member_container.get_students_by_group()
+        self.controller_task_container.create_and_deploy_task(target_group)
 
     def edit_task(self):
         self.controller_task_container.rename_task()
