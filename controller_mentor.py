@@ -147,8 +147,7 @@ class ControllerMentor(ControllerUser):
         return ModelMentor(*args)
 
     def get_random_student_group(self, size=2):
-        #students = [x for x in self.controller_member_container if x.role == 'student']
-        students = [1,2,3,4,5,6,7,8,9,11,12,13,14,15]
+        students = [x for x in self.controller_member_container if x.role == 'student']
         shuffle(students)
         groups_of_two = list(zip_longest([member.name for member in students
                              if students.index(member) % 2 == 0],
@@ -162,6 +161,3 @@ class ControllerMentor(ControllerUser):
                     list(zip([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
                          [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0]))]
         return "No such option"
-a = ControllerMentor(1,2,3,4)
-print(a.get_random_student_group())
-
