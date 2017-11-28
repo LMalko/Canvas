@@ -1,6 +1,6 @@
 class ModelTask():
 
-    def __init__(self, name, task_ID, user_ID, grade=None, is_done=False, is_graded=False):
+    def __init__(self, name, task_ID, user_ID, grade=None, is_done=0, is_graded=0):
 
         self.name = name
         self.task_ID = task_ID
@@ -11,14 +11,14 @@ class ModelTask():
 
     def change_delivery_status(self):
 
-        self.is_done = not self.is_done
-        if self.is_done == False:
+        self.is_done = 1 if not self.is_done else 0
+        if self.is_done == 0:
             self.grade = None
-            self.is_graded == False
+            self.is_graded = 0
 
     def mark_as_graded(self):
 
-        self.is_graded = True
+        self.is_graded = 1
 
     def rename_task(self, new_name):
 
@@ -38,11 +38,9 @@ class ModelTask():
         return self.name
 
     def task_display(self):
-
-        return "Task: '{}' of ID number: {} assignet to user: {} has earned a grade of {}.".format(self.name,
-                                                                                                   self.task_ID,
-                                                                                                   self.user_ID,
-                                                                                                   self.grade)
+        done = 'DELIVERED' if self.is_done else 'NOT DELIVERED'
+        return "Task: '{}', ID: {}, student: {}, grade {}, status: {}".format(self.name, self.task_ID, self.user_ID, self.grade, done)
+    
     def get_data_to_export(self):
         return [self.name,
                 self.task_ID,
@@ -51,5 +49,9 @@ class ModelTask():
                 str(self.is_done),
                 str(self.is_graded)]
 
-    def get_task_by_id(self):
-        return "{} : {}".format(self.task_ID, self.name)
+    def get_student_task_display(self):
+        done = 'DELIVERED' if self.is_done else 'NOT DELIVERED'
+        return "Task: '{}', ID: {}, grade {}, status: {}".format(self.name, self.task_ID, self.grade, done)
+    
+    def get_task_display(self):
+        return "{}: {}".format(self.task_ID, self.name)
