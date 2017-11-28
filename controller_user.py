@@ -1,5 +1,5 @@
-from model_user import *
-from view_user import *
+from model_user import ModelUser
+from view_user import ViewUser
 
 
 class ControllerUser():
