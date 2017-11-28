@@ -31,9 +31,12 @@ class ControllerMemberContainer():
     def get_members_by_role(self, role):
         self.view_member_container.clear_screen()
         all_members = self.member_container.get_all_members()
-        self.view_member_container.display_collection([self.model_member_container.get_member_display(user)
-                                                       for user in all_members if user.role == role])
-        self.view_member_container.freeze_until_key_pressed("\n\nJeśli skończyłeś juz patrzeć to wciśnij coś.\n")
+        all_members_by_role = [member for member in all_members if member.role == role]
+        
+        # self.view_member_container.display_collection([self.model_member_container.get_member_display(member)
+        #                                                for member in all_members_by_role])
+        # self.view_member_container.freeze_until_key_pressed("\n\nJeśli skończyłeś juz patrzeć to wciśnij coś.\n")
+        return all_members_by_role
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
