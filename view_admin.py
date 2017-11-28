@@ -8,3 +8,5 @@ class ViewAdmin(ViewUser):
 
     def take_user_input(self, message):
         return input(message)
+
+    
