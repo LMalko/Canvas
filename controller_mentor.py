@@ -27,14 +27,15 @@ class ControllerMentor(ControllerUser):
                    "2: Edit student",
                    "3: Add student",
                    "4: Remove student",
-                   "5: View task list"
-                   "6: Grade task",
-                   "7: Add task",
-                   "8: Edit task",
-                   "9: Check attendance",
-                   "10: Get random groups of two",
-                   "11: Get random groups of four",
-                   "12: Log out"]
+                   "5: View task list"#
+                   "6: Grade task",#
+                   "7: Add task",#
+                   "8: Edit task",#
+                   "9: Grade student's attendance"
+                   "10: Check attendance",#
+                   "11: Get random groups of two",
+                   "12: Get random groups of four",
+                   "13: Log out"]
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
@@ -61,12 +62,14 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "8":
                     pass
                 elif user_input == "9":
-                    self.check_attendance()
+                    pass
                 elif user_input == "10":
-                    self.view.display_collection(self.get_random_student_group())  
+                    pass
                 elif user_input == "11":
-                    self.view.display_collection(self.get_random_student_group(4)) 
+                    self.view.display_collection(self.get_random_student_group())  
                 elif user_input == "12":
+                    self.view.display_collection(self.get_random_student_group(4)) 
+                elif user_input == "13":
                     to_continue = False
 
     def create_mentor(self, first_name, last_name, password, my_group):
@@ -122,6 +125,9 @@ class ControllerMentor(ControllerUser):
     def check_attendance(self):
         pass
         ###################################################DO ZROBIEBNIA
+
+    def grade_attendance(self):
+        pass
 
     def remove_student(self):
         self.view.display_message("\n\nLet's get rid of student! It's always fun !! :D\n\n")
