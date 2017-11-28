@@ -1,32 +1,68 @@
 from model_task import*
 from model_attendance_container import*
 from view_controller_task_container import*
-from controller_student import *
+from controller_user import*
 
 class ControllerTaskContainer():
 
-    def __init__(self, container_member, container_task):
+    def __init__(self, container_task):  # container_member wrzucić do inita, jeśli bedziepotrzebny w deployment 
         self.container_task = container_task
         self.view_task_container = ViewControllerTaskContainer()
-        self.ctrl_student = ControllerStudent()
+        self.ctrl_user = ControllerUser
 
     def add_task_to_container(self, task):
         self.container_task.add_task(task)
 
     def del_task_from_container(self):
-        self.container_task.del_task()  ## dokończyć
+        task = self.take_and_validate_particulat_task_choice()
+        self.container_task.del_task(task)
 
     def change_task_delivery_status(self):
-        pass
+        task = self.take_and_validate_particulat_task_choice()
+        task.change_delivery_status()
 
-    def change_task_graded_status(self):
-        pass
+    def grade_task(self):
+        task = self.take_and_validate_particulat_task_choice()
+        possible_grades = ['-3', '0', '4', '7', '10', '12']
 
-    def change_task_grade(self):
-        pass
+        invalid_input = True
+        while invalid_input:
+            grade = self.view_task_container.get_user_input("Pass tasks grade: ")
+            if grade in possible_grades:
+                task.mark_as_graded()
+                task.set_grade(grade)
+                invalid_input = False
 
     def rename_task(self):
+        chosen_task_id = self.take_and_validate_task_id_choice()
+        new_task_name = self.get_valid_input("Pass new task name: ")
+
+        all_tasks = self.container_task.get_all_tasks()
+        for task in all_tasks:
+            if task.get_task_id() == chosen_task_id:
+                task.rename_task(new_task_name)
+
+    def create_and_deploy_task(self):
+        task_id = self.get_max_task_id
+        task_name = self.get_valid_input("Pass tasks name: ")
+        target_group = self.get_target_group_for_task_deployment()  #zt listę obiektów studentów DOKOŃCZYĆ!!!
+        
+        for student in target_group:
+            student_id = self.ctrl_user.get_member_id(student)
+            self.add_task_to_container(ModelTask(task_name, task_id, student_id))
+
+    def get_target_group_for_task_deployment(self):
+        #### z members container gest students group, wybieranie grupy już tam, zt listę obiektów studentów danej grupy
         pass
+    
+    def get_valid_input(self, message):
+        invalid_input = True
+        while invalid_input:
+            user_input = self.view_task_container.get_user_input(message)
+            if len(user_input.strip()) != 0:
+                invalid_input = False
+
+        return user_input
 
     def get_max_task_id(self):
         all_tasks = self.container_task.get_all_tasks()
@@ -35,44 +71,57 @@ class ControllerTaskContainer():
             all_id.append(int(task.get_task_id()))
         return "{:0>4}".format(max(all_id)+1)
 
-    def __get_task(self):
-        pass
-
-    def get_taks_id(self):
-        pass
-
-    def create_task(self):
-        task_id = self.get_max_task_id
-        task_name = self.get_valid_input()
-        target_group = self.get_target_group_for_task_deployment()  #zt listę obiektów studentów DOKOŃCZYĆ!!!
-        for student in target_group:
-            student_id = self.ctrl_student.get_member_id(student)
-            self.add_task_to_container(ModelTask(task_name, task_id, student_id))
-
-    def get_target_group_for_task_deployment(self):
-        #### z members container gest students group, wybieranie grupy już tam, zt listę obiektów studentów danej grupy
-        pass
-    
-    def get_valid_input(self, user_input):
+    def get_task_by_id(self):
+        all_tasks = self.container_task.get_all_tasks()
+        tasks_by_id = []
         
-        invalid_input = True
-        while invalid_input:
-            user_input = self.view_task_container.get_user_input()
-            if len(user_input.strip()) != 0:
-                invalid_input = False
+        for task in all_tasks:
+            tasks_by_id.append(task.get_task_by_id())
 
-        return user_input
+        return sorted(list(set(tasks_by_id)))
+
+    def take_and_validate_task_id_choice(self):
+        all_tasks = self.container_task.get_all_tasks()
+
+        invalid_choice = True
+        while invalid_choice:
+            self.view_task_container.display_collection(self.get_task_by_id())
+            user_choice = self.view_task_container.get_user_input("Choose task by id: ")
+            for task in all_tasks:
+                if task.get_task_id() == user_choice:
+                    invalid_choice = False
+                    break
+        return user_choice
+
+    def take_and_validate_particulat_task_choice(self):
+        all_tasks = self.container_task.get_all_tasks()
+
+        chosen_task = None
+        invalid_choice = True
+        while invalid_choice:
+            for task in all_tasks:
+                self.view_task_container.display_message(task.task_display())
+
+            task_id_choice = self.view_task_container.get_user_input("Choose task by task id: ")
+            user_id_choice = self.view_task_container.get_user_input("Choose task by user id: ")
+            for task in all_tasks:
+                if (task.get_task_id() == task_id_choice) & (task.get_user_id() == user_id_choice):
+                    chosen_task = task
+                    invalid_choice = False
+                    break
+        return chosen_task
 
 
-        
-###
-# + __get_task(task_id): ModelTask  #
-# + task_display(): str
-# + all_tasks_display(): list
-# + certain_student_tasks_display(): list
-# + certain_task_students_display(): list
+from dao_task import *
+from model_task_container import*
+dao = DAOTask()
+mtc = ModelTaskContainer()
+mtc.task_container = dao.import_data()
+view = ViewControllerTaskContainer
 
-# ###
-# +rename_task(ModelTask):None
-# +get_task_id(ModelTask):str/int
-# +task_display(ModelTask):str
+ctrl_task_cont = ControllerTaskContainer(mtc)
+print(ctrl_task_cont.del_task_from_container())
+
+all_tasks = ctrl_task_cont.container_task.get_all_tasks()
+for task in all_tasks:
+    print(task.task_display())

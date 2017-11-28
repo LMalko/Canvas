@@ -9,9 +9,9 @@ class ModelTask():
         self.is_done = is_done
         self.is_graded = is_graded
 
-    def mark_as_done(self):
+    def change_delivery_status(self):
 
-        self.is_done = True
+        self.is_done = not self.is_done
 
     def mark_as_graded(self):
 
@@ -27,7 +27,13 @@ class ModelTask():
 
     def get_task_id(self):
         return self.task_ID
-    
+
+    def get_user_id(self):
+        return self.user_ID
+
+    def get_task_name(self):
+        return self.name
+
     def task_display(self):
 
         return "Task: '{}' of ID number: {} assignet to user: {} has earned a grade of {}.".format(self.name,
@@ -41,3 +47,6 @@ class ModelTask():
                 str(self.grade),
                 str(self.is_done),
                 str(self.is_graded)]
+
+    def get_task_by_id(self):
+        return "{} : {}".format(self.task_ID, self.name)
