@@ -10,12 +10,11 @@ from random import shuffle
 
 class ControllerMentor(ControllerUser):
 
-    def __init__(
-                    self,
-                    user,
-                    attendance_container,
-                    member_container,
-                    task_container):
+    def __init__(self,
+                 user,
+                 attendance_container,
+                 member_container,
+                 task_container):
         self.associated_user = user
         self.view = ViewMentor()
         self.controller_task_container = ControllerTaskContainer(task_container)
@@ -94,14 +93,14 @@ class ControllerMentor(ControllerUser):
         continue
 
     def view_grades(self):
-        pass
+        ###################################################DO ZROBIEBNIA
 
     def get_members_display(self, members):
         for person in members:
             self.view.display_message(self.controller_user.get_member_display(person))
 
     def grade_task(self):
-        pass
+        ###################################################DO ZROBIEBNIA
 
     def add_student(self):
         self.view.display_message("\n\nLet's recruit student..\n\n")
@@ -120,6 +119,7 @@ class ControllerMentor(ControllerUser):
 
     def check_attendance(self):
         pass
+        ###################################################DO ZROBIEBNIA
 
     def remove_student(self):
         self.view.display_message("\n\nLet's get rid of student! It's always fun !! :D\n\n")
