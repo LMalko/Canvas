@@ -53,7 +53,7 @@ class ControllerAdmin(ControllerUser):
         self.view.display_message("\n\nLet's release Mentor..\n\n")
         self.get_members_display(self.controller_member_container.get_members_by_role('mentor'))
         mentor_to_release = self.controller_member_container.get_user()
-        self.controller_member_container.remove(mentor_to_release)
+        self.controller_member_container.member_container.remove(mentor_to_release)
         self.view.display_message("\n\nDone !!!\n\n")
 
     def edit_mentor(self):
