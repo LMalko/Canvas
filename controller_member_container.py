@@ -9,6 +9,14 @@ class ControllerMemberContainer():
         self.view_member_container = ViewMemberContainer()
         self.model_member_container = ModelMemberContainer()
 
+    def get_user(self):
+        while True:
+            user_id = view.get_user_input("Choose by id: ")
+            user = self.get_member(user_id)
+            if user is not None:
+                return user
+            self.view.display_message("No such user. Try again.")
+
     def get_new_ID(self):
         return str(max([int(user.uid) for user in self.member_container.get_all_members()]) + 1)
 

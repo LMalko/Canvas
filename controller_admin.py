@@ -12,7 +12,6 @@ class ControllerAdmin(ControllerUser):
         self.controller_member_container = ControllerMemberContainer(member_container)
         self.view = ViewAdmin()
         self.controller_mentor = ControllerMentor(None, None, member_container, None)
-        self.controller_user = ControllerUser()
 
     def start(self):
         self.view.clear_screen()
@@ -53,7 +52,7 @@ class ControllerAdmin(ControllerUser):
     def remove_mentor(self):
         self.view.display_message("\n\nLet's release Mentor..\n\n")
         self.get_members_display(self.controller_member_container.get_members_by_role('mentor'))
-        mentor_to_release = self.controller_user.get_user()
+        mentor_to_release = self.controller_member_container.get_user()
         self.controller_member_container.remove(mentor_to_release)
         self.view.display_message("\n\nDone !!!\n\n")
 
