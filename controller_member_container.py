@@ -15,7 +15,7 @@ class ControllerMemberContainer():
             user = self.get_member(user_id)
             if user is not None:
                 return user
-            self.view.display_message("No such user. Try again.")
+            self.view_member_container.freeze_until_key_pressed("No such user. Try again.")
 
     def get_new_ID(self):
         return str(max([int(user.uid) for user in self.member_container.get_all_members()]) + 1)
@@ -33,7 +33,7 @@ class ControllerMemberContainer():
         all_members = self.member_container.get_all_members()
         self.view_member_container.display_collection([self.model_member_container.get_member_display(user)
                                                        for user in all_members if user.role == role])
-        return self.view_member_container.take_user_input("\n\nJeśli skończyłeś juz patrzeć to wciśnij coś.\n")
+        self.view_member_container.freeze_until_key_pressed("\n\nJeśli skończyłeś juz patrzeć to wciśnij coś.\n")
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
