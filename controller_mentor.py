@@ -27,12 +27,12 @@ class ControllerMentor(ControllerUser):
                    "2: Edit student",
                    "3: Add student",
                    "4: Remove student",
-                   "5: View task list",
+                   "5: Search task by ID",
                    "6: Grade task",
                    "7: View grades for task",
                    "8: Add task",
                    "9: Edit task",
-                   "10: Check today's attendance",
+                   "10: Grade today's attendance",
                    "11: Check attendance",
                    "12: Get random groups of two",
                    "13: Get random groups of four",
@@ -55,19 +55,19 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "4":
                     self.remove_student()
                 elif user_input == "5":
-                    pass
+                    self.get_task_display()
                 elif user_input == "6":
-                    pass
+                    self.def grade_task()
                 elif user_input == "7":
-                    pass
+                    self.get_grades_for_task_display()
                 elif user_input == "8":
-                    pass
+                    self.add_task()
                 elif user_input == "9":
-                    pass
+                    self.edit_task()
                 elif user_input == "10":
-                    pass
+                    self.grade_attendance()
                 elif user_input == "11":
-                    pass
+                    self.get_attendance_display()
                 elif user_input == "12":
                     self.view.display_collection(self.get_random_student_group())  
                 elif user_input == "13":
@@ -96,28 +96,24 @@ class ControllerMentor(ControllerUser):
             elif student_detail_to_change == "3":
                 return self.controller_user.change_password(self.controller_user.get_member_id(student_to_change))
             self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
-        continue
 
-    def get_task_display(self):
-        pass
+    def get_task_by_id(self):
+        self.controller_task_container.take_and_validate_particulat_task_choice()
 
     def grade_task(self):
-        pass
+        self.controller_task_container.grade_task()
 
     def add_task(self):
-        pass
+        self.controller_task_container.create_and_deploy_task()
 
     def edit_task(self):
-        pass
+        self.controller_task_container.rename_task()
 
     def grade_attendance(self):
-            pass
+        self.controller_attendance_container.add_student_attendance()
 
-    def get_grades_display(self):
-        pass
-    
     def get_attendance_display(self):
-        pass
+        self.view.display_collection(self.controller_attendance_container.get_all_students_attendance())
 
     def get_members_display(self, members):
         for person in members:
