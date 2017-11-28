@@ -9,7 +9,7 @@ from random import shuffle
 
 
 class ControllerMentor(ControllerUser):
-container_task
+
     def __init__(self,
                  user,
                  attendance_container,
