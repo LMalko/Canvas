@@ -15,16 +15,3 @@ class ModelMentor(ModelUser):
 
     def get_data_for_export(self):
         return [self.role, self.uid, self.first_name, self.last_name, self.password, self.my_group]
-
-    def get_menu_options(self):
-        return ["1: View student list",
-                "2: Edit student",
-                "3: Add student",
-                "4: View task list"
-                "5: Grade task",
-                "6: Add task",
-                "7: Edit task",
-                "8: Check attendance",
-                "9: Get random groups of two",
-                "10: Get random groups of four",
-                "11: Log out"]
