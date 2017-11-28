@@ -28,7 +28,7 @@ class ControllerAdmin(ControllerUser):
                 if __user_input == '1':
                     self.add_mentor()
                 elif __user_input == '2':
-                    self.view_mentor_list()
+                    self.get_members_display(ControllerMemberContainer.get_members_by_role('mentor'))
                 elif __user_input == '3':
                     self.remove_mentor()
                 elif __user_input == '4':
