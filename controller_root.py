@@ -93,7 +93,7 @@ class ControllerRoot:
 
         # load tasks
         task_dao = dao_task.DAOTask("tasks.csv")
-        task_object_collection = dao_task.import_data()
+        task_object_collection = task_dao.import_data()
         # initialize task container object
         task_container = ModelTaskContainer()
         for task in task_object_collection:
