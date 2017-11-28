@@ -55,6 +55,7 @@ class ControllerAdmin(ControllerUser):
         self.get_members_display(self.controller_member_container.get_members_by_role('mentor'))
         mentor_to_release = self.controller_user.get_user()
         self.controller_member_container.remove(mentor_to_release)
+        self.view.display_message("\n\nDone !!!\n\n")
 
     def edit_mentor(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
