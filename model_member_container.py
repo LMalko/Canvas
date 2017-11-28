@@ -11,3 +11,6 @@ class ModelMemberContainer():
 
     def get_all_members(self):
         return self.members
+
+    def get_member_display(self, member):
+        return "{} {} {} {}".format("{:>4}".format(member.uid), member.first_name, member.last_name, member.role)

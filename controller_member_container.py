@@ -1,4 +1,5 @@
 from view_member_container import ViewMemberContainer
+from model_member_container import ModelMemberContainer
 
 
 class ControllerMemberContainer():
@@ -6,6 +7,7 @@ class ControllerMemberContainer():
     def __init__(self, member_container_object):
         self.member_container = member_container_object
         self.view_member_container = ViewMemberContainer()
+        self.model_member_container = ModelMemberContainer()
 
     def get_new_ID(self):
         return str(max([int(user.uid) for user in self.member_container.get_all_members()]) + 1)
@@ -17,7 +19,9 @@ class ControllerMemberContainer():
 
     def get_members_by_role(self, role):
         all_members = self.member_container.get_all_members()
-        return [user for user in all_members if user.role == role]
+        self.view_member_container.display_collection([self.model_member_container.get_member_display(user)
+                                                       for user in all_members if user.role == role])
+        return self.view_member_container.take_user_input("\n\nWciśnij, jeśli już")
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
