@@ -29,7 +29,7 @@ class ControllerAdmin(ControllerUser):
                 if user_input == "1":
                     self.add_mentor()
                 elif user_input == "2":
-                    self.get_members_display(self.controller_member_container.get_members_by_role('mentor'))
+                    self.controller_member_container.get_members_by_role('mentor')
                 elif user_input == "3":
                     self.remove_mentor()
                 elif user_input == "4":
@@ -50,14 +50,14 @@ class ControllerAdmin(ControllerUser):
         self.view.clear_screen()
         self.view.display_message("\n\nMentor hired..\n\n")
         self.controller_member_container.add_member(user)
-        self.view.get_user_input("\nPress anything to continue.")
+        self.view.freeze_until_key_pressed("\nPress anything to continue.")
 
     def remove_mentor(self):
         self.view.display_message("\n\nLet's release Mentor..\n\n")
-        self.get_members_display(self.controller_member_container.get_members_by_role('mentor'))
+        self.controller_member_container.get_members_by_role('mentor')
         mentor_to_release = self.controller_member_container.get_user()
         self.controller_member_container.delete_member(mentor_to_release)
-        self.view.take_user_input("Done !! Press anything to continue.")
+        self.view.freeze_until_key_pressed("Done !! Press anything to continue.")
 
     def edit_mentor(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
