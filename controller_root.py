@@ -75,7 +75,7 @@ class ControllerRoot:
 
     def initialize_containers(self):
         # load members
-        member_dao = dao_member.DAOMember("data.csv")
+        member_dao = dao_member.DAOMember()
         member_object_collection = member_dao.import_data()
         # initialize member container object
         member_container = ModelMemberContainer()
