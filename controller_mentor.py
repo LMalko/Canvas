@@ -69,8 +69,8 @@ class ControllerMentor(ControllerUser):
 
     def create_mentor(self, first_name, last_name, password, my_group):
         '''Return ModelMentor object.'''
-        __uid = self.controller_member_container.get_new_ID()
-        return ModelMentor(__uid, first_name, last_name, password, my_group)
+        uid = self.controller_member_container.get_new_ID()
+        return ModelMentor(uid, first_name, last_name, password, my_group)
 
     def view_grades(self):
         pass
@@ -92,7 +92,11 @@ class ControllerMentor(ControllerUser):
         pass
 
     def remove_student(self):
-        pass
+        self.view.display_message("\n\nLet's get rid of student! It's always fun !! :D\n\n")
+        self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+        student_to_release = self.controller_user.get_user()
+        self.controller_member_container.remove(student_to_release)
+        self.view.display_message("\n\nDone !!!\n\n")
 
     @classmethod
     def get_controller_model_pair(cls):
