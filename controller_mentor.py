@@ -29,14 +29,13 @@ class ControllerMentor(ControllerUser):
                    "4: Remove student",
                    "5: Search task by ID",
                    "6: Grade task",
-                   "7: View grades for task",
-                   "8: Add task",
-                   "9: Edit task",
-                   "10: Grade today's attendance",
-                   "11: Check attendance",
-                   "12: Get random groups of two",
-                   "13: Get random groups of four",
-                   "14: Log out"]
+                   "7: Add task",
+                   "8: Edit task",
+                   "9: Grade today's attendance",
+                   "10: Check attendance",
+                   "11: Get random groups of two",
+                   "12: Get random groups of four",
+                   "13: Log out"]
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
@@ -55,47 +54,23 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "4":
                     self.remove_student()
                 elif user_input == "5":
-                    self.get_task_display()
+                    self.get_task_by_id()
                 elif user_input == "6":
                     self.grade_task()
                 elif user_input == "7":
-                    self.get_grades_for_task_display()
-                elif user_input == "8":
                     self.add_task()
-                elif user_input == "9":
+                elif user_input == "8":
                     self.edit_task()
-                elif user_input == "10":
+                elif user_input == "9":
                     self.grade_attendance()
-                elif user_input == "11":
+                elif user_input == "10":
                     self.get_attendance_display()
-                elif user_input == "12":
+                elif user_input == "11":
                     self.view.display_collection(self.get_random_student_group())  
-                elif user_input == "13":
+                elif user_input == "12":
                     self.view.display_collection(self.get_random_student_group(4)) 
-                elif user_input == "14":
+                elif user_input == "13":
                     to_continue = False
-
-    def create_mentor(self, first_name, last_name, password, my_group):
-        uid = self.controller_member_container.get_new_ID()
-        return ModelMentor(uid, first_name, last_name, password, my_group)
-
-    def edit_student_details():
-        self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
-        while True:
-            self.get_members_display(self.controller_member_container.get_members_by_role('student'))
-            student_to_change = self.controller_user.get_user()
-            if student_to_change in [user for user in self.controller_member_container.get_members_by_role('student')]:
-                break
-            self.view.display_message("\n\nThis user is not a student!\n")
-        while True:
-            student_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ?")
-            if student_detail_to_change == "1":
-                return self.controller_user.change_first_name(self.controller_user.get_member_id(student_to_change))
-            elif student_detail_to_change == "2":
-                return self.controller_user.change_last_name(self.controller_user.get_member_id(student_to_change))
-            elif student_detail_to_change == "3":
-                return self.controller_user.change_password(self.controller_user.get_member_id(student_to_change))
-            self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
 
     def get_task_by_id(self):
         self.controller_task_container.take_and_validate_particulat_task_choice()
@@ -118,6 +93,28 @@ class ControllerMentor(ControllerUser):
     def get_members_display(self, members):
         for person in members:
             self.view.display_message(self.controller_user.get_member_display(person))
+
+    def create_mentor(self, first_name, last_name, password, my_group):
+        uid = self.controller_member_container.get_new_ID()
+        return ModelMentor(uid, first_name, last_name, password, my_group)
+
+    def edit_student_details():
+        self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
+        while True:
+            self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+            student_to_change = self.controller_user.get_user()
+            if student_to_change in [user for user in self.controller_member_container.get_members_by_role('student')]:
+                break
+            self.view.display_message("\n\nThis user is not a student!\n")
+        while True:
+            student_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ?")
+            if student_detail_to_change == "1":
+                return self.controller_user.change_first_name(self.controller_user.get_member_id(student_to_change))
+            elif student_detail_to_change == "2":
+                return self.controller_user.change_last_name(self.controller_user.get_member_id(student_to_change))
+            elif student_detail_to_change == "3":
+                return self.controller_user.change_password(self.controller_user.get_member_id(student_to_change))
+            self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
 
     def add_student(self):
         self.view.display_message("\n\nLet's recruit student..\n\n")
