@@ -6,7 +6,9 @@ import controller_member_container
 import controller_task_container
 
 import model_attendance_container
+'''
 import model_member_container
+'''
 import model_task_container
 
 import dao_attendance
@@ -86,8 +88,13 @@ class ControllerRoot:
     def initialize_containers(self):
         # load members
         member_dao = dao_member.DAOMember("data.csv")
-        members = member_dao.import_data()
-        self.associated_model.container_member = members
+        member_object_collection = member_dao.import_data()
+        # initialize member container object
+        member_container = ModelMemberContainer()
+        for member in member_object_collection:
+            member_container.add_member(member)
+
+        self.associated_model.container_member = member_container
         # uncomment below when appropriate DAOs are implemented
         '''
         # load attendance
@@ -99,7 +106,6 @@ class ControllerRoot:
         tasks = dao_task.import_data()
         self.associated_model.container_task = tasks
         '''
-        # self.associated_model.container_member = [] # we assume emptiness for now
         self.associated_model.container_task = []
         self.associated_model.container_attendance = []
 
