@@ -5,7 +5,7 @@ from controller_user import *
 
 class ControllerOffice(ControllerUser):
 
-    def __init__(self, user, attendance_container, member_container, task_container):
+    def __init__(self, user, member_container):
         self.associated_user = user
         self.view = ViewOffice()
         self.controller_member_container = ControllerMemberContainer(member_container)
