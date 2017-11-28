@@ -29,10 +29,10 @@ class ControllerStudent(ControllerUser):
 
     def get_my_group(self, student):
         return student.get_my_group()
-    
+
     @classmethod
     def get_controller_model_pair(cls):
-        return {cls:ModelStudent}
+        return {cls: ModelStudent}
 
     @classmethod
     def create_user_from_imported_data(cls, *args):
