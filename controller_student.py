@@ -31,11 +31,8 @@ class ControllerStudent(ControllerUser):
                     to_continue = False
 
     def submit_task(self):
-        pass
-        # widoki
-        # self.view.display()  # temp!!!
-        # self.self.controller_task_container.change_delivery_status()  # którego zadania??
-        # self.view.display()  # temp!!!
+metoda z kontroler pokaz taski
+metoda zmien status na wyslane
 
     def view_grades(self):
         pass
