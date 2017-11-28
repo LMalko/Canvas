@@ -16,39 +16,38 @@ class ControllerAdmin(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        __choices = ['1: Add mentor', '2: View mentors list', '3: Release Mentor', '4: Log out']
-        __correct_choices = [str(x+1) for x in range(1, len(__choices))]
-        __message = '\nPlease, type Your choice: '
-        __to_continue = True
-        while __to_continue:
-            __user_input = ''
-            while __user_input not in __correct_choices:
+        choices = ['1: Add mentor', '2: View mentors list', '3: Release Mentor', '4: Log out']
+        correct_choices = [str(x+1) for x in range(1, len(choices))]
+        message = '\nPlease, type Your choice: '
+        to_continue = True
+        while to_continue:
+            user_input = ''
+            while user_input not in correct_choices:
                 self.view.clear_screen()
-                self.view.display_collection(__choices)
-                __user_input = self.view.get_user_input(__message)
-                if __user_input == '1':
+                self.view.display_collection(choices)
+                user_input = self.view.get_user_input(message)
+                if user_input == '1':
                     self.add_mentor()
-                elif __user_input == '2':
+                elif user_input == '2':
                     self.get_members_display(ControllerMemberContainer.get_members_by_role('mentor'))
-                elif __user_input == '3':
+                elif user_input == '3':
                     self.remove_mentor()
-                elif __user_input == '4':
-                    __to_continue = False
+                elif user_input == '4':
+                    to_continue = False
 
     def add_mentor(self):
         self.view.display_message("\n\nLet's hire Mentor..\n\n")
-        __user_inputs = []
-        __messages = ['Enter first name: ', 'Enter last name: ', 'Specify password: ', 'Specify group: ']
-        for statement in __messages:
-            __user_input = self.validate_input(statement)
-            __user_inputs.append(__user_input)
-        __user = self.controller_mentor.create_mentor(
-                                                    __user_inputs[0],
-                                                    __user_inputs[1],
-                                                    __user_inputs[2],
-                                                    __user_inputs[3])
+        user_inputs = []
+        messages = ['Enter first name: ', 'Enter last name: ', 'Specify password: ', 'Specify group: ']
+        for statement in messages:
+            user_input = self.validate_input(statement)
+            user_inputs.append(user_input)
+        user = self.controller_mentor.create_mentor(user_inputs[0],
+                                                    user_inputs[1],
+                                                    user_inputs[2],
+                                                    user_inputs[3])
         self.view.display_message("\n\nMentor hired..\n\n")
-        self.controller_member_container.add_member(__user)
+        self.controller_member_container.add_member(user)
         self.view.get_user_input('\nPress <enter> to continue.. ')
 
     def remove_mentor(self):
@@ -61,18 +60,18 @@ class ControllerAdmin(ControllerUser):
         self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
         while True:
             self.view_mentor_list()
-            _mentor_to_change = self.controller_user._get_user()
-            if _mentor_to_change in [user for user in self.controller_member_container.get_members_by_role('mentor')]:
+            mentor_to_change = self.controller_user._get_user()
+            if mentor_to_change in [user for user in self.controller_member_container.get_members_by_role('mentor')]:
                 break
             self.view.display_message("\n\nThis user is not mentor!\n")
         while True:
-            _mentor_detail_to_change = input("You need to change: first name (1), last name (2) or password (3) ?")
-            if _mentor_detail_to_change == "1":
-                return self.controller_user.change_first_name(self.controller_user.get_member_id(_mentor_to_change))
-            elif _mentor_detail_to_change == "2":
-                return self.controller_user.change_last_name(self.controller_user.get_member_id(_mentor_to_change))
-            elif _mentor_detail_to_change == "3":
-                return self.controller_user.change_password(self.controller_user.get_member_id(_mentor_to_change))
+            mentor_detail_to_change = input("You need to change: first name (1), last name (2) or password (3) ?")
+            if mentor_detail_to_change == "1":
+                return self.controller_user.change_first_name(self.controller_user.get_member_id(mentor_to_change))
+            elif mentor_detail_to_change == "2":
+                return self.controller_user.change_last_name(self.controller_user.get_member_id(mentor_to_change))
+            elif mentor_detail_to_change == "3":
+                return self.controller_user.change_password(self.controller_user.get_member_id(mentor_to_change))
             self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
             continue
 
