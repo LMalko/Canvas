@@ -11,7 +11,7 @@ class ControllerMemberContainer():
         return str(max([int(user.uid) for user in self.member_container]) + 1)
 
     def get_member(self, UID):
-        for user in self.member_container:
+        for user in self.member_container.get_all_members():
             if user.uid == UID:
                 return user
 
