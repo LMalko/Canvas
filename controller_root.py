@@ -106,7 +106,6 @@ class ControllerRoot:
         tasks = dao_task.import_data()
         self.associated_model.container_task = tasks
         '''
-        # self.associated_model.container_member = [] # we assume emptiness for now
         self.associated_model.container_task = []
         self.associated_model.container_attendance = []
 
