@@ -9,3 +9,5 @@ class ModelMemberContainer():
     def delete_member(self, user):
         self.members.remove(user)
 
+    def get_all_members(self):
+        return self.members
