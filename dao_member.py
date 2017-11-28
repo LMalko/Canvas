@@ -2,14 +2,12 @@ from model_admin import*
 from model_mentor import*
 from model_office import*
 from model_student import*
-from controller_user import*
 
 
 class DAOMember():
 
-    def __init__(self, filename='data.csv'):
+    def __init__(self, filename='member_data.csv'):
         self.filename = filename
-        self.ctrl_user = ControllerUser()
 
     def import_data(self):
         with open(self.filename, "r", encoding="utf-8") as myfile:
@@ -20,13 +18,13 @@ class DAOMember():
         imported_data = []
         for line in file_content:
             user_role, *args = line.strip().split('|')
-            if user_role == 'admin':
+            if user_role == ModelAdmin.get_role_attribute():
                 imported_data.append(ModelAdmin(*args))
-            elif user_role == 'mentor':
+            elif user_role == ModelMentor.get_role_attribute():
                 imported_data.append(ModelMentor(*args))
-            elif user_role == 'office':
+            elif user_role == ModelOffice.get_role_attribute():
                 imported_data.append(ModelOffice(*args))
-            elif user_role == 'student':
+            elif user_role == ModelStudent.get_role_attribute():
                 imported_data.append(ModelStudent(*args))
         
         return imported_data
@@ -40,7 +38,7 @@ class DAOMember():
     def __pack_data_for_export(self, users_collection):
         data_to_export = []
         for user in users_collection:
-            user_data = self.ctrl_user.get_user_data_to_export(user)
+            user_data = user.get_data_for_export()
             data_to_export.append("|".join(user_data) + '\n')
 
         return data_to_export

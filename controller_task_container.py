@@ -23,10 +23,16 @@ class ControllerTaskContainer():
                 print("Del index ", index)
                 self.container_task.del_task(all_tasks[index])
 
-    def change_task_delivery_status(self, student=None):
-        if student:
+    def get_student_tasks(self, student_id):
+        all_tasks = self.container_task.get_all_tasks()
+        all_users_tasks = self.cherry_pick_tasks_by_user_id(all_tasks, student_id)
+        for task in all_users_tasks:
+            self.view_task_container.display_message(task.get_student_task_display())
+
+    def change_task_delivery_status(self, student_id=None):
+        if student_id:
             all_tasks = self.container_task.get_all_tasks()
-            all_student_tasks = self.cherry_pick_tasks_by_user_id(all_tasks, student.get_id())
+            all_student_tasks = self.cherry_pick_tasks_by_user_id(all_tasks, student_id)
             task = self.take_and_validate_task_choice(all_student_tasks)
             task.change_delivery_status()
         else:
@@ -39,7 +45,7 @@ class ControllerTaskContainer():
 
         invalid_input = True
         while invalid_input:
-            grade = self.view_task_container.get_user_input("Pass tasks grade: ")
+            grade = self.view_task_container.get_valid_input("Pass tasks grade: ")
             if grade in possible_grades:
                 task.mark_as_graded()
                 task.set_grade(grade)
@@ -86,11 +92,11 @@ class ControllerTaskContainer():
         tasks_by_id = []
         
         for task in all_tasks:
-            tasks_by_id.append(task.get_task_display())
+            tasks_by_id.append(task.get_short_task_display())
         
         invalid_choice = True
         while invalid_choice:
-            self.view_task_container.display_collection(sorted(list(set(tasks_by_id))))
+            self.view_task_container.display_collection(sorted(list(set(tasks_by_id))))  # zamienic na fora, usunac collection z view
             user_choice = self.get_valid_input("Choose task by id: ")
             for task in all_tasks:
                 if task.get_task_id() == user_choice:
@@ -121,7 +127,7 @@ class ControllerTaskContainer():
         invalid_choice = True
         while invalid_choice:
             for task in all_tasks:
-                self.view_task_container.display_message(task.task_display())
+                self.view_task_container.display_message(task.get_mentor_task_display())
 
             task_id_choice = self.view_task_container.get_user_input("Choose task by task id: ")
             user_id_choice = self.view_task_container.get_user_input("Choose task by user id: ")
@@ -149,32 +155,20 @@ from controller_member_container import*
 
 dao_task = DAOTask()
 dao_members = DAOMember()
-
 mtc = ModelTaskContainer()
 mtc.task_container = dao_task.import_data()
-
 mmc = ModelMemberContainer()
 mmc.members = dao_members.import_data()
-
 ctrl_mc = ControllerMemberContainer(mmc)
-
 ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
 
+# target_group = ctrl_mc.get_students_by_group() póki nie działa
 student = ctrl_mc.get_member('0014')
+
+ctrl_task_cont.get_student_tasks('0014')
 # print('\n')
+# dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
 # all_tasks = ctrl_task_cont.container_task.get_all_tasks()
 # for task in all_tasks:
-#     print(task.task_display())
+#     print("{}".format(task.get_mentor_task_display()))
 # print('\n')
-# ctrl_task_cont.change_task_delivery_status(student)
-# print('\n')
-# ctrl_task_cont.change_task_delivery_status()
-
-ctrl_task_cont.create_and_deploy_task()
-ctrl_task_cont.del_task_from_container()
-print('\n')
-dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
-all_tasks = ctrl_task_cont.container_task.get_all_tasks()
-for task in all_tasks:
-    print("{}".format(task.task_display()))
-print('\n')
