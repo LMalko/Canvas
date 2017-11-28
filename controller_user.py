@@ -9,10 +9,10 @@ class ControllerUser():
         self.controller_member_container = ControllerMemberContainer()
         self.view = ViewUser()
 
-    def _get_user(self):
+    def get_user(self):
 
         while True:
-            user = self.view.get_user_input("Choose user by id: ")
+            user = self.view.get_user_input("Choose by ID: ")
             user = self.controller_member_container.get_member(UID)
             if user is not None:
                 return user
