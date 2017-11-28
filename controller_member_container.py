@@ -18,10 +18,11 @@ class ControllerMemberContainer():
                 return user
 
     def get_members_by_role(self, role):
+        self.view_member_container.clear_screen()
         all_members = self.member_container.get_all_members()
         self.view_member_container.display_collection([self.model_member_container.get_member_display(user)
                                                        for user in all_members if user.role == role])
-        return self.view_member_container.take_user_input("\n\nWciśnij, jeśli już")
+        return self.view_member_container.take_user_input("\n\nSkończyłeś już? To wciśnij jakiś klawisz.")
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
