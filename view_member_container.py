@@ -18,6 +18,6 @@ class ViewMemberContainer():
 
     def clear_screen(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-    
+
     def get_user_input(self, message):
         return input(message)
