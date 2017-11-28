@@ -16,7 +16,8 @@ class ControllerAdmin(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: Add mentor", "2: View mentors list", "3: Release Mentor", "4: Log out"]
+        choices = ["1: Add mentor", "2: View mentors list", "3: Release Mentor",
+                   "4: Edit mentor's details", "5: Log out"]
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
@@ -33,6 +34,8 @@ class ControllerAdmin(ControllerUser):
                 elif user_input == "3":
                     self.remove_mentor()
                 elif user_input == "4":
+                    self.edit_mentor()
+                elif user_input == "5":
                     self.view.clear_screen()
                     sys.exit()
 
@@ -60,27 +63,22 @@ class ControllerAdmin(ControllerUser):
         self.view.freeze_until_key_pressed("Done !! Press anything to continue.")
 
     def edit_mentor(self):
-        self.view.display_message("\n\nCongratulations, You have privilages to change mentor's details.\n")
+        self.controller_member_container.get_members_by_role('mentor')
         while True:
-            self.get_members_display(self.controller_member_container.get_members_by_role('mentor'))
-            mentor_to_change = self.controller_user.get_user()
+            mentor_to_change = self.controller_member_container.get_user()
             if mentor_to_change in [user for user in self.controller_member_container.get_members_by_role('mentor')]:
                 break
             self.view.display_message("\n\nThis user is not a mentor!\n")
         while True:
             mentor_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ?")
             if mentor_detail_to_change == "1":
-                return self.controller_user.change_first_name(self.controller_user.get_member_id(mentor_to_change))
+                return self.change_first_name(self.get_member_id(mentor_to_change))
             elif mentor_detail_to_change == "2":
-                return self.controller_user.change_last_name(self.controller_user.get_member_id(mentor_to_change))
+                return self.change_last_name(self.get_member_id(mentor_to_change))
             elif mentor_detail_to_change == "3":
-                return self.controller_user.change_password(self.controller_user.get_member_id(mentor_to_change))
+                return self.change_password(self.get_member_id(mentor_to_change))
             self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
             continue
-
-    def get_members_display(self, members):
-        for person in members:
-            self.view.display_message(self.controller_user.get_member_display(person))
 
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")
