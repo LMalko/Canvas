@@ -6,20 +6,21 @@ class ControllerUser():
 
     def __init__(self):
         self.view = ViewUser()
+        self.model = ModelUser()
 
     def change_first_name(self, UID):
         new_first_name = self.validate_input("Pass new first name: ")
-        user.set_first_name(new_name)
+        self.model.set_first_name(new_first_name)
         self.view.display_message("Name has been changed!")
 
     def change_last_name(self, UID):
         new_last_name = self.validate_input("Pass new last name: ")
-        user.set_last_name(new_last_name)
+        self.model.set_last_name(new_last_name)
         self.view.display_message("Last name has been changed!")
 
     def change_password(self, UID):
         new_password = self.validate_input("Pass new password (not shorter than 6 chars): ")
-        user.set_first_name(new_password)
+        self.model.set_first_name(new_password)
         self.view.display_message("Password has been changed!")
 
     def validate_input(self, message):
