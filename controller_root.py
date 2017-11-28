@@ -92,7 +92,7 @@ class ControllerRoot:
         self.associated_model.container_member = member_container
 
         # load tasks
-        task_dao = dao_task.DAOTask("tasks.csv")
+        task_dao = dao_task.DAOTask()
         task_object_collection = task_dao.import_data()
         # initialize task container object
         task_container = ModelTaskContainer()
