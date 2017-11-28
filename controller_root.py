@@ -109,7 +109,7 @@ class ControllerRoot:
         # initialize attendance container object
         attendance_container = ModelAttendanceContainer()
         for attendance in attendance_object_collection:
-            attendance_container.add_user_attendance(attendance)
+            attendance_container.add_student_attendance(attendance)
         self.associated_model.container_attendance = attendance_container
         '''
 
