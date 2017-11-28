@@ -27,14 +27,15 @@ class ControllerMentor(ControllerUser):
         choices = ["1: View student list",
                    "2: Edit student",
                    "3: Add student",
-                   "4: View task list"
-                   "5: Grade task",
-                   "6: Add task",
-                   "7: Edit task",
-                   "8: Check attendance",
-                   "9: Get random groups of two",
-                   "10: Get random groups of four",
-                   "11: Log out"]
+                   "4: Remove student",
+                   "5: View task list"
+                   "6: Grade task",
+                   "7: Add task",
+                   "8: Edit task",
+                   "9: Check attendance",
+                   "10: Get random groups of two",
+                   "11: Get random groups of four",
+                   "12: Log out"]
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
@@ -51,7 +52,7 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "3":
 
                 elif user_input == "4":
-
+                    self.remove_student()
                 elif user_input == "5":
 
                 elif user_input == "6":
@@ -59,24 +60,22 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "7":
 
                 elif user_input == "8":
-
+                    
                 elif user_input == "9":
-                    self.view.display_collection(self.get_random_student_group())  
+
                 elif user_input == "10":
-                    self.view.display_collection(self.get_random_student_group(4)) 
+                    self.view.display_collection(self.get_random_student_group())  
                 elif user_input == "11":
+                    self.view.display_collection(self.get_random_student_group(4)) 
+                elif user_input == "12":
                     to_continue = False
 
     def create_mentor(self, first_name, last_name, password, my_group):
-        '''Return ModelMentor object.'''
         uid = self.controller_member_container.get_new_ID()
         return ModelMentor(uid, first_name, last_name, password, my_group)
 
     def view_grades(self):
         pass
-        # self.view.display()  # temp!!!
-        # self.self.controller_task_container.change_delivery_status()  # którego zadania??
-        # self.view.display()  # temp!!!
 
     def get_members_display(self, members):
         for person in members:
@@ -86,7 +85,19 @@ class ControllerMentor(ControllerUser):
         pass
 
     def add_student(self):
-        pass
+        self.view.display_message("\n\nLet's recruit student..\n\n")
+        user_inputs = []
+        messages = ["Enter first name: ", "Enter last name: ", "Specify password: ", "Specify group: "]
+        for statement in messages:
+            user_input = self.validate_input(statement)
+            user_inputs.append(user_input)
+        user = self.controller_mentor.create_student(user_inputs[0],
+                                                     user_inputs[1],
+                                                     user_inputs[2],
+                                                     user_inputs[3])
+        self.view.display_message("\n\nStudent recruited..\n\n")
+        self.controller_member_container.add_member(user)
+        self.view.get_user_input("\nPress <enter> to continue.. ")
 
     def check_attendance(self):
         pass
