@@ -1,4 +1,5 @@
 import os
+import getpass
 
 
 class ViewRoot():
@@ -19,7 +20,7 @@ class ViewRoot():
         if _login == 'X':
             return ()
         while not _password:
-            _password = input(password_prompt)
+            _password = getpass.getpass(password_prompt)
         return _login, _password
 
     def display_message(self, message):
