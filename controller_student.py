@@ -33,11 +33,11 @@ class ControllerStudent(ControllerUser):
 
     def submit_task(self):
         self.controller_task_container.change_task_delivery_status( \
-            self.controller_user.get_member_id(associated_user))
+            self.controller_user.get_member_id(self.associated_user))
 
     def view_grades(self):
         self.controller_task_container.get_student_tasks( \
-            self.controller_user.get_member_id(associated_user))
+            self.controller_user.get_member_id(self.associated_user))
 
     def get_my_group(self, student):
         return student.get_my_group()
