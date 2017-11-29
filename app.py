@@ -7,6 +7,10 @@ class App():
         self.root = ControllerRoot()
 
 
-if __name__ == "__main__":
+def main():
     initialize_program = App()
     initialize_program.root.start()
+
+
+if __name__ == "__main__":
+    main()
