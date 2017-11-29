@@ -27,13 +27,14 @@ class ControllerMentor(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: View student list",
+        choices = [
+                   "1: View student list",
                    "2: Edit student",
                    "3: Add student",
                    "4: Remove student",
                    "5: Task menu",
                    "6: Grade today's attendance",
-                   "7: Check attendance",
+                   "7: Display attendance",
                    "8: Get random groups of two",
                    "9: Get random groups of four",
                    "10: Log out"]
@@ -63,23 +64,24 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "7":
                     self.get_attendance_display()
                 elif user_input == "8":
-                    self.view.display_collection(self.get_random_student_group())
+                    self.view.display_nested_collection(self.get_random_student_group())
                     self.view.freeze_until_key_pressed("Groups selected")
                 elif user_input == "9":
-                    self.view.display_collection(self.get_random_student_group(4))
+                    self.view.display_nested_collection(self.get_random_student_group(4))
                     self.view.freeze_until_key_pressed("Groups selected")
                 elif user_input == "10":
                     to_continue = False
 
     def tasks_menu(self):
-        choices = ['1. View all tasks',
-                    '2. View tasks by genre',
-                    '3. View tasks by student',
-                    '4. Add & deploy task',
-                    '5. Del task',
-                    '6. Rename task',
-                    '7. Grade task',
-                    '0. Exit']
+        choices = [
+                    "1. View all tasks",
+                    "2. View tasks by genre",
+                    "3. View tasks by student",
+                    "4. Add & deploy task",
+                    "5. Delete task",
+                    "6. Rename task",
+                    "7. Grade task",
+                    "0. Exit"]
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -227,10 +229,10 @@ class ControllerMentor(ControllerUser):
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container.get_all_members() if x.role == 'student']
         shuffle(students)
-        groups_of_two = list(zip_longest([member.uid + member.first_name + member.last_name for member in students
-                             if students.index(member) % 2 == 0],
-                             [member.uid + member.first_name + member.last_name for member in students
-                             if students.index(member) % 2 != 0],
+        groups_of_two = list(zip_longest(["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                             for member in students if students.index(member) % 2 == 0],
+                             ["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                             for member in students if students.index(member) % 2 != 0],
                              fillvalue="Should join other group(s)"))
         if size == 2:
             return groups_of_two
