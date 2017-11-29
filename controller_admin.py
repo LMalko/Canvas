@@ -35,15 +35,13 @@ class ControllerAdmin(ControllerUser):
                 if user_input == "1":
                     self.add_mentor()
                 elif user_input == "2":
-                    self.controller_member_container.get_members_display(
-                         self.controller_member_container.get_members_by_role("mentor"))
+                    self.get_mentors_list_to_display()
                 elif user_input == "3":
                     self.remove_mentor()
                 elif user_input == "4":
                     self.edit_mentor()
                 elif user_input == "5":
-                    self.controller_member_container.get_members_display(
-                        self.controller_member_container.get_members_by_role("student"))
+                    self.get_students_list_to_display()
                 elif user_input == "6":
                     self.view.clear_screen()
                     to_continue = False
@@ -64,12 +62,23 @@ class ControllerAdmin(ControllerUser):
         self.controller_member_container.add_member(user)
         self.view.freeze_until_key_pressed("\nPress anything to continue.")
 
-    def remove_mentor(self):
+    def get_mentors_list_to_display(self):
         self.controller_member_container.get_members_display(
-            self.controller_member_container.get_members_by_role("mentor"))
-        mentor_to_release = self.controller_member_container.get_user('mentor')
-        self.controller_member_container.delete_member(mentor_to_release)
-        self.view.freeze_until_key_pressed("Done !! Press anything to continue.")
+             self.controller_member_container.get_members_by_role("mentor"))
+        self.view.freeze_until_key_pressed()
+
+    def get_students_list_to_display(self):
+        self.controller_member_container.get_members_display(
+            self.controller_member_container.get_members_by_role("student"))
+        self.view.freeze_until_key_pressed()
+
+    def remove_mentor(self):
+            self.controller_member_container.get_members_display(
+                    self.controller_member_container.get_members_by_role("mentor"))
+            mentor_to_release = self.controller_member_container.get_user('mentor')
+            if mentor_to_release:
+                self.controller_member_container.delete_member(mentor_to_release)
+                self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
 
     def edit_mentor(self):
         self.controller_member_container.get_members_display(
