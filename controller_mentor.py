@@ -33,7 +33,7 @@ class ControllerMentor(ControllerUser):
                    "4: Remove student",
                    "5: Task menu",
                    "6: Grade today's attendance",
-                   "7: Check attendance",
+                   "7: Display attendance",
                    "8: Get random groups of two",
                    "9: Get random groups of four",
                    "10: Log out"]
@@ -47,7 +47,7 @@ class ControllerMentor(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == "1":
-                    self.get_members_display( \
+                    self.get_members_display(\
                      self.controller_member_container.get_members_by_role('student'))
                     input()
                 elif user_input == "2":
