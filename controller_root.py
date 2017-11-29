@@ -57,10 +57,6 @@ class ControllerRoot:
             tsk = self.associated_model.container_task
             user_ctrl = ControllerMentor(user_obj, attnd, mmbr, tsk)
             user_ctrl.start()
-        else:
-            raise ValueError("not implemented role")
-        '''
-
         elif user_obj.role == "office":
             user_ctrl = ControllerOffice(user_obj, self.associated_model.container_member)
             user_ctrl.start()
@@ -68,7 +64,8 @@ class ControllerRoot:
         elif user_obj.role == "student":
             user_ctrl = ControllerStudent(user_obj, self.associated_model.container_task)
             user_ctrl.start()
-        '''
+        else:
+            raise ValueError("not implemented role")
         '''
         Launches a user controller based on class of user_obj.
         '''
