@@ -72,7 +72,7 @@ class ControllerMentor(ControllerUser):
 
     def tasks_menu(self):
         choices = ['1. View all tasks',
-                    '2. View tasks by genre'
+                    '2. View tasks by genre',
                     '3. View tasks by student',
                     '4. Add & deploy task',
                     '5. Del task',
