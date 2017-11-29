@@ -48,9 +48,8 @@ class ControllerMentor(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == "1":
-                    self.get_members_display( \
-                     self.controller_member_container.get_members_by_role('student'))
-                    input()
+                    self.controller_member_container.get_members_display(
+                         self.controller_member_container.get_members_by_role('student'))
                 elif user_input == "2":
                     self.edit_student_details()
                 elif user_input == "3":
@@ -174,10 +173,6 @@ class ControllerMentor(ControllerUser):
             if uid not in attendances_uid:
                 self.controller_attendance_container.create_student_attendance_and_add_to_container(uid)
 
-    def get_members_display(self, members):
-        for person in members:
-            self.view.display_message(self.controller_user.get_member_display(person))
-
     def create_mentor(self, first_name, last_name, password, my_group):
         uid = self.controller_member_container.get_new_ID()
         return ModelMentor(uid, first_name, last_name, password, my_group)
@@ -189,7 +184,8 @@ class ControllerMentor(ControllerUser):
     def edit_student_details(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
         while True:
-            self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+            self.controller_member_container.get_members_display(
+                 self.controller_member_container.get_members_by_role('student'))
             student_to_change = self.controller_member_container.get_user()
             if student_to_change in [user for user in self.controller_member_container.get_members_by_role('student')]:
                 break
@@ -221,7 +217,8 @@ class ControllerMentor(ControllerUser):
 
     def remove_student(self):
         self.view.display_message("\n\nLet's get rid of student! It's always fun !! :D\n\n")
-        self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+        self.controller_member_container.get_members_display(
+             self.controller_member_container.get_members_by_role('student'))
         student_to_release = self.controller_member_container.get_user()
         self.controller_member_container.delete_member(student_to_release)
         self.view.display_message("\n\nDone !!!\n\n")
