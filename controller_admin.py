@@ -16,12 +16,17 @@ class ControllerAdmin(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: Add mentor", "2: View mentors list", "3: Release Mentor",
-                   "4: Edit mentor's details", "5: Log out"]
+        choices = [
+                    "1: Add mentor",
+                    "2: View mentors list",
+                    "3: Release Mentor",
+                    "4: Edit mentor's details",
+                    "5: View student list",
+                    "6: Log out"]
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
-        while True:
+        while to_continue:
             user_input = ''
             while user_input not in correct_choices:
                 self.view.clear_screen()
@@ -37,8 +42,11 @@ class ControllerAdmin(ControllerUser):
                 elif user_input == "4":
                     self.edit_mentor()
                 elif user_input == "5":
+                    self.controller_member_container.get_members_display(
+                        self.controller_member_container.get_members_by_role("student"))
+                elif user_input == "6":
                     self.view.clear_screen()
-                    sys.exit()
+                    to_continue = False
 
     def add_mentor(self):
         self.view.display_message("\n\nLet's hire Mentor..\n\n")
@@ -57,7 +65,6 @@ class ControllerAdmin(ControllerUser):
         self.view.freeze_until_key_pressed("\nPress anything to continue.")
 
     def remove_mentor(self):
-        self.view.freeze_until_key_pressed("\n\nLet's release Mentor..\n\n")
         self.controller_member_container.get_members_display(
             self.controller_member_container.get_members_by_role("mentor"))
         mentor_to_release = self.controller_member_container.get_user('mentor')
@@ -73,7 +80,7 @@ class ControllerAdmin(ControllerUser):
                 break
             self.view.display_message("\n\nThis user is not a mentor!\n")
         while True:
-            mentor_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ?")
+            mentor_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ? ")
             if mentor_detail_to_change == "1":
                 return self.change_first_name(self.get_member_id(mentor_to_change))
             elif mentor_detail_to_change == "2":
