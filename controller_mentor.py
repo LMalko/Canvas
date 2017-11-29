@@ -27,15 +27,12 @@ class ControllerMentor(ControllerUser):
                    "2: Edit student",
                    "3: Add student",
                    "4: Remove student",
-                   "5: Search task by ID",
-                   "6: Grade task",
-                   "7: Add task",
-                   "8: Edit task",
-                   "9: Grade today's attendance",
-                   "10: Check attendance",
-                   "11: Get random groups of two",
-                   "12: Get random groups of four",
-                   "13: Log out"]
+                   "5: Task menu",
+                   "6: Grade today's attendance",
+                   "7: Check attendance",
+                   "8: Get random groups of two",
+                   "9: Get random groups of four",
+                   "10: Log out"]
         correct_choices = [str(x+1) for x in range(1, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
@@ -54,36 +51,52 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "4":
                     self.remove_student()
                 elif user_input == "5":
-                    self.get_task_by_id()
+                    self.tasks_menu()
                 elif user_input == "6":
-                    self.grade_task()
-                elif user_input == "7":
-                    self.add_task()
-                elif user_input == "8":
-                    self.edit_task()
-                elif user_input == "9":
                     self.grade_attendance()
-                elif user_input == "10":
+                elif user_input == "7":
                     self.get_attendance_display()
-                elif user_input == "11":
+                elif user_input == "8":
                     self.view.display_collection(self.get_random_student_group())
-                elif user_input == "12":
+                elif user_input == "9":
                     self.view.display_collection(self.get_random_student_group(4))
-                elif user_input == "13":
+                elif user_input == "10":
                     to_continue = False
 
-    def get_task_by_id(self):
-        self.controller_task_container.take_and_validate_particulat_task_choice()
-
-    def grade_task(self):
-        self.controller_task_container.grade_task()
-
-    def add_task(self):
-        target_group = self.controller_member_container.get_students_by_group()
-        self.controller_task_container.create_and_deploy_task(target_group)
-
-    def edit_task(self):
-        self.controller_task_container.rename_task()
+    def tasks_menu(self):
+        choices = ['1. View all tasks',
+                    '2. View tasks by genre'
+                    '3. View tasks by student',
+                    '4. Add & deploy task',
+                    '5. Del task',
+                    '6. Rename task',
+                    '7. Grade task',
+                    '0. Exit']
+        message = "\nPlease, type Your choice: "
+        to_continue = True
+        while to_continue:
+            user_choice = self.view.get_user_input(message)
+            if user_choice == '0:
+                to_continue = False
+            elif user_choice == '1':
+                self.controller_attendance_container.get_all_tasks()
+            elif user_choice == '2':
+                self.controller_task_container.get_tasks_by_genre()
+            elif user_choice == '3':
+                all_students = self.controller_member_container.get_members_by_role('student')
+                self.controller_member_container.get_members_display(all_students)
+                student = self.controller_member_container.get_user()
+                student_id = self.controller_member_container.get_member_id(student)
+                self.controller_task_container.get_student_tasks(student_id)
+            elif user_choice == '4:
+                target_group = self.controller_member_container.get_students_by_group()
+                self.controller_task_container.create_and_deploy_task(target_group)
+            elif user_choice == '5':
+                self.controller_task_container.del_task_from_container()
+            elif user_choice == '6':
+                self.controller_task_container.rename_task()
+            elif user_choice == '7:
+                self.controller_task_container.grade_task()
 
     def grade_attendance(self):
         self.controller_attendance_container.add_student_attendance()
