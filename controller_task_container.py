@@ -76,11 +76,11 @@ class ControllerTaskContainer():
         task_id = self.get_max_task_id()
         task_name = self.get_valid_input("Pass tasks name: ")
         target_group = target_group
-        
+
         for student in target_group:
             student_id = self.ctrl_user.get_member_id(student) # Pobrać liste id zamiast listy obiektów, bo to jedyne odwołanie do CtrlUser
             self.add_task_to_container(ModelTask(task_name, task_id, student_id))
-    
+
     def get_valid_input(self, message):
         invalid_input = True
         while invalid_input:
@@ -100,10 +100,10 @@ class ControllerTaskContainer():
     def get_task_id_by_genre(self):
         all_tasks = self.container_task.get_all_tasks()
         tasks_by_id = []
-        
+
         for task in all_tasks:
             tasks_by_id.append(task.get_short_task_display())
-        
+
         invalid_choice = True
         while invalid_choice:
             self.view_task_container.display_collection(sorted(list(set(tasks_by_id))))  # zamienic na fora, usunac collection z view
@@ -114,7 +114,7 @@ class ControllerTaskContainer():
                     break
 
         return user_choice
-        
+
     def take_and_validate_task_choice(self, all_tasks):
 
         invalid_choice = True
@@ -153,12 +153,8 @@ class ControllerTaskContainer():
         for task in task_collection:
             if task.get_user_id() == user_id:
                 user_tasks.append(task)
-        
+
         return user_tasks
-    
-    def set_collection_display(self, collection):
-        for item in collection:
-            self.view_task_container.display_message()
 
 # from dao_task import *
 # from model_task_container import*
