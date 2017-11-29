@@ -121,6 +121,7 @@ class ControllerRoot:
 
     def start(self):
         self.view.display_start_screen()
+        self.view.clear_screen()
         login_credentials = self.view.get_login_credentials()
         # login_credentials is a tuple with (login, password)
         while login_credentials:
