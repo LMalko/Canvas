@@ -1,4 +1,5 @@
 from model_mentor import ModelMentor
+from model_student import ModelStudent
 from controller_task_container import ControllerTaskContainer
 from controller_attendance_container import ControllerAttendanceContainer
 from controller_member_container import ControllerMemberContainer
@@ -72,7 +73,7 @@ class ControllerMentor(ControllerUser):
 
     def tasks_menu(self):
         choices = ['1. View all tasks',
-                    '2. View tasks by genre'
+                    '2. View tasks by genre',
                     '3. View tasks by student',
                     '4. Add & deploy task',
                     '5. Del task',
@@ -115,15 +116,8 @@ class ControllerMentor(ControllerUser):
                 self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
 
     def grade_attendance(self):
-        # check if all students uid in attendances container, if not, add attendance for student:
-        students = self.controller_member_container.get_students_by_group()
-        attendances = self.controller_attendance_container.get_all_students_attendance()
-        students_uid = [student.uid for student in students]
-        attendances_uid = [attendance.student_uid for attendance in attendances]
-        for uid in students_uid:
-            if uid not in attendances_uid:
-                self.controller_attendance_container.create_student_attendance_and_add_to_container(uid)
-
+        group_of_students = self.controller_member_container.get_students_by_group()
+        self.__update_attendances(group_of_students)
         today = str(datetime.date.today())
         choices_to_display = [
                                 '1: student is present',
@@ -134,8 +128,7 @@ class ControllerMentor(ControllerUser):
                                             '2': 0.0,
                                             '3': 0.75}
         correct_choices = [str(x+1) for x in range(0, len(choices_to_display))]
-
-        for student in students:
+        for student in group_of_students:
             self.view.clear_screen()
             self.view.display_message("\nPlease, type Your choice for student: {} {}\n".format(
                                                                                 student.first_name,
@@ -151,7 +144,33 @@ class ControllerMentor(ControllerUser):
                                                                 user_choices_to_presence_value[user_choice])
 
     def get_attendance_display(self):
-        self.view.display_collection(self.controller_attendance_container.get_all_students_attendance())
+        group_of_students = self.controller_member_container.get_students_by_group()
+        self.__update_attendances(group_of_students)
+        presence_values_to_words = {
+                                        '1.0': 'present',
+                                        '0.75': 'late',
+                                        '0.0': 'absent'}
+        self.view.clear_screen()
+        for student in group_of_students:
+            self.view.display_message('\n- student: {} {}\n\t\t\t attendance percentage: {}%'.format(
+                                student.first_name,
+                                student.last_name,
+                                self.controller_attendance_container.get_student_attendance_percentage(student.uid)))
+            attendence = self.controller_attendance_container.get_presences_for_given_student(student.uid)
+            for presence in attendence:
+                presence_value = str(attendence[presence])
+                self.view.display_message('\t\t\t in day: {} student was {}'.format(
+                                                presence, presence_values_to_words[presence_value]))
+        self.view.freeze_until_key_pressed()
+
+    def __update_attendances(self, students):
+        '''Check if all students in collection have own attendances, if not, add attendance for student.'''
+        attendances = self.controller_attendance_container.get_all_students_attendance()
+        students_uid = [student.uid for student in students]
+        attendances_uid = [attendance.student_uid for attendance in attendances]
+        for uid in students_uid:
+            if uid not in attendances_uid:
+                self.controller_attendance_container.create_student_attendance_and_add_to_container(uid)
 
     def get_members_display(self, members):
         for person in members:
@@ -160,6 +179,10 @@ class ControllerMentor(ControllerUser):
     def create_mentor(self, first_name, last_name, password, my_group):
         uid = self.controller_member_container.get_new_ID()
         return ModelMentor(uid, first_name, last_name, password, my_group)
+
+    def create_student(self, first_name, last_name, password, my_group):
+        uid = self.controller_member_container.get_new_ID()
+        return ModelStudent(uid, first_name, last_name, password, my_group)
 
     def edit_student_details(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
@@ -186,10 +209,10 @@ class ControllerMentor(ControllerUser):
         for statement in messages:
             user_input = self.validate_input(statement)
             user_inputs.append(user_input)
-        user = self.controller_mentor.create_student(user_inputs[0],
-                                                     user_inputs[1],
-                                                     user_inputs[2],
-                                                     user_inputs[3])
+        user = self.create_student(user_inputs[0],
+                                   user_inputs[1],
+                                   user_inputs[2],
+                                   user_inputs[3])
         self.view.display_message("\n\nStudent recruited..\n\n")
         self.controller_member_container.add_member(user)
         self.view.get_user_input("\nPress <enter> to continue.. ")
@@ -197,8 +220,8 @@ class ControllerMentor(ControllerUser):
     def remove_student(self):
         self.view.display_message("\n\nLet's get rid of student! It's always fun !! :D\n\n")
         self.get_members_display(self.controller_member_container.get_members_by_role('student'))
-        student_to_release = self.controller_user.get_user()
-        self.controller_member_container.remove(student_to_release)
+        student_to_release = self.controller_member_container.get_user()
+        self.controller_member_container.delete_member(student_to_release)
         self.view.display_message("\n\nDone !!!\n\n")
 
     def get_random_student_group(self, size=2):

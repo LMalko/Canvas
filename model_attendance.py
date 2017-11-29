@@ -15,8 +15,10 @@ class ModelAttendance():
         self.student_presence.update({actuall_date: status})
 
     def count_attendance_percentage(self):
-        percentage_multiplier = 100
-        return (sum(self.student_presence.values()) / len(self.student_presence)) * percentage_multiplier
+        if self.student_presence:
+            percentage_multiplier = 100
+            return (sum(self.student_presence.values()) / len(self.student_presence)) * percentage_multiplier
+        return 0.0
 
     def get_student_uid(self):
         return self.student_uid
