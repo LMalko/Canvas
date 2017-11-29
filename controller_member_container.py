@@ -9,13 +9,16 @@ class ControllerMemberContainer():
         self.view_member_container = ViewMemberContainer()
         self.model_member_container = ModelMemberContainer()
 
-    def get_user(self):
+    def get_user(self, role=None):
         while True:
             user_id = self.view_member_container.get_user_input("Choose by id: ")
             user = self.get_member(user_id)
-            if user is not None:
+            if not user:
+                self.view_member_container.freeze_until_key_pressed("No such user. Try again.")
+            elif role and user and user not in self.get_members_by_role(role):
+                self.view_member_container.freeze_until_key_pressed("\nThis user exists but has a different role.\n")
+            else:
                 return user
-            self.view_member_container.freeze_until_key_pressed("No such user. Try again.")
 
     def get_new_ID(self):
         return str(max([int(user.uid) for user in self.member_container.get_all_members()]) + 1)
@@ -29,7 +32,6 @@ class ControllerMemberContainer():
         return member.uid
 
     def get_members_by_role(self, role):
-        self.view_member_container.clear_screen()
         all_members = self.member_container.get_all_members()
         all_members_by_role = [member for member in all_members if member.role == role]
         return all_members_by_role
@@ -54,3 +56,6 @@ class ControllerMemberContainer():
 
     def delete_member(self, member):
         self.member_container.delete_member(member)
+
+    def get_all_members(self):
+        return self.member_container.get_all_members()

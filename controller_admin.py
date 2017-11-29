@@ -57,14 +57,16 @@ class ControllerAdmin(ControllerUser):
         self.view.freeze_until_key_pressed("\nPress anything to continue.")
 
     def remove_mentor(self):
-        self.view.display_message("\n\nLet's release Mentor..\n\n")
-        self.controller_member_container.get_members_by_role('mentor')
-        mentor_to_release = self.controller_member_container.get_user()
+        self.view.freeze_until_key_pressed("\n\nLet's release Mentor..\n\n")
+        self.controller_member_container.get_members_display(
+            self.controller_member_container.get_members_by_role("mentor"))
+        mentor_to_release = self.controller_member_container.get_user('mentor')
         self.controller_member_container.delete_member(mentor_to_release)
         self.view.freeze_until_key_pressed("Done !! Press anything to continue.")
 
     def edit_mentor(self):
-        self.controller_member_container.get_members_by_role('mentor')
+        self.controller_member_container.get_members_display(
+            self.controller_member_container.get_members_by_role("mentor"))
         while True:
             mentor_to_change = self.controller_member_container.get_user()
             if mentor_to_change in [user for user in self.controller_member_container.get_members_by_role('mentor')]:
@@ -83,5 +85,3 @@ class ControllerAdmin(ControllerUser):
 
     def create_first_admin(self):
         return ModelAdmin(0, "admin", "admin", "qwerty")
-
-

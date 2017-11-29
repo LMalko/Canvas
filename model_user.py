@@ -15,10 +15,10 @@ class ModelUser():
         self.set_login()
 
     def set_last_name(self, new_last_name):
-        self.first_name = new_last_name
+        self.last_name = new_last_name
         self.set_email()
         self.set_login()
-    
+
     def get_member_display(self):
         return "{} {} {} {}".format("{:>4}".format(self.uid), self.first_name, self.last_name, self.role)
 

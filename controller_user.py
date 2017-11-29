@@ -10,17 +10,17 @@ class ControllerUser():
     def change_first_name(self, member):
         new_first_name = self.validate_input("Pass new first name: ")
         member.set_first_name(new_first_name)
-        self.view.display_message("Name has been changed!")
+        self.view.freeze_until_key_pressed("First name has been changed!")
 
     def change_last_name(self, member):
         new_last_name = self.validate_input("Pass new last name: ")
         member.set_last_name(new_last_name)
-        self.view.display_message("Last name has been changed!")
+        self.view.freeze_until_key_pressed("Last name has been changed!")
 
     def change_password(self, member):
         new_password = self.validate_input("Pass new password (not shorter than 6 chars): ")
         member.set_password(new_password)
-        self.view.display_message("Password has been changed!")
+        self.view.freeze_until_key_pressed("Password has been changed!")
 
     def validate_input(self, message):
         not_valid_input = True
