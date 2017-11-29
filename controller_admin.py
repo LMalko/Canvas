@@ -65,7 +65,8 @@ class ControllerAdmin(ControllerUser):
         self.view.freeze_until_key_pressed("Done !! Press anything to continue.")
 
     def edit_mentor(self):
-        self.controller_member_container.get_members_by_role('mentor')
+        self.controller_member_container.get_members_display(
+            self.controller_member_container.get_members_by_role("mentor"))
         while True:
             mentor_to_change = self.controller_member_container.get_user()
             if mentor_to_change in [user for user in self.controller_member_container.get_members_by_role('mentor')]:
