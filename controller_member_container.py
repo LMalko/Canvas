@@ -56,3 +56,6 @@ class ControllerMemberContainer():
 
     def delete_member(self, member):
         self.member_container.delete_member(member)
+
+    def get_all_members(self):
+        return self.member_container.get_all_members()
