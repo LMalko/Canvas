@@ -20,7 +20,6 @@ class ControllerTaskContainer():
 
         for index in range(len(all_tasks)-1, -1, -1):
             if all_tasks[index].get_task_id() == task_id:
-                print("Del index ", index)
                 self.container_task.del_task(all_tasks[index])
 
     def get_student_tasks(self, student_id):
@@ -52,16 +51,19 @@ class ControllerTaskContainer():
             task.change_delivery_status()
 
     def grade_task(self):
-        task = self.take_and_validate_particulat_task_choice()
+        task = self.take_and_validate_particular_task_choice()
         possible_grades = ['-3', '0', '4', '7', '10', '12']
 
         invalid_input = True
         while invalid_input:
-            grade = self.view_task_container.get_valid_input("Pass tasks grade: ")
+            self.view_task_container.display_message("{}:\n {}".format('Choice not in possible choices', ",".join(possible_grades)))
+            grade = self.get_valid_input("Pass tasks grade: ")
             if grade in possible_grades:
                 task.mark_as_graded()
                 task.set_grade(grade)
                 invalid_input = False
+            else:
+                self.view_task_container.display_message('\nChoice not in possible choices')
 
     def rename_task(self):
         chosen_task_id = self.get_task_id_by_genre()
@@ -78,7 +80,7 @@ class ControllerTaskContainer():
         target_group = target_group
 
         for student in target_group:
-            student_id = self.ctrl_user.get_member_id(student) # Pobrać liste id zamiast listy obiektów, bo to jedyne odwołanie do CtrlUser
+            student_id = self.ctrl_user.get_member_id(student) # Pobrać liste id zamiast listy obiektów, bo to jedyne odwolanie do CtrlUser
             self.add_task_to_container(ModelTask(task_name, task_id, student_id))
 
     def get_valid_input(self, message):
