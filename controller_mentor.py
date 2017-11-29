@@ -19,7 +19,7 @@ class ControllerMentor(ControllerUser):
                  task_container):
         self.associated_user = user
         self.view = ViewMentor()
-        self.controller_task_container = ControllerTaskContainer(member_container, task_container)
+        self.controller_task_container = ControllerTaskContainer(task_container)
         self.controller_attendance_container = ControllerAttendanceContainer(attendance_container)
         self.controller_member_container = ControllerMemberContainer(member_container)
         self.controller_user = ControllerUser()
