@@ -102,7 +102,7 @@ class ControllerMentor(ControllerUser):
                 self.controller_task_container.del_task_from_container()
             elif user_choice == '6':
                 self.controller_task_container.rename_task()
-            elif user_choice == '7:
+            elif user_choice == '7':
                 self.controller_task_container.grade_task()
 
     def grade_attendance(self):
