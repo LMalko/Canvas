@@ -89,23 +89,30 @@ class ControllerMentor(ControllerUser):
                 to_continue = False
             elif user_choice == '1':
                 self.controller_task_container.get_all_tasks()
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
             elif user_choice == '2':
                 self.controller_task_container.get_tasks_by_genre()
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
             elif user_choice == '3':
                 all_students = self.controller_member_container.get_members_by_role('student')
                 self.controller_member_container.get_members_display(all_students)
                 student = self.controller_member_container.get_user()
                 student_id = self.controller_member_container.get_member_id(student)
                 self.controller_task_container.get_student_tasks(student_id)
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
             elif user_choice == '4':
                 target_group = self.controller_member_container.get_students_by_group()
                 self.controller_task_container.create_and_deploy_task(target_group)
+                self.view.freeze_until_key_pressed("Task added and deployed!\nPress any key to go back to tasks menu ")
             elif user_choice == '5':
                 self.controller_task_container.del_task_from_container()
+                self.view.freeze_until_key_pressed("Task deleted!\nPress any key to go back to tasks menu ")
             elif user_choice == '6':
                 self.controller_task_container.rename_task()
+                self.view.freeze_until_key_pressed("Task renamed!\nPress any key to go back to tasks menu ")
             elif user_choice == '7':
                 self.controller_task_container.grade_task()
+                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
 
     def grade_attendance(self):
         # check if all students uid in attendances container, if not, add attendance for student:
@@ -158,18 +165,18 @@ class ControllerMentor(ControllerUser):
         self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
         while True:
             self.get_members_display(self.controller_member_container.get_members_by_role('student'))
-            student_to_change = self.controller_user.get_user()
+            student_to_change = self.controller_member_container.get_user()
             if student_to_change in [user for user in self.controller_member_container.get_members_by_role('student')]:
                 break
             self.view.display_message("\n\nThis user is not a student!\n")
         while True:
             student_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3)?")
             if student_detail_to_change == "1":
-                return self.controller_user.change_first_name(self.controller_user.get_member_id(student_to_change))
+                return self.controller_user.change_first_name(student_to_change)
             elif student_detail_to_change == "2":
-                return self.controller_user.change_last_name(self.controller_user.get_member_id(student_to_change))
+                return self.controller_user.change_last_name(student_to_change)
             elif student_detail_to_change == "3":
-                return self.controller_user.change_password(self.controller_user.get_member_id(student_to_change))
+                return self.controller_user.change_password(student_to_change)
             self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
 
     def add_student(self):
