@@ -121,16 +121,22 @@ class ControllerMentor(ControllerUser):
     def get_attendance_display(self):
         group_of_students = self.controller_member_container.get_students_by_group()
         self.__update_attendances(group_of_students)
-        students_attendences = self.controller_attendance_container.get_all_students_attendance()
-        students_to_display = ['- student: {} {}'.format(
-                                                        student.first_name,
-                                                        student.last_name) for student in group_of_students]
-        for s in students_to_display:
-            print(s)
-        for a in students_attendences:
-            print(a)
-        input()
-        # self.view.display_collection(self.controller_attendance_container.get_all_students_attendance())
+        presence_values_to_words = {
+                                        '1.0': 'present',
+                                        '0.75': 'late',
+                                        '0.0': 'absent'}
+        self.view.clear_screen()
+        for student in group_of_students:
+            self.view.display_message('\n- student: {} {}\n\t\t\t attendance percentage: {}%'.format(
+                                student.first_name,
+                                student.last_name,
+                                self.controller_attendance_container.get_student_attendance_percentage(student.uid)))
+            attendence = self.controller_attendance_container.get_presences_for_given_student(student.uid)
+            for presence in attendence:
+                presence_value = str(attendence[presence])
+                self.view.display_message('\t\t\t in day: {} student was {}'.format(
+                                                presence, presence_values_to_words[presence_value]))
+        self.view.freeze_until_key_pressed()
 
     def __update_attendances(self, students):
         '''Check if all students in collection have own attendances, if not, add attendance for student.'''
