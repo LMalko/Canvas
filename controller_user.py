@@ -20,7 +20,7 @@ class ControllerUser():
 
     def change_password(self, UID):
         new_password = self.validate_input("Pass new password (not shorter than 6 chars): ")
-        self.model.set_first_name(new_password)
+        self.model.set_password(new_password)
         self.view.display_message("Password has been changed!")
 
     def validate_input(self, message):
@@ -38,6 +38,3 @@ class ControllerUser():
 
     def get_member_display(self, member):
         return member.get_member_display()
-
-
-
