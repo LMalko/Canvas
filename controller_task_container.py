@@ -11,11 +11,20 @@ class ControllerTaskContainer():
         self.view_task_container = ViewControllerTaskContainer()
         self.ctrl_user = ControllerUser()
 
+    def is_collection_empty(self, collection):
+        if not collection:
+            self.view_task_container.display_message("Task list is empty. Nothing to display.")
+            return True
+        else:
+            return False
+
     def add_task_to_container(self, task):
         self.container_task.add_task(task)
 
     def del_task_from_container(self):
         all_tasks = self.container_task.get_all_tasks()
+        if self.is_collection_empty(all_tasks):
+            return
         task_id = self.get_task_id_by_genre()
 
         for index in range(len(all_tasks)-1, -1, -1):
@@ -24,44 +33,66 @@ class ControllerTaskContainer():
 
     def get_student_tasks(self, student_id):
         all_tasks = self.container_task.get_all_tasks()
+        if self.is_collection_empty(all_tasks):
+            return
         all_users_tasks = self.cherry_pick_tasks_by_user_id(all_tasks, student_id)
+        if self.is_collection_empty(all_users_tasks):
+            return
+
         for task in all_users_tasks:
             self.view_task_container.display_message(task.get_student_task_display())
 
     def get_tasks_by_genre(self):
         all_tasks = self.container_task.get_all_tasks()
+        if self.is_collection_empty(all_tasks):
+            return
         chosen_task_id = self.get_task_id_by_genre()
+
         for task in all_tasks:
             if task.get_task_id() == chosen_task_id:
                 self.view_task_container.display_message(task.get_mentor_task_display())
 
     def get_all_tasks(self):
         all_tasks = self.container_task.get_all_tasks()
+        if self.is_collection_empty(all_tasks):
+            return
         for task in all_tasks:
             self.view_task_container.display_message(task.get_mentor_task_display())
 
     def change_task_delivery_status(self, student_id=None):
         if student_id:
             all_tasks = self.container_task.get_all_tasks()
+            if self.is_collection_empty(all_tasks):
+                return
             all_student_tasks = self.cherry_pick_tasks_by_user_id(all_tasks, student_id)
+            if self.is_collection_empty(all_student_tasks):
+                return
             task = self.take_and_validate_task_choice(all_student_tasks)
             task.change_delivery_status()
         else:
             task = self.take_and_validate_particular_task_choice()
+            if self.is_collection_empty(task):
+                return
             task.change_delivery_status()
 
     def grade_task(self):
         task = self.take_and_validate_particular_task_choice()
+        if self.is_collection_empty(task):
+            return
+        if not task.get_delivery_status():
+            self.view_task_container.display_message("Task has not been submitted. Grading aborted")
+            return False
         possible_grades = ['-3', '0', '4', '7', '10', '12']
 
         invalid_input = True
         while invalid_input:
-            self.view_task_container.display_message("{}:\n {}".format('Choice not in possible choices', ",".join(possible_grades)))
+            self.view_task_container.display_message("{}:\n {}".format('Possible choices', ",".join(possible_grades)))
             grade = self.get_valid_input("Pass tasks grade: ")
             if grade in possible_grades:
                 task.mark_as_graded()
                 task.set_grade(grade)
                 invalid_input = False
+                return True
             else:
                 self.view_task_container.display_message('\nChoice not in possible choices')
 
@@ -94,6 +125,8 @@ class ControllerTaskContainer():
 
     def get_max_task_id(self):
         all_tasks = self.container_task.get_all_tasks()
+        if self.is_collection_empty(all_tasks):
+                return "0000"
         all_id = []
         for task in all_tasks:
             all_id.append(int(task.get_task_id()))
@@ -101,14 +134,16 @@ class ControllerTaskContainer():
 
     def get_task_id_by_genre(self):
         all_tasks = self.container_task.get_all_tasks()
-        tasks_by_id = []
+        if self.is_collection_empty(all_tasks):
+            return
 
+        tasks_by_id = []
         for task in all_tasks:
             tasks_by_id.append(task.get_short_task_display())
 
         invalid_choice = True
         while invalid_choice:
-            self.view_task_container.display_collection(sorted(list(set(tasks_by_id))))  # zamienic na fora, usunac collection z view
+            self.view_task_container.display_collection(sorted(list(set(tasks_by_id))))
             user_choice = self.get_valid_input("Choose task by id: ")
             for task in all_tasks:
                 if task.get_task_id() == user_choice:
@@ -134,6 +169,8 @@ class ControllerTaskContainer():
 
     def take_and_validate_particular_task_choice(self):
         all_tasks = self.container_task.get_all_tasks()
+        if self.is_collection_empty(all_tasks):
+            return
 
         chosen_task = None
         invalid_choice = True

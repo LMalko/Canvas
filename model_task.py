@@ -34,6 +34,9 @@ class ModelTask():
     def get_task_name(self):
         return self.name
 
+    def get_delivery_status(self):
+        return self.is_done
+
     def get_mentor_task_display(self):
         done = 'DELIVERED' if self.is_done else 'NOT DELIVERED'
         return "Task: '{}', ID: {}, student: {}, grade {}, status: {}".format(self.name, self.task_ID, self.user_ID, self.grade, done)
