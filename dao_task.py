@@ -8,11 +8,14 @@ class DAOTask():
 
     def import_data(self):
         with open(self.filename, "r", encoding="utf-8") as myfile:
-            imported_data = myfile.read()
+            imported_data = myfile.readlines()
 
-        return self.__extract_imported_data(imported_data.strip().split("\n"))
+        return self.__extract_imported_data(imported_data)
 
     def __extract_imported_data(self, imported_data):
+        if not imported_data:
+            return []
+
         grade_attribute_index = 3
         is_done_attribute_index = 4
         is_graded_attribute_index = 5
@@ -27,6 +30,9 @@ class DAOTask():
         return tasks_collection
 
     def export_data(self, tasks_collection):
+        if not tasks_collection:
+            return
+
         data_to_export = self.__pack_data_for_export(tasks_collection)
         with open(self.filename, "w", encoding="utf-8") as myfile:
             for line in data_to_export:

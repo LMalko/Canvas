@@ -15,6 +15,9 @@ class DAOMember():
         return self.__extract_imported_data(file_content)
 
     def __extract_imported_data(self, file_content):
+        if not file_content:
+            return []
+
         imported_data = []
         for line in file_content:
             user_role, *args = line.strip().split('|')
@@ -30,6 +33,9 @@ class DAOMember():
         return imported_data
 
     def export_data(self, users_collection):
+        if not users_collection:
+            return
+
         data_to_export = self.__pack_data_for_export(users_collection)
         with open(self.filename, "w", encoding="utf-8") as myfile:
             for i in data_to_export:
