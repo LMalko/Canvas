@@ -6,7 +6,7 @@ from controller_user import*
 
 class ControllerTaskContainer():
 
-    def __init__(self, container_member, container_task):
+    def __init__(self, container_task):
         self.container_task = container_task
         self.view_task_container = ViewControllerTaskContainer()
         self.ctrl_user = ControllerUser()
@@ -16,7 +16,7 @@ class ControllerTaskContainer():
 
     def del_task_from_container(self):
         all_tasks = self.container_task.get_all_tasks()
-        task_id = self.get_task_by_genre()
+        task_id = self.get_task_id_by_genre()
 
         for index in range(len(all_tasks)-1, -1, -1):
             if all_tasks[index].get_task_id() == task_id:
@@ -28,6 +28,18 @@ class ControllerTaskContainer():
         all_users_tasks = self.cherry_pick_tasks_by_user_id(all_tasks, student_id)
         for task in all_users_tasks:
             self.view_task_container.display_message(task.get_student_task_display())
+
+    def get_tasks_by_genre(self):
+        all_tasks = self.container_task.get_all_tasks()
+        chosen_task_id = self.get_task_id_by_genre()
+        for task in all_tasks:
+            if task.get_task_id() == chosen_task_id:
+                self.view_task_container.display_message(task.get_mentor_task_display())
+
+    def get_all_tasks(self):
+        all_tasks = self.container_task.get_all_tasks()
+        for task in all_tasks:
+            self.view_task_container.display_message(task.get_mentor_task_display())
 
     def change_task_delivery_status(self, student_id=None):
         if student_id:
@@ -52,9 +64,7 @@ class ControllerTaskContainer():
                 invalid_input = False
 
     def rename_task(self):
-        # all_tasks = self.container_task.get_all_tasks()
-        chosen_task_id = self.get_task_by_genre()
-        # chosen_task_id = chosen_task.get_task_id()
+        chosen_task_id = self.get_task_id_by_genre()
         new_task_name = self.get_valid_input("Pass new task name: ")
 
         all_tasks = self.container_task.get_all_tasks()
@@ -87,7 +97,7 @@ class ControllerTaskContainer():
             all_id.append(int(task.get_task_id()))
         return "{:0>4}".format(max(all_id)+1)
 
-    def get_task_by_genre(self):
+    def get_task_id_by_genre(self):
         all_tasks = self.container_task.get_all_tasks()
         tasks_by_id = []
         
@@ -145,7 +155,10 @@ class ControllerTaskContainer():
                 user_tasks.append(task)
         
         return user_tasks
-        
+    
+    def set_collection_display(self, collection):
+        for item in collection:
+            self.view_task_container.display_message()
 
 from dao_task import *
 from model_task_container import*
@@ -168,7 +181,11 @@ ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
 # student = ctrl_mc.get_member('0014')
 # ctrl_task_cont.get_student_tasks('0014')
 
-ctrl_task_cont.rename_task()
+ctrl_task_cont.get_tasks_by_genre()
+print('\n\n')
+ctrl_task_cont.get_student_tasks('0014')
+print('\n\n')
+ctrl_task_cont.get_all_tasks()
 
 dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
 
