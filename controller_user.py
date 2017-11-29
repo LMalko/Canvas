@@ -10,7 +10,7 @@ class ControllerUser():
     def change_first_name(self, member):
         new_first_name = self.validate_input("Pass new first name: ")
         member.set_first_name(new_first_name)
-        self.view.freeze_until_key_pressed("Name has been changed!")
+        self.view.freeze_until_key_pressed("First name has been changed!")
 
     def change_last_name(self, member):
         new_last_name = self.validate_input("Pass new last name: ")
