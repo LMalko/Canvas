@@ -6,6 +6,7 @@ from view_mentor import ViewMentor
 from controller_user import*
 from itertools import zip_longest, chain
 from random import shuffle
+import datetime
 
 
 class ControllerMentor(ControllerUser):
@@ -86,7 +87,32 @@ class ControllerMentor(ControllerUser):
         self.controller_task_container.rename_task()
 
     def grade_attendance(self):
-        self.controller_attendance_container.add_student_attendance()
+        students = self.controller_member_container.get_students_by_group()
+        # self.controller_attendance_container
+        today = str(datetime.date.today())
+        choices_to_display = [
+                                '1: student is present',
+                                '2: student is absent',
+                                '3: student is late']
+        user_choices_to_presence_value = {
+                                            '1': 1.0,
+                                            '2': 0.0,
+                                            '3': 0.75}
+        correct_choices = [str(x+1) for x in range(1, len(choices_to_display))]
+        for student in students:
+            self.view.clear_screen()
+            self.view.display_message("\nPlease, type Your choice for student: {} {}\n".format(
+                                                                                student.first_name,
+                                                                                student.last_name))
+            print('tmp', student.uid)
+            user_choice = ''
+            while user_choice not in correct_choices:
+                self.view.display_collection(choices_to_display)
+                user_choice = self.view.take_user_input()
+            self.controller_attendance_container.set_student_presence_status_for_given_date(
+                                                                student.uid,
+                                                                today,
+                                                                user_choices_to_presence_value[user_choice])
 
     def get_attendance_display(self):
         self.view.display_collection(self.controller_attendance_container.get_all_students_attendance())
