@@ -12,10 +12,10 @@ class ControllerMemberContainer():
     def get_user(self, role=None):
         user_is_chosen = False
         while not user_is_chosen:
-            user_id = self.view_member_container.get_user_input("Choose by id: ")
+            user_id = self.view_member_container.get_user_input("\nChoose by id: ")
             user = self.get_member(user_id)
             if not user:
-                self.view_member_container.freeze_until_key_pressed("No such user. Try again.")
+                self.view_member_container.freeze_until_key_pressed("\nNo such user. Try again.\n")
             elif role and user and user not in self.get_members_by_role(role):
                 self.view_member_container.freeze_until_key_pressed("\nThis user exists but has a different role.\n")
             else:
@@ -46,11 +46,11 @@ class ControllerMemberContainer():
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
         while True:
-            student_group = self.view_member_container.take_user_input("Choose group: ")
+            student_group = self.view_member_container.take_user_input("\nChoose group: ")
             students_from_student_group = [student for student in students if student.get_my_group() == student_group]
             if students_from_student_group:
                 return students_from_student_group
-            self.view_member_container.display_message("No such group !!!")
+            self.view_member_container.display_message("\nNo such group !!!")
 
     def add_member(self, user):
         self.member_container.add_member(user)
