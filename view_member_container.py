@@ -12,7 +12,7 @@ class ViewMemberContainer():
     def take_user_input(self, message):
         return input(message)
 
-    def freeze_until_key_pressed(self, message):
+    def freeze_until_key_pressed(self, message='\nPress any key to continue.. '):
         freeze_message = input(message)
         return None
 

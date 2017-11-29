@@ -82,11 +82,11 @@ class ControllerAdmin(ControllerUser):
         while True:
             mentor_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3) ? ")
             if mentor_detail_to_change == "1":
-                return self.change_first_name(self.get_member_id(mentor_to_change))
+                return self.change_first_name(mentor_to_change)
             elif mentor_detail_to_change == "2":
-                return self.change_last_name(self.get_member_id(mentor_to_change))
+                return self.change_last_name(mentor_to_change)
             elif mentor_detail_to_change == "3":
-                return self.change_password(self.get_member_id(mentor_to_change))
+                return self.change_password(mentor_to_change)
             self.view.display_message("\n\n\nRead instructions properly and try again.\n\n\n")
             continue
 
