@@ -11,10 +11,11 @@ class ModelTask():
 
     def change_delivery_status(self):
         
-        self.is_done = 1 if not self.is_done else 0
-        if self.is_done == 0:
-            self.grade = None
-            self.is_graded = 0
+        self.is_done = True
+        # self.is_done = 1 if not self.is_done else 0
+        # if self.is_done == 0:
+        #     self.grade = None
+        #     self.is_graded = 0
 
     def mark_as_graded(self):
         self.is_graded = 1
@@ -39,14 +40,14 @@ class ModelTask():
 
     def get_mentor_task_display(self):
         done = 'DELIVERED' if self.is_done else 'NOT DELIVERED'
-        return "Task: '{}', ID: {}, student: {}, grade {}, status: {}".format(self.name, self.task_ID, self.user_ID, self.grade, done)
+        return "Task: '{:>30}', ID: {:>4}, student: {:>4}, grade {:>4}, status: {}".format(self.name, self.task_ID, self.user_ID, self.grade, done)
     
     def get_student_task_display(self):
         done = 'DELIVERED' if self.is_done else 'NOT DELIVERED'
-        return "Task: '{}', ID: {}, grade {}, status: {}".format(self.name, self.task_ID, self.grade, done)
+        return "Task: '{:>30}', ID: {:>4}, grade {:>4}, status: {}".format(self.name, self.task_ID, self.grade, done)
     
     def get_short_task_display(self):
-        return "{}: {}".format(self.task_ID, self.name)
+        return "{:>4}: {}".format(self.task_ID, self.name)
     
     def get_data_to_export(self):
         return [self.name,
