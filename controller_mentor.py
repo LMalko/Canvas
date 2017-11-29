@@ -2,6 +2,7 @@ from model_mentor import ModelMentor
 from controller_task_container import ControllerTaskContainer
 from controller_attendance_container import ControllerAttendanceContainer
 from controller_member_container import ControllerMemberContainer
+from controller_user import ControllerUser
 from view_mentor import ViewMentor
 from controller_user import*
 from itertools import zip_longest, chain
@@ -21,6 +22,7 @@ class ControllerMentor(ControllerUser):
         self.controller_task_container = ControllerTaskContainer(member_container, task_container)
         self.controller_attendance_container = ControllerAttendanceContainer(attendance_container)
         self.controller_member_container = ControllerMemberContainer(member_container)
+        self.controller_user = ControllerUser()
 
     def start(self):
         self.view.clear_screen()
@@ -49,6 +51,7 @@ class ControllerMentor(ControllerUser):
                 if user_input == "1":
                     self.get_members_display( \
                      self.controller_member_container.get_members_by_role('student'))
+                    input()
                 elif user_input == "2":
                     self.edit_student_details()
                 elif user_input == "3":
@@ -126,7 +129,7 @@ class ControllerMentor(ControllerUser):
         uid = self.controller_member_container.get_new_ID()
         return ModelMentor(uid, first_name, last_name, password, my_group)
 
-    def edit_student_details():
+    def edit_student_details(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
         while True:
             self.get_members_display(self.controller_member_container.get_members_by_role('student'))
@@ -170,7 +173,7 @@ class ControllerMentor(ControllerUser):
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container.get_all_members() if x.role == 'student']
         shuffle(students)
-        groups_of_two = list(zip_longest([member.name for member in students
+        groups_of_two = list(zip_longest([member.uid for member in students
                              if students.index(member) % 2 == 0],
                              [member.name for member in students
                              if students.index(member) % 2 != 0],
