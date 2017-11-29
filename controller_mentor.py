@@ -91,15 +91,8 @@ class ControllerMentor(ControllerUser):
         self.controller_task_container.rename_task()
 
     def grade_attendance(self):
-        # check if all students uid in attendances container, if not, add attendance for student:
-        students = self.controller_member_container.get_students_by_group()
-        attendances = self.controller_attendance_container.get_all_students_attendance()
-        students_uid = [student.uid for student in students]
-        attendances_uid = [attendance.student_uid for attendance in attendances]
-        for uid in students_uid:
-            if uid not in attendances_uid:
-                self.controller_attendance_container.create_student_attendance_and_add_to_container(uid)
-
+        group_of_students = self.controller_member_container.get_students_by_group()
+        self.__update_attendances(group_of_students)
         today = str(datetime.date.today())
         choices_to_display = [
                                 '1: student is present',
@@ -110,8 +103,7 @@ class ControllerMentor(ControllerUser):
                                             '2': 0.0,
                                             '3': 0.75}
         correct_choices = [str(x+1) for x in range(0, len(choices_to_display))]
-
-        for student in students:
+        for student in group_of_students:
             self.view.clear_screen()
             self.view.display_message("\nPlease, type Your choice for student: {} {}\n".format(
                                                                                 student.first_name,
@@ -127,7 +119,27 @@ class ControllerMentor(ControllerUser):
                                                                 user_choices_to_presence_value[user_choice])
 
     def get_attendance_display(self):
-        self.view.display_collection(self.controller_attendance_container.get_all_students_attendance())
+        group_of_students = self.controller_member_container.get_students_by_group()
+        self.__update_attendances(group_of_students)
+        students_attendences = self.controller_attendance_container.get_all_students_attendance()
+        students_to_display = ['- student: {} {}'.format(
+                                                        student.first_name,
+                                                        student.last_name) for student in group_of_students]
+        for s in students_to_display:
+            print(s)
+        for a in students_attendences:
+            print(a)
+        input()
+        # self.view.display_collection(self.controller_attendance_container.get_all_students_attendance())
+
+    def __update_attendances(self, students):
+        '''Check if all students in collection have own attendances, if not, add attendance for student.'''
+        attendances = self.controller_attendance_container.get_all_students_attendance()
+        students_uid = [student.uid for student in students]
+        attendances_uid = [attendance.student_uid for attendance in attendances]
+        for uid in students_uid:
+            if uid not in attendances_uid:
+                self.controller_attendance_container.create_student_attendance_and_add_to_container(uid)
 
     def get_members_display(self, members):
         for person in members:
