@@ -147,27 +147,29 @@ class ControllerTaskContainer():
         return user_tasks
         
 
-from dao_task import *
-from model_task_container import*
-from dao_member import*
-from model_member_container import*
-from controller_member_container import*
+# from dao_task import *
+# from model_task_container import*
+# from dao_member import*
+# from model_member_container import*
+# from controller_member_container import*
 
-dao_task = DAOTask()
-dao_members = DAOMember()
-mtc = ModelTaskContainer()
-mtc.task_container = dao_task.import_data()
-mmc = ModelMemberContainer()
-mmc.members = dao_members.import_data()
-ctrl_mc = ControllerMemberContainer(mmc)
-ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
+# dao_task = DAOTask()
+# dao_members = DAOMember()
+# mtc = ModelTaskContainer()
+# mtc.task_container = dao_task.import_data()
+# mmc = ModelMemberContainer()
+# mmc.members = dao_members.import_data()
+# ctrl_mc = ControllerMemberContainer(mmc)
+# ctrl_task_cont = ControllerTaskContainer(mmc, mtc)
 
-target_group = ctrl_mc.get_students_by_group() # póki nie działa
-ctrl_task_cont.create_and_deploy_task(target_group)
-student = ctrl_mc.get_member('0014')
-ctrl_task_cont.get_student_tasks('0014')
+# target_group = ctrl_mc.get_students_by_group() # póki nie działa
+# ctrl_task_cont.create_and_deploy_task(target_group)
+# student = ctrl_mc.get_member('0014')
+# ctrl_task_cont.get_student_tasks('0014')
+
+# dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
+
 # print('\n')
-dao_task.export_data(ctrl_task_cont.container_task.get_all_tasks())
 # all_tasks = ctrl_task_cont.container_task.get_all_tasks()
 # for task in all_tasks:
 #     print("{}".format(task.get_mentor_task_display()))
