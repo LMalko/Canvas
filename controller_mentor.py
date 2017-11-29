@@ -162,7 +162,7 @@ class ControllerMentor(ControllerUser):
             student_detail_to_change_is_chosen = False
             while not student_detail_to_change_is_chosen:
                 self.view.clear_screen()
-                self.view.display_message("\n\nLet's change data of {}".format(student_to_change))
+                self.view.display_message("\n\nLet's change data of {}:".format(student_to_change))
                 student_detail_to_change = self.view.get_user_input(
                                 "\n\nChange: first name (1) last name (2) or password (3)? ")
                 if student_detail_to_change == "1":

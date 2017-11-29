@@ -101,6 +101,7 @@ class ControllerAdmin(ControllerUser):
                     if mentor_to_change in [
                             user for user in self.controller_member_container.get_members_by_role('mentor')]:
                         mentor_is_chosen = True
+                        break
                     self.view.display_message("\n\nThis user is not a mentor!\n")
             detail_to_change_is_chosen = False
             while not detail_to_change_is_chosen:
