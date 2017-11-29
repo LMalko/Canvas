@@ -89,23 +89,30 @@ class ControllerMentor(ControllerUser):
                 to_continue = False
             elif user_choice == '1':
                 self.controller_task_container.get_all_tasks()
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
             elif user_choice == '2':
                 self.controller_task_container.get_tasks_by_genre()
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
             elif user_choice == '3':
                 all_students = self.controller_member_container.get_members_by_role('student')
                 self.controller_member_container.get_members_display(all_students)
                 student = self.controller_member_container.get_user()
                 student_id = self.controller_member_container.get_member_id(student)
                 self.controller_task_container.get_student_tasks(student_id)
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
             elif user_choice == '4':
                 target_group = self.controller_member_container.get_students_by_group()
                 self.controller_task_container.create_and_deploy_task(target_group)
+                self.view.freeze_until_key_pressed("Task added and deployed!\nPress any key to go back to tasks menu ")
             elif user_choice == '5':
                 self.controller_task_container.del_task_from_container()
+                self.view.freeze_until_key_pressed("Task deleted!\nPress any key to go back to tasks menu ")
             elif user_choice == '6':
                 self.controller_task_container.rename_task()
+                self.view.freeze_until_key_pressed("Task renamed!\nPress any key to go back to tasks menu ")
             elif user_choice == '7':
                 self.controller_task_container.grade_task()
+                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
 
     def grade_attendance(self):
         # check if all students uid in attendances container, if not, add attendance for student:
