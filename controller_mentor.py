@@ -204,9 +204,9 @@ class ControllerMentor(ControllerUser):
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container.get_all_members() if x.role == 'student']
         shuffle(students)
-        groups_of_two = list(zip_longest([member.uid for member in students
+        groups_of_two = list(zip_longest([member.uid + member.first_name + member.last_name for member in students
                              if students.index(member) % 2 == 0],
-                             [member.uid for member in students
+                             [member.uid + member.first_name + member.last_name for member in students
                              if students.index(member) % 2 != 0],
                              fillvalue="Should join other group(s)"))
         if size == 2:
