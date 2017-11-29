@@ -83,7 +83,7 @@ class ControllerMentor(ControllerUser):
         to_continue = True
         while to_continue:
             user_choice = self.view.get_user_input(message)
-            if user_choice == '0:
+            if user_choice == '0':
                 to_continue = False
             elif user_choice == '1':
                 self.controller_attendance_container.get_all_tasks()
@@ -95,7 +95,7 @@ class ControllerMentor(ControllerUser):
                 student = self.controller_member_container.get_user()
                 student_id = self.controller_member_container.get_member_id(student)
                 self.controller_task_container.get_student_tasks(student_id)
-            elif user_choice == '4:
+            elif user_choice == '4':
                 target_group = self.controller_member_container.get_students_by_group()
                 self.controller_task_container.create_and_deploy_task(target_group)
             elif user_choice == '5':
