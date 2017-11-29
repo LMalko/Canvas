@@ -40,7 +40,7 @@ class ControllerMemberContainer():
         self.view_member_container.clear_screen()
         self.view_member_container.display_collection([self.model_member_container.get_member_display(member)
                                                        for member in members])
-        self.view_member_container.freeze_until_key_pressed("\n\nJuż?\n")
+        self.view_member_container.freeze_until_key_pressed()
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')
