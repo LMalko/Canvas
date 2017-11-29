@@ -72,8 +72,10 @@ class ControllerMentor(ControllerUser):
                     self.get_attendance_display()
                 elif user_input == "11":
                     self.view.display_collection(self.get_random_student_group())
+                    self.view.freeze_until_key_pressed("Groups selected")
                 elif user_input == "12":
                     self.view.display_collection(self.get_random_student_group(4))
+                    self.view.freeze_until_key_pressed("Groups selected")
                 elif user_input == "13":
                     to_continue = False
 
