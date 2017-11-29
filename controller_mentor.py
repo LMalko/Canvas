@@ -88,7 +88,7 @@ class ControllerMentor(ControllerUser):
             if user_choice == '0':
                 to_continue = False
             elif user_choice == '1':
-                self.controller_member_container.get_all_tasks()
+                self.controller_task_container.get_all_tasks()
             elif user_choice == '2':
                 self.controller_task_container.get_tasks_by_genre()
             elif user_choice == '3':
