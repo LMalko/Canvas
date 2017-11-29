@@ -1,4 +1,5 @@
 from model_mentor import ModelMentor
+from model_student import ModelStudent
 from controller_task_container import ControllerTaskContainer
 from controller_attendance_container import ControllerAttendanceContainer
 from controller_member_container import ControllerMemberContainer
@@ -161,6 +162,10 @@ class ControllerMentor(ControllerUser):
         uid = self.controller_member_container.get_new_ID()
         return ModelMentor(uid, first_name, last_name, password, my_group)
 
+    def create_student(self, first_name, last_name, password, my_group):
+        uid = self.controller_member_container.get_new_ID()
+        return ModelStudent(uid, first_name, last_name, password, my_group)
+
     def edit_student_details(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
         while True:
@@ -186,10 +191,10 @@ class ControllerMentor(ControllerUser):
         for statement in messages:
             user_input = self.validate_input(statement)
             user_inputs.append(user_input)
-        user = self.controller_mentor.create_student(user_inputs[0],
-                                                     user_inputs[1],
-                                                     user_inputs[2],
-                                                     user_inputs[3])
+        user = self.create_student(user_inputs[0],
+                                   user_inputs[1],
+                                   user_inputs[2],
+                                   user_inputs[3])
         self.view.display_message("\n\nStudent recruited..\n\n")
         self.controller_member_container.add_member(user)
         self.view.get_user_input("\nPress <enter> to continue.. ")
@@ -197,8 +202,8 @@ class ControllerMentor(ControllerUser):
     def remove_student(self):
         self.view.display_message("\n\nLet's get rid of student! It's always fun !! :D\n\n")
         self.get_members_display(self.controller_member_container.get_members_by_role('student'))
-        student_to_release = self.controller_user.get_user()
-        self.controller_member_container.remove(student_to_release)
+        student_to_release = self.controller_member_container.get_user()
+        self.controller_member_container.delete_member(student_to_release)
         self.view.display_message("\n\nDone !!!\n\n")
 
     def get_random_student_group(self, size=2):
