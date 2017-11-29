@@ -87,8 +87,15 @@ class ControllerMentor(ControllerUser):
         self.controller_task_container.rename_task()
 
     def grade_attendance(self):
+        # check if all students uid in attendances container, if not, add attendance for student:
         students = self.controller_member_container.get_students_by_group()
-        # self.controller_attendance_container
+        attendances = self.controller_attendance_container.get_all_students_attendance()
+        students_uid = [student.uid for student in students]
+        attendances_uid = [attendance.student_uid for attendance in attendances]
+        for uid in students_uid:
+            if uid not in attendances_uid:
+                self.controller_attendance_container.create_student_attendance_and_add_to_container(uid)
+
         today = str(datetime.date.today())
         choices_to_display = [
                                 '1: student is present',
@@ -98,17 +105,18 @@ class ControllerMentor(ControllerUser):
                                             '1': 1.0,
                                             '2': 0.0,
                                             '3': 0.75}
-        correct_choices = [str(x+1) for x in range(1, len(choices_to_display))]
+        correct_choices = [str(x+1) for x in range(0, len(choices_to_display))]
+
         for student in students:
             self.view.clear_screen()
             self.view.display_message("\nPlease, type Your choice for student: {} {}\n".format(
                                                                                 student.first_name,
                                                                                 student.last_name))
-            print('tmp', student.uid)
             user_choice = ''
             while user_choice not in correct_choices:
                 self.view.display_collection(choices_to_display)
-                user_choice = self.view.take_user_input()
+                user_choice = self.view.get_user_input('\n==> ')
+            print(user_choice)
             self.controller_attendance_container.set_student_presence_status_for_given_date(
                                                                 student.uid,
                                                                 today,
