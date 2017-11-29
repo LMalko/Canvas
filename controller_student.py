@@ -9,6 +9,7 @@ class ControllerStudent(ControllerUser):
     def __init__(self, user, task_container):
         self.associated_user = user
         self.controller_task_container = ControllerTaskContainer(task_container)
+        self.controller_user = ControllerUser()
         self.view = ViewStudent()
 
     def start(self):
@@ -31,12 +32,12 @@ class ControllerStudent(ControllerUser):
                     to_continue = False
 
     def submit_task(self):
-        self.controller_task_container.change_task_delivery_status(self.associated_user.get_member_id())
+        self.controller_task_container.change_task_delivery_status( \
+            self.controller_user.get_member_id(associated_user))
 
     def view_grades(self):
-        self.controller_task_container.get_student_tasks(self.associated_user.get_member_id())
+        self.controller_task_container.get_student_tasks( \
+            self.controller_user.get_member_id(associated_user))
 
     def get_my_group(self, student):
         return student.get_my_group()
-
-
