@@ -47,7 +47,8 @@ class ControllerMentor(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == "1":
-                    self.get_members_display(ControllerMemberContainer.get_members_by_role('student'))
+                    self.get_members_display( \
+                     self.controller_member_container.get_members_by_role('student'))
                 elif user_input == "2":
                     self.edit_student_details()
                 elif user_input == "3":
