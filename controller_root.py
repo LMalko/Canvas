@@ -90,9 +90,6 @@ class ControllerRoot:
             task_container.add_task(task)
         self.associated_model.container_task = task_container
 
-        # uncomment below when appropriate DAOs are implemented
-        self.associated_model.container_attendance = ModelAttendanceContainer() # empty
-
         # load attendance
         attendance_dao = dao_attendance.DAOAttendance()
         attendance_object_collection = attendance_dao.import_data()
@@ -101,6 +98,22 @@ class ControllerRoot:
         for attendance in attendance_object_collection:
             attendance_container.add_student_attendance(attendance)
         self.associated_model.container_attendance = attendance_container
+
+    def save_containers(self):
+        # grab collections
+        member_collection = self.associated_model.container_member.get_all_members()
+        task_collection = self.associated_model.container_task.get_all_tasks()
+        attendance_collection = self.associated_model.container_attendance.get_all_attendance()
+
+        # instantiate DAOs
+        member_dao = dao_member.DAOMember()
+        task_dao = dao_task.DAOTask()
+        attendance_dao = dao_attendance.DAOAttendance()
+
+        # perform the export
+        member_dao.export_data(member_collection)
+        task_dao.export_data(task_collection)
+        attendance_dao.export_data(attendance_collection)
 
     def initial_admin_creation(self):
         ctrl_admin = ControllerAdmin(None, None)
@@ -120,4 +133,6 @@ class ControllerRoot:
                 self.view.display_message("Invalid credentials or account does not exist")
             login_credentials = self.view.get_login_credentials()
 
+        # we are about to exit - save the containers
+        self.save_containers()
         self.view.display_exit_screen()

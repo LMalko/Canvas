@@ -10,7 +10,8 @@ class ControllerMemberContainer():
         self.model_member_container = ModelMemberContainer()
 
     def get_user(self, role=None):
-        while True:
+        user_is_chosen = False
+        while not user_is_chosen:
             user_id = self.view_member_container.get_user_input("Choose by id: ")
             user = self.get_member(user_id)
             if not user:
@@ -18,6 +19,7 @@ class ControllerMemberContainer():
             elif role and user and user not in self.get_members_by_role(role):
                 self.view_member_container.freeze_until_key_pressed("\nThis user exists but has a different role.\n")
             else:
+                user_is_chosen = True
                 return user
 
     def get_new_ID(self):
@@ -40,7 +42,6 @@ class ControllerMemberContainer():
         self.view_member_container.clear_screen()
         self.view_member_container.display_collection([self.model_member_container.get_member_display(member)
                                                        for member in members])
-        self.view_member_container.freeze_until_key_pressed("\n\nJeśli skończyłeś juz patrzeć to wciśnij coś.\n")
 
     def get_students_by_group(self):
         students = self.get_members_by_role('student')

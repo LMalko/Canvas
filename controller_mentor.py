@@ -27,13 +27,14 @@ class ControllerMentor(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: View student list",
+        choices = [
+                   "1: View student list",
                    "2: Edit student",
                    "3: Add student",
                    "4: Remove student",
                    "5: Task menu",
                    "6: Grade today's attendance",
-                   "7: Check attendance",
+                   "7: Display attendance",
                    "8: Get random groups of two",
                    "9: Get random groups of four",
                    "10: Log out"]
@@ -47,9 +48,8 @@ class ControllerMentor(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == "1":
-                    self.get_members_display( \
-                     self.controller_member_container.get_members_by_role('student'))
-                    input()
+                    self.controller_member_container.get_members_display(
+                         self.controller_member_container.get_members_by_role('student'))
                 elif user_input == "2":
                     self.edit_student_details()
                 elif user_input == "3":
@@ -63,23 +63,24 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "7":
                     self.get_attendance_display()
                 elif user_input == "8":
-                    self.view.display_collection(self.get_random_student_group())
+                    self.view.display_nested_collection(self.get_random_student_group())
                     self.view.freeze_until_key_pressed("Groups selected")
                 elif user_input == "9":
-                    self.view.display_collection(self.get_random_student_group(4))
+                    self.view.display_nested_collection(self.get_random_student_group(4))
                     self.view.freeze_until_key_pressed("Groups selected")
                 elif user_input == "10":
                     to_continue = False
 
     def tasks_menu(self):
-        choices = ['1. View all tasks',
-                    '2. View tasks by genre',
-                    '3. View tasks by student',
-                    '4. Add & deploy task',
-                    '5. Del task',
-                    '6. Rename task',
-                    '7. Grade task',
-                    '0. Exit']
+        choices = [
+                    "1. View all tasks",
+                    "2. View tasks by genre",
+                    "3. View tasks by student",
+                    "4. Add & deploy task",
+                    "5. Delete task",
+                    "6. Rename task",
+                    "7. Grade task",
+                    "0. Exit"]
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -172,10 +173,6 @@ class ControllerMentor(ControllerUser):
             if uid not in attendances_uid:
                 self.controller_attendance_container.create_student_attendance_and_add_to_container(uid)
 
-    def get_members_display(self, members):
-        for person in members:
-            self.view.display_message(self.controller_user.get_member_display(person))
-
     def create_mentor(self, first_name, last_name, password, my_group):
         uid = self.controller_member_container.get_new_ID()
         return ModelMentor(uid, first_name, last_name, password, my_group)
@@ -187,7 +184,8 @@ class ControllerMentor(ControllerUser):
     def edit_student_details(self):
         self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
         while True:
-            self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+            self.controller_member_container.get_members_display(
+                 self.controller_member_container.get_members_by_role('student'))
             student_to_change = self.controller_member_container.get_user()
             if student_to_change in [user for user in self.controller_member_container.get_members_by_role('student')]:
                 break
@@ -219,7 +217,8 @@ class ControllerMentor(ControllerUser):
 
     def remove_student(self):
         self.view.display_message("\n\nLet's get rid of student! It's always fun !! :D\n\n")
-        self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+        self.controller_member_container.get_members_display(
+             self.controller_member_container.get_members_by_role('student'))
         student_to_release = self.controller_member_container.get_user()
         self.controller_member_container.delete_member(student_to_release)
         self.view.display_message("\n\nDone !!!\n\n")
@@ -227,10 +226,10 @@ class ControllerMentor(ControllerUser):
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container.get_all_members() if x.role == 'student']
         shuffle(students)
-        groups_of_two = list(zip_longest([member.uid for member in students
-                             if students.index(member) % 2 == 0],
-                             [member.uid for member in students
-                             if students.index(member) % 2 != 0],
+        groups_of_two = list(zip_longest(["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                             for member in students if students.index(member) % 2 == 0],
+                             ["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                             for member in students if students.index(member) % 2 != 0],
                              fillvalue="Should join other group(s)"))
         if size == 2:
             return groups_of_two

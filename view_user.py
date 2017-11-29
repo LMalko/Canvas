@@ -6,7 +6,8 @@ class ViewUser():
     def get_user_input(self, message):
         return input(message)
 
-    def freeze_until_key_pressed(self, message='\nPress any key to continue.. '):
+    def freeze_until_key_pressed(self, message='Press any key to continue.. '):
+        message = '\n' + message
         freeze_message = input(message)
         return None
 
@@ -19,3 +20,7 @@ class ViewUser():
 
     def clear_screen(self):
         os.system('cls' if os.name == 'nt' else 'clear')
+
+    def display_nested_collection(self, collection):
+        for element in collection:
+            print(", ".join(element))
