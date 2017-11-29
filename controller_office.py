@@ -24,7 +24,11 @@ class ControllerOffice(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == '1':
-                    self.controller_member_container.get_members_display(
-                        self.controller_member_container.get_members_by_role("student"))
+                    self.get_students_list_to_display()
                 elif user_input == '2':
                     to_continue = False
+
+    def get_students_list_to_display(self):
+        self.controller_member_container.get_members_display(
+            self.controller_member_container.get_members_by_role("student"))
+        self.view.freeze_until_key_pressed()

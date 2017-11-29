@@ -58,7 +58,7 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "6":
                     self.grade_attendance()
                 elif user_input == "7":
-                    self.display_attendance()
+                    self.get_attendance_to_display()
                 elif user_input == "8":
                     self.get_random_groups()
                 elif user_input == "9":
@@ -99,7 +99,7 @@ class ControllerMentor(ControllerUser):
             self.controller_member_container.get_members_by_role("student"))
         self.view.freeze_until_key_pressed()
 
-    def display_attendance(self):
+    def get_attendance_to_display(self):
         group_of_students = self.controller_member_container.get_students_by_group()
         self.__update_attendances(group_of_students)
         presence_values_to_words = {
@@ -162,7 +162,7 @@ class ControllerMentor(ControllerUser):
             student_detail_to_change_is_chosen = False
             while not student_detail_to_change_is_chosen:
                 self.view.clear_screen()
-                self.view.display_message("\n\nLet's change data of {}:".format(student_to_change))
+                self.view.display_message("\n\nLet's change data of {}:".format(student_to_change.get_member_fullname()))
                 student_detail_to_change = self.view.get_user_input(
                                 "\n\nChange: first name (1) last name (2) or password (3)? ")
                 if student_detail_to_change == "1":
