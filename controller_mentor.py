@@ -82,11 +82,13 @@ class ControllerMentor(ControllerUser):
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
+            self.view.clear_screen()
+            self.view.display_collection(choices)
             user_choice = self.view.get_user_input(message)
             if user_choice == '0':
                 to_continue = False
             elif user_choice == '1':
-                self.controller_attendance_container.get_all_tasks()
+                self.controller_member_container.get_all_tasks()
             elif user_choice == '2':
                 self.controller_task_container.get_tasks_by_genre()
             elif user_choice == '3':
