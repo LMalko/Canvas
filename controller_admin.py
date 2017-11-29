@@ -101,10 +101,13 @@ class ControllerAdmin(ControllerUser):
                     if mentor_to_change in [
                             user for user in self.controller_member_container.get_members_by_role('mentor')]:
                         mentor_is_chosen = True
+                        break
                     self.view.display_message("\n\nThis user is not a mentor!\n")
             detail_to_change_is_chosen = False
             while not detail_to_change_is_chosen:
-                mentor_detail_to_change = self.view.get_user_input("\nChange: first name (1) last name (2) or password (3)? ")
+                self.view.display_message("\n\nLet's change data of {}:".format(mentor_to_change.get_member_fullname()))
+                mentor_detail_to_change = self.view.get_user_input(
+                                        "\nChange: first name (1) last name (2) or password (3)? ")
                 if mentor_detail_to_change == "1":
                     return self.change_first_name(mentor_to_change)
                 elif mentor_detail_to_change == "2":

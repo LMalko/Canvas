@@ -15,7 +15,9 @@ class ModelStudent(ModelUser):
 
     def get_my_group(self):
         return self.my_group
-    
+
+    def __str__(self):
+        return '{} {}'.format(self.first_name, self.last_name)
+
     def get_data_for_export(self):
         return [self.role, self.uid, self.first_name, self.last_name, self.password, self.my_group]
-
