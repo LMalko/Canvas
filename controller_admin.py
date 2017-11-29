@@ -47,6 +47,7 @@ class ControllerAdmin(ControllerUser):
                     to_continue = False
 
     def add_mentor(self):
+        self.view.clear_screen()
         self.view.display_message("\n\nLet's hire Mentor..\n\n")
         user_inputs = []
         messages = ["Enter first name: ", "Enter last name: ", "Specify password: ", "Specify group: "]
@@ -78,10 +79,12 @@ class ControllerAdmin(ControllerUser):
             self.view.freeze_until_key_pressed("There is no one to release. Press any key.. ")
         else:
             self.controller_member_container.get_members_display(mentors)
-            mentor_to_release = self.controller_member_container.get_user('mentor')
-            if mentor_to_release:
-                self.controller_member_container.delete_member(mentor_to_release)
-                self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
+            if len(mentors) == 1:
+                mentor_to_release = mentors[0]
+            else:
+                mentor_to_release = self.controller_member_container.get_user('mentor')
+            self.controller_member_container.delete_member(mentor_to_release)
+            self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
 
     def edit_mentor(self):
         mentors = self.controller_member_container.get_members_by_role("mentor")
