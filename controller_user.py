@@ -37,6 +37,3 @@ class ControllerUser():
 
     def get_member_display(self, member):
         return member.get_member_display()
-
-
-
