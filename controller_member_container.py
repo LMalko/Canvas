@@ -35,6 +35,7 @@ class ControllerMemberContainer():
         return all_members_by_role
 
     def get_members_display(self, members):
+        self.view_member_container.clear_screen()
         self.view_member_container.display_collection([self.model_member_container.get_member_display(member)
                                                        for member in members])
         self.view_member_container.freeze_until_key_pressed("\n\nJeśli skończyłeś juz patrzeć to wciśnij coś.\n")
