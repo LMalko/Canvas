@@ -92,16 +92,19 @@ class ControllerAdmin(ControllerUser):
             self.view.freeze_until_key_pressed("There is no one to edit. Press any key.. ")
         else:
             self.controller_member_container.get_members_display(mentors)
-            mentor_is_chosen = False
-            while not mentor_is_chosen:
-                mentor_to_change = self.controller_member_container.get_user()
-                if mentor_to_change in [
-                        user for user in self.controller_member_container.get_members_by_role('mentor')]:
-                    mentor_is_chosen = True
-                self.view.display_message("\n\nThis user is not a mentor!\n")
+            if len(mentors) == 1:
+                mentor_to_change = mentors[0]
+            else:
+                mentor_is_chosen = False
+                while not mentor_is_chosen:
+                    mentor_to_change = self.controller_member_container.get_user()
+                    if mentor_to_change in [
+                            user for user in self.controller_member_container.get_members_by_role('mentor')]:
+                        mentor_is_chosen = True
+                    self.view.display_message("\n\nThis user is not a mentor!\n")
             detail_to_change_is_chosen = False
             while not detail_to_change_is_chosen:
-                mentor_detail_to_change = self.view.get_user_input("Change: first name (1) last name (2) or password (3)? ")
+                mentor_detail_to_change = self.view.get_user_input("\nChange: first name (1) last name (2) or password (3)? ")
                 if mentor_detail_to_change == "1":
                     return self.change_first_name(mentor_to_change)
                 elif mentor_detail_to_change == "2":
