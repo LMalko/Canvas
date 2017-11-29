@@ -26,7 +26,7 @@ class ControllerMentor(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: View student list",
+        choices = ["1: View students list",
                    "2: Edit student",
                    "3: Add student",
                    "4: Remove student",
@@ -87,7 +87,7 @@ class ControllerMentor(ControllerUser):
             user_choice = ''
             while user_choice not in correct_choices:
                 self.view.display_collection(choices_to_display)
-                user_choice = self.view.get_user_input('\n==> ')
+                user_choice = self.view.get_user_input('\nType Your choice ==> ')
             print(user_choice)
             self.controller_attendance_container.set_student_presence_status_for_given_date(
                                                                 student.uid,
@@ -141,7 +141,6 @@ class ControllerMentor(ControllerUser):
         return ModelStudent(uid, first_name, last_name, password, my_group)
 
     def edit_student_details(self):
-        self.view.clear_screen()
         students = self.controller_member_container.get_members_by_role('student')
         if not students:
             self.view.freeze_until_key_pressed("There is no one to edit. Press any key.. ")
@@ -149,6 +148,7 @@ class ControllerMentor(ControllerUser):
             if len(students) == 1:
                 student_to_change = students[0]
             else:
+                self.view.clear_screen()
                 self.view.display_message("\n\nCongratulations, You have privilages to change student's details.\n")
                 student_to_change_is_chosen = False
                 while not student_to_change_is_chosen:
@@ -162,9 +162,9 @@ class ControllerMentor(ControllerUser):
             student_detail_to_change_is_chosen = False
             while not student_detail_to_change_is_chosen:
                 self.view.clear_screen()
-                self.get_members_display(students)
+                self.view.display_message("\n\nLet's change data of {}".format(student_to_change))
                 student_detail_to_change = self.view.get_user_input(
-                                "Change: first name (1) last name (2) or password (3)? ")
+                                "\n\nChange: first name (1) last name (2) or password (3)? ")
                 if student_detail_to_change == "1":
                     return self.controller_user.change_first_name(student_to_change)
                 elif student_detail_to_change == "2":
@@ -189,11 +189,18 @@ class ControllerMentor(ControllerUser):
         self.view.get_user_input("\nPress <enter> to continue.. ")
 
     def remove_student(self):
-        self.view.display_message("\n\nLet's get rid of student! It's always fun!! :D\n\n")
-        self.get_members_display(self.controller_member_container.get_members_by_role('student'))
-        student_to_release = self.controller_member_container.get_user()
-        self.controller_member_container.delete_member(student_to_release)
-        self.view.display_message("\n\nDone!!!\n\n")
+        students = self.controller_member_container.get_members_by_role("student")
+        if not students:
+            self.view.freeze_until_key_pressed("There is no one to release. Press any key.. ")
+        else:
+            self.view.display_message("\n\nLet's get rid of student! It's always fun!! :D\n\n")
+            self.controller_member_container.get_members_display(students)
+            if len(students) == 1:
+                student_to_release = students[0]
+            else:
+                student_to_release = self.controller_member_container.get_user('student')
+            self.controller_member_container.delete_member(student_to_release)
+            self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
 
     def get_random_groups(self, size=2):
         self.view.display_collection(self.get_random_student_group(size))
