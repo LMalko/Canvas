@@ -25,6 +25,6 @@ class ModelUser():
     def get_id(self):
         return self.uid
     
-    @classmethod   # Odkomentować, jeśli wypierdoli się z hukiem 
+    @classmethod
     def get_role_attribute(cls):
         return cls.role
