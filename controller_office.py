@@ -1,4 +1,5 @@
 from controller_member_container import ControllerMemberContainer
+from view_office import ViewOffice
 from model_office import ModelOffice
 from controller_user import *
 
@@ -23,11 +24,7 @@ class ControllerOffice(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == '1':
-                    self.get_members_display(self.controller_member_container.get_members_by_role('student'))
+                    self.controller_member_container.get_members_display(
+                        self.controller_member_container.get_members_by_role("student"))
                 elif user_input == '2':
                     to_continue = False
-
-    def get_members_display(self, members):
-        for person in members:
-            self.view.display_message(ControllerUser.get_member_display(person))
-
