@@ -10,8 +10,6 @@ class DAOAttendance():
     def import_data(self):
         with open(self.filename, "r") as myfile:
             imported_data = myfile.read()
-        print('import data')
-        print(imported_data)
         return self.__extract_imported_data(imported_data.strip().split("\n"))
 
     def __extract_imported_data(self, imported_data):
