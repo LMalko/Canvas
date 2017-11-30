@@ -34,7 +34,6 @@ class ControllerStudent(ControllerUser):
                     self.submit_task()
                 elif user_input == "3":
                     self.view_grades()
-                    self.view.freeze_until_key_pressed("\n\nThese are Your grades.")
                 elif user_input == "0":
                     to_continue = False
 
@@ -46,6 +45,7 @@ class ControllerStudent(ControllerUser):
         user_id = self.controller_user.get_member_id(self.associated_user)
         user_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(user_id)
         self.controller_task_container.get_all_tasks(user_tasks)
+        self.view.freeze_until_key_pressed("These are Your grades.")
 
     def get_my_group(self, student):
         return student.get_my_group()
