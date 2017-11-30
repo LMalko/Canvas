@@ -26,17 +26,19 @@ class ControllerMentor(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: View students list",
-                   "2: Edit student",
-                   "3: Add student",
-                   "4: Remove student",
-                   "5: Task menu",
-                   "6: Grade today's attendance",
-                   "7: Display attendance",
-                   "8: Get random groups of two",
-                   "9: Get random groups of four",
-                   "10: Log out"]
-        correct_choices = [str(x+1) for x in range(1, len(choices))]
+        choices = [
+                    " 1: View my data",
+                    " 2: View students list",
+                    " 3: Edit student",
+                    " 4: Add student",
+                    " 5: Remove student",
+                    " 6: Task menu",
+                    " 7: Grade today's attendance",
+                    " 8: Display attendance",
+                    " 9: Get random groups of two",
+                    "10: Get random groups of four",
+                    " 0: Log out"]
+        correct_choices = [str(x) for x in range(0, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -46,71 +48,27 @@ class ControllerMentor(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == "1":
-                    self.get_students_list_to_display()
+                    self.execute_member_display(self.associated_user)
                 elif user_input == "2":
-                    self.edit_student_details()
+                    self.get_students_list_to_display()
                 elif user_input == "3":
-                    self.add_student()
+                    self.edit_student_details()
                 elif user_input == "4":
-                    self.remove_student()
+                    self.add_student()
                 elif user_input == "5":
-                    self.tasks_menu()
+                    self.remove_student()
                 elif user_input == "6":
-                    self.grade_attendance()
+                    self.tasks_menu()
                 elif user_input == "7":
-                    self.get_attendance_to_display()
+                    self.grade_attendance()
                 elif user_input == "8":
-                    self.get_random_groups()
+                    self.get_attendance_to_display()
                 elif user_input == "9":
-                    self.get_random_groups(4)
+                    self.get_random_groups()
                 elif user_input == "10":
+                    self.get_random_groups(4)
+                elif user_input == "0":
                     to_continue = False
-
-    def tasks_menu(self):
-        choices = [
-                    "1. View all tasks",
-                    "2. View tasks by genre",
-                    "3. View tasks by student",
-                    "4. Add & deploy task",
-                    "5. Delete task",
-                    "6. Rename task",
-                    "7. Grade task",
-                    "0. Log out"]
-        
-        message = "\nPlease, type Your choice: "
-        to_continue = True
-        while to_continue:
-            self.view.clear_screen()
-            self.view.display_collection(choices)
-            user_choice = self.view.get_user_input(message)
-            if user_choice == '0':
-                to_continue = False
-            elif user_choice == '1':
-                self.controller_task_container.get_all_tasks()
-                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-            elif user_choice == '2':
-                self.controller_task_container.get_tasks_by_genre()
-                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-            elif user_choice == '3':
-                all_students = self.controller_member_container.get_members_by_role('student')
-                self.controller_member_container.get_members_display(all_students)
-                student = self.controller_member_container.get_user()
-                student_id = self.controller_member_container.get_member_id(student)
-                student_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
-                self.controller_task_container.get_all_tasks(student_tasks)
-                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-            elif user_choice == '4':
-                target_group = self.controller_member_container.get_students_by_group()
-                self.controller_task_container.create_and_deploy_task(target_group)
-                self.view.freeze_until_key_pressed("Task added and deployed!\nPress any key to go back to tasks menu ")
-            elif user_choice == '5':
-                self.controller_task_container.del_task_from_container()
-                self.view.freeze_until_key_pressed("Task deleted!\nPress any key to go back to tasks menu ")
-            elif user_choice == '6':
-                self.controller_task_container.rename_task()
-                self.view.freeze_until_key_pressed("Task renamed!\nPress any key to go back to tasks menu ")
-            elif user_choice == '7':
-                self.grade_task_menu()
 
     def grade_task_menu(self):
         choices = [
@@ -118,7 +76,7 @@ class ControllerMentor(ControllerUser):
                     "2. Choose by student",
                     "3. Choose by task",
                     "0. Log out"]
-        
+
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -131,8 +89,13 @@ class ControllerMentor(ControllerUser):
             elif user_choice == '1':
                 chosen_task = self.controller_task_container.take_and_validate_particular_task_choice()
                 self.controller_task_container.grade_task(chosen_task)
+<<<<<<< HEAD
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
             
+=======
+                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+
+>>>>>>> b58223d056d3c5e33fc5dc80c9567b07dd993d59
             elif user_choice == '2':
                 all_students = self.controller_member_container.get_members_by_role('student')
                 self.controller_member_container.get_members_display(all_students)
@@ -141,15 +104,24 @@ class ControllerMentor(ControllerUser):
                 studen_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_task_id(studen_tasks)
                 self.controller_task_container.grade_task(chosen_task)
+<<<<<<< HEAD
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
             
+=======
+                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+
+>>>>>>> b58223d056d3c5e33fc5dc80c9567b07dd993d59
             elif user_choice == '3':
                 task_id = self.controller_task_container.get_task_id_by_genre()
                 tasks_of_chosen_genre = self.controller_task_container.cherry_pick_tasks_by_task_id(task_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_user_id(tasks_of_chosen_genre)
                 self.controller_task_container.grade_task(chosen_task)
+<<<<<<< HEAD
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
                 
+=======
+                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+>>>>>>> b58223d056d3c5e33fc5dc80c9567b07dd993d59
 
     def grade_attendance(self):
         group_of_students = self.controller_member_container.get_students_by_group()
@@ -173,7 +145,6 @@ class ControllerMentor(ControllerUser):
             while user_choice not in correct_choices:
                 self.view.display_collection(choices_to_display)
                 user_choice = self.view.get_user_input('\nType Your choice ==> ')
-            print(user_choice)
             self.controller_attendance_container.set_student_presence_status_for_given_date(
                                                                 student.uid,
                                                                 today,
@@ -247,7 +218,7 @@ class ControllerMentor(ControllerUser):
             student_detail_to_change_is_chosen = False
             while not student_detail_to_change_is_chosen:
                 self.view.clear_screen()
-                self.view.display_message("\n\nLet's change data of {}:".format(student_to_change.get_member_fullname()))
+                self.view.display_message("\n\nLet's change data of {}:".format(student_to_change.get_fullname()))
                 student_detail_to_change = self.view.get_user_input(
                                 "\n\nChange: first name (1) last name (2) or password (3)? ")
                 if student_detail_to_change == "1":
@@ -288,67 +259,71 @@ class ControllerMentor(ControllerUser):
             self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
 
     def get_random_groups(self, size=2):
-        self.view.display_collection(self.get_random_student_group(size))
+        self.view.display_nested_collection(self.get_random_student_group(size))
         self.view.freeze_until_key_pressed("Groups selected")
 
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container.get_all_members() if x.role == 'student']
         if students:
             shuffle(students)
-            groups_of_two = list(zip_longest([member.uid for member in students
+            groups_of_two = list(zip_longest(["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                                 for member in students
                                  if students.index(member) % 2 == 0],
-                                 [member.uid for member in students
+                                 ["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                                 for member in students
                                  if students.index(member) % 2 != 0],
-                                 fillvalue="Should join other group(s)"))
+                                 fillvalue="Should join other group"))
             if size == 2:
                 return groups_of_two
             if size == 4:
                 return [list(chain.from_iterable(group_of_four)) for group_of_four in
-                        list(zip([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
-                             [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0]))]
+                        list(zip_longest([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
+                                         [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0],
+                                         fillvalue=["Should join other groups"]))]
         return "No such option"
 
-        def tasks_menu(self):
-            choices = [
-                        '1. View all tasks',
-                        '2. View tasks by genre'
-                        '3. View tasks by student',
-                        '4. Add & deploy task',
-                        '5. Del task',
-                        '6. Rename task',
-                        '7. Grade task',
-                        '0. Exit']
-            message = "\nPlease, type Your choice: "
-            to_continue = True
-            while to_continue:
-                self.view.clear_screen()
-                self.view.display_collection(choices)
-                user_choice = self.view.get_user_input(message)
-                if user_choice == '0':
-                    to_continue = False
-                elif user_choice == '1':
-                    self.controller_task_container.get_all_tasks()
-                    self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-                elif user_choice == '2':
-                    self.controller_task_container.get_tasks_by_genre()
-                    self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-                elif user_choice == '3':
-                    all_students = self.controller_member_container.get_members_by_role('student')
-                    self.controller_member_container.get_members_display(all_students)
-                    student = self.controller_member_container.get_user()
-                    student_id = self.controller_member_container.get_member_id(student)
-                    self.controller_task_container.get_student_tasks(student_id)
-                    self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-                elif user_choice == '4':
-                    target_group = self.controller_member_container.get_students_by_group()
-                    self.controller_task_container.create_and_deploy_task(target_group)
-                    self.view.freeze_until_key_pressed("Task added and deployed!\nPress any key to go back to tasks menu ")
-                elif user_choice == '5':
-                    self.controller_task_container.del_task_from_container()
-                    self.view.freeze_until_key_pressed("Task deleted!\nPress any key to go back to tasks menu ")
-                elif user_choice == '6':
-                    self.controller_task_container.rename_task()
-                    self.view.freeze_until_key_pressed("Task renamed!\nPress any key to go back to tasks menu ")
-                elif user_choice == '7':
-                    self.controller_task_container.grade_task()
-                    self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+    def tasks_menu(self):
+        choices = [
+                    "1. View all tasks",
+                    "2. View tasks by genre",
+                    "3. View tasks by student",
+                    "4. Add & deploy task",
+                    "5. Delete task",
+                    "6. Rename task",
+                    "7. Grade task",
+                    "0. Exit menu"]
+
+        message = "\nPlease, type Your choice: "
+        to_continue = True
+        while to_continue:
+            self.view.clear_screen()
+            self.view.display_collection(choices)
+            user_choice = self.view.get_user_input(message)
+            if user_choice == '0':
+                to_continue = False
+            elif user_choice == '1':
+                self.controller_task_container.get_all_tasks()
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
+            elif user_choice == '2':
+                self.controller_task_container.get_tasks_by_genre()
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
+            elif user_choice == '3':
+                all_students = self.controller_member_container.get_members_by_role('student')
+                self.controller_member_container.get_members_display(all_students)
+                student = self.controller_member_container.get_user()
+                student_id = self.controller_member_container.get_member_id(student)
+                student_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
+                self.controller_task_container.get_all_tasks(student_tasks)
+                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
+            elif user_choice == '4':
+                target_group = self.controller_member_container.get_students_by_group()
+                self.controller_task_container.create_and_deploy_task(target_group)
+                self.view.freeze_until_key_pressed("Task added and deployed!\nPress any key to go back to tasks menu ")
+            elif user_choice == '5':
+                self.controller_task_container.del_task_from_container()
+                self.view.freeze_until_key_pressed("Task deleted!\nPress any key to go back to tasks menu ")
+            elif user_choice == '6':
+                self.controller_task_container.rename_task()
+                self.view.freeze_until_key_pressed("Task renamed!\nPress any key to go back to tasks menu ")
+            elif user_choice == '7':
+                self.grade_task_menu()

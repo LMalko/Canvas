@@ -1,7 +1,7 @@
 from controller_member_container import ControllerMemberContainer
 from view_office import ViewOffice
 from model_office import ModelOffice
-from controller_user import *
+from controller_user import ControllerUser
 
 
 class ControllerOffice(ControllerUser):
@@ -13,8 +13,11 @@ class ControllerOffice(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ['1: View student list', '2: Log out']
-        correct_choices = [str(x+1) for x in range(1, len(choices))]
+        choices = [
+                    ' 1: View my data',
+                    ' 2: View student list',
+                    ' 0: Log out']
+        correct_choices = [str(x) for x in range(0, len(choices))]
         message = '\nPlease, type Your choice: '
         to_continue = True
         while to_continue:
@@ -24,8 +27,10 @@ class ControllerOffice(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == '1':
-                    self.get_students_list_to_display()
+                    self.execute_member_display(self.associated_user)
                 elif user_input == '2':
+                    self.get_students_list_to_display()
+                elif user_input == '0':
                     to_continue = False
 
     def get_students_list_to_display(self):

@@ -1,7 +1,7 @@
 from model_student import ModelStudent
 from controller_task_container import ControllerTaskContainer
 from view_student import ViewStudent
-from controller_user import*
+from controller_user import ControllerUser
 
 
 class ControllerStudent(ControllerUser):
@@ -14,8 +14,12 @@ class ControllerStudent(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: Submit task", "2: View Your grades", "3: Log out"]
-        correct_choices = [str(x+1) for x in range(1, len(choices))]
+        choices = [
+                    " 1: View my data",
+                    " 2: Submit task",
+                    " 3: View Your grades",
+                    " 0: Log out"]
+        correct_choices = [str(x) for x in range(0, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -24,15 +28,17 @@ class ControllerStudent(ControllerUser):
                 self.view.clear_screen()
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
-                if user_input == "1":
-                    self.submit_task()
+                if user_input == '1':
+                    self.execute_member_display(self.associated_user)
                 elif user_input == "2":
-                    self.view_grades()
-                    self.view.freeze_until_key_pressed("\n\nThese are Your grades.")
+                    self.submit_task()
                 elif user_input == "3":
+                    self.view_grades()
+                elif user_input == "0":
                     to_continue = False
 
     def submit_task(self):
+        self.view.clear_screen()
         self.controller_task_container.change_task_delivery_status(
              self.controller_user.get_member_id(self.associated_user))
 
@@ -40,6 +46,7 @@ class ControllerStudent(ControllerUser):
         user_id = self.controller_user.get_member_id(self.associated_user)
         user_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(user_id)
         self.controller_task_container.get_all_tasks(user_tasks)
+        self.view.freeze_until_key_pressed("These are Your grades.")
 
     def get_my_group(self, student):
         return student.get_my_group()
