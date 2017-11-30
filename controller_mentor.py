@@ -301,13 +301,14 @@ class ControllerMentor(ControllerUser):
                                  ["{} {} {}".format(member.uid, member.first_name, member.last_name)
                                  for member in students
                                  if students.index(member) % 2 != 0],
-                                 fillvalue="Should join other group(s)"))
+                                 fillvalue="Should join other group"))
             if size == 2:
                 return groups_of_two
             if size == 4:
                 return [list(chain.from_iterable(group_of_four)) for group_of_four in
-                        list(zip([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
-                             [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0]))]
+                        list(zip_longest([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
+                                         [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0],
+                                         fillvalue=["Should join other groups"]))]
         return "No such option"
 
     def tasks_menu(self):
