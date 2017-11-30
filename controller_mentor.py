@@ -276,7 +276,7 @@ class ControllerMentor(ControllerUser):
                     "5. Delete task",
                     "6. Rename task",
                     "7. Grade task",
-                    "0. Log out"]
+                    "0. Exit menu"]
 
         message = "\nPlease, type Your choice: "
         to_continue = True

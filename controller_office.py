@@ -1,7 +1,7 @@
 from controller_member_container import ControllerMemberContainer
 from view_office import ViewOffice
 from model_office import ModelOffice
-from controller_user import *
+from controller_user import ControllerUser
 
 
 class ControllerOffice(ControllerUser):
