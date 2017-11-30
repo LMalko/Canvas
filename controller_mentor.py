@@ -269,14 +269,15 @@ class ControllerMentor(ControllerUser):
 
     def tasks_menu(self):
         choices = [
-                    '1. View all tasks',
-                    '2. View tasks by genre',
-                    '3. View tasks by student',
-                    '4. Add & deploy task',
-                    '5. Del task',
-                    '6. Rename task',
-                    '7. Grade task',
-                    '0. Exit']
+                    "1. View all tasks",
+                    "2. View tasks by genre",
+                    "3. View tasks by student",
+                    "4. Add & deploy task",
+                    "5. Delete task",
+                    "6. Rename task",
+                    "7. Grade task",
+                    "0. Log out"]
+
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -296,7 +297,8 @@ class ControllerMentor(ControllerUser):
                 self.controller_member_container.get_members_display(all_students)
                 student = self.controller_member_container.get_user()
                 student_id = self.controller_member_container.get_member_id(student)
-                self.controller_task_container.get_student_tasks(student_id)
+                student_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
+                self.controller_task_container.get_all_tasks(student_tasks)
                 self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
             elif user_choice == '4':
                 target_group = self.controller_member_container.get_students_by_group()
@@ -309,5 +311,4 @@ class ControllerMentor(ControllerUser):
                 self.controller_task_container.rename_task()
                 self.view.freeze_until_key_pressed("Task renamed!\nPress any key to go back to tasks menu ")
             elif user_choice == '7':
-                self.controller_task_container.grade_task()
-                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+                self.grade_task_menu()
