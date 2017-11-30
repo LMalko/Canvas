@@ -100,7 +100,7 @@ class ControllerTaskContainer():
     def create_and_deploy_task(self, target_group):
         task_id = self.get_max_task_id()
 
-        max_task_name_length = 20
+        max_task_name_length = 15
         invalid_input = True
         while invalid_input:
             task_name = self.get_valid_input("\nPass tasks name(max {} char): ".format(max_task_name_length))
