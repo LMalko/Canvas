@@ -88,8 +88,11 @@ class ControllerMentor(ControllerUser):
 
             elif user_choice == '1':
                 chosen_task = self.controller_task_container.take_and_validate_particular_task_choice()
-                self.controller_task_container.grade_task(chosen_task)
-                self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
+                if chosen_task:
+                    self.controller_task_container.grade_task(chosen_task)
+                    self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
+                else:
+                    self.view.freeze_until_key_pressed("\nTask list is empty. Nothing to display.")
 
             elif user_choice == '2':
                 all_students = self.controller_member_container.get_members_by_role('student')
@@ -97,16 +100,22 @@ class ControllerMentor(ControllerUser):
                 student = self.controller_member_container.get_user()
                 student_id = self.controller_member_container.get_member_id(student)
                 studen_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
-                chosen_task = self.controller_task_container.take_and_validate_task_choice_by_task_id(studen_tasks)
-                self.controller_task_container.grade_task(chosen_task)
-                self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
+                if studen_tasks:
+                    chosen_task = self.controller_task_container.take_and_validate_task_choice_by_task_id(studen_tasks)
+                    self.controller_task_container.grade_task(chosen_task)
+                    self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
+                else:
+                    self.view.freeze_until_key_pressed("\nTask list is empty. Nothing to display.")
 
             elif user_choice == '3':
                 task_id = self.controller_task_container.get_task_id_by_genre()
-                tasks_of_chosen_genre = self.controller_task_container.cherry_pick_tasks_by_task_id(task_id)
-                chosen_task = self.controller_task_container.take_and_validate_task_choice_by_user_id(tasks_of_chosen_genre)
-                self.controller_task_container.grade_task(chosen_task)
-                self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
+                if task_id:
+                    tasks_of_chosen_genre = self.controller_task_container.cherry_pick_tasks_by_task_id(task_id)
+                    chosen_task = self.controller_task_container.take_and_validate_task_choice_by_user_id(tasks_of_chosen_genre)
+                    self.controller_task_container.grade_task(chosen_task)
+                    self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
+                else:
+                    self.view.freeze_until_key_pressed("\nTask list is empty. Nothing to display.")
 
     def grade_attendance(self):
         group_of_students = self.controller_member_container.get_students_by_group()
