@@ -110,53 +110,59 @@ class ControllerMentor(ControllerUser):
 
     def grade_attendance(self):
         group_of_students = self.controller_member_container.get_students_by_group()
-        self.__update_attendances(group_of_students)
-        today = str(datetime.date.today())
-        choices_to_display = [
-                                '1: student is present',
-                                '2: student is absent',
-                                '3: student is late']
-        user_choices_to_presence_value = {
-                                            '1': 1.0,
-                                            '2': 0.0,
-                                            '3': 0.75}
-        correct_choices = [str(x+1) for x in range(0, len(choices_to_display))]
-        for student in group_of_students:
-            self.view.clear_screen()
-            self.view.display_message("\nPlease, type Your choice for student: {} {}\n".format(
-                                                                                student.first_name,
-                                                                                student.last_name))
-            user_choice = ''
-            while user_choice not in correct_choices:
-                self.view.display_collection(choices_to_display)
-                user_choice = self.view.get_user_input('\nType Your choice ==> ')
-            self.controller_attendance_container.set_student_presence_status_for_given_date(
-                                                                student.uid,
-                                                                today,
-                                                                user_choices_to_presence_value[user_choice])
+        if not group_of_students:
+            self.view.freeze_until_key_pressed('We should recruit students first...')
+        else:
+            self.__update_attendances(group_of_students)
+            today = str(datetime.date.today())
+            choices_to_display = [
+                                    '1: student is present',
+                                    '2: student is absent',
+                                    '3: student is late']
+            user_choices_to_presence_value = {
+                                                '1': 1.0,
+                                                '2': 0.0,
+                                                '3': 0.75}
+            correct_choices = [str(x+1) for x in range(0, len(choices_to_display))]
+            for student in group_of_students:
+                self.view.clear_screen()
+                self.view.display_message("\nPlease, type Your choice for student: {} {}\n".format(
+                                                                                    student.first_name,
+                                                                                    student.last_name))
+                user_choice = ''
+                while user_choice not in correct_choices:
+                    self.view.display_collection(choices_to_display)
+                    user_choice = self.view.get_user_input('\nType Your choice ==> ')
+                self.controller_attendance_container.set_student_presence_status_for_given_date(
+                                                                    student.uid,
+                                                                    today,
+                                                                    user_choices_to_presence_value[user_choice])
 
     def get_students_list_to_display(self):
         self.get_members_list_to_display(self.controller_member_container.get_members_by_role("student"))
 
     def get_attendance_to_display(self):
         group_of_students = self.controller_member_container.get_students_by_group()
-        self.__update_attendances(group_of_students)
-        presence_values_to_words = {
-                                        '1.0': 'present',
-                                        '0.75': 'late',
-                                        '0.0': 'absent'}
-        self.view.clear_screen()
-        for student in group_of_students:
-            self.view.display_message('\n- student: {} {}\n\t\t\t attendance percentage: {}%'.format(
-                                student.first_name,
-                                student.last_name,
-                                self.controller_attendance_container.get_student_attendance_percentage(student.uid)))
-            attendence = self.controller_attendance_container.get_presences_for_given_student(student.uid)
-            for presence in attendence:
-                presence_value = str(attendence[presence])
-                self.view.display_message('\t\t\t in day: {} student was {}'.format(
-                                                presence, presence_values_to_words[presence_value]))
-        self.view.freeze_until_key_pressed()
+        if not group_of_students:
+            self.view.freeze_until_key_pressed('We should recruit students first...')
+        else:
+            self.__update_attendances(group_of_students)
+            presence_values_to_words = {
+                                            '1.0': 'present',
+                                            '0.75': 'late',
+                                            '0.0': 'absent'}
+            self.view.clear_screen()
+            for student in group_of_students:
+                self.view.display_message('\n- student: {} {}\n\t\t\t attendance percentage: {}%'.format(
+                                    student.first_name,
+                                    student.last_name,
+                                    self.controller_attendance_container.get_student_attendance_percentage(student.uid)))
+                attendence = self.controller_attendance_container.get_presences_for_given_student(student.uid)
+                for presence in attendence:
+                    presence_value = str(attendence[presence])
+                    self.view.display_message('\t\t\t in day: {} student was {}'.format(
+                                                    presence, presence_values_to_words[presence_value]))
+            self.view.freeze_until_key_pressed()
 
     def __update_attendances(self, students):
         '''Check if all students in collection have own attendances, if not, add attendance for student.'''
@@ -213,6 +219,7 @@ class ControllerMentor(ControllerUser):
                 self.view.display_message("\n\nRead instructions properly and try again.\n\n")
 
     def add_student(self):
+        self.view.clear_screen()
         self.view.display_message("\n\nLet's recruit student..\n\n")
         user_inputs = []
         messages = ["Enter first name: ", "Enter last name: ", "Specify password: ", "Specify group: "]
@@ -228,7 +235,7 @@ class ControllerMentor(ControllerUser):
                                    user_inputs[3])
         self.view.display_message("\n\nStudent recruited..\n\n")
         self.controller_member_container.add_member(user)
-        self.view.get_user_input("\nPress <enter> to continue.. ")
+        self.view.freeze_until_key_pressed()
 
     def remove_student(self):
         students = self.controller_member_container.get_members_by_role("student")

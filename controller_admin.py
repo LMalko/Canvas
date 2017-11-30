@@ -51,7 +51,7 @@ class ControllerAdmin(ControllerUser):
 
     def add_mentor(self):
         self.view.clear_screen()
-        self.view.display_message("Let's hire Mentor..")
+        self.view.display_message("\n\nLet's hire Mentor..\n\n")
         user_inputs = []
         messages = ["Enter first name: ", "Enter last name: ", "Specify password: ", "Specify group: "]
         for num, statement in enumerate(messages):
@@ -65,9 +65,9 @@ class ControllerAdmin(ControllerUser):
                                                     user_inputs[2],
                                                     user_inputs[3])
         self.view.clear_screen()
-        self.view.display_message("Mentor hired..")
+        self.view.display_message("\n\nMentor hired..")
         self.controller_member_container.add_member(user)
-        self.view.freeze_until_key_pressed("Press anything to continue.")
+        self.view.freeze_until_key_pressed()
 
     def get_mentors_list_to_display(self):
         self.get_members_list_to_display(self.controller_member_container.get_members_by_role("mentor"))

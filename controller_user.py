@@ -8,17 +8,17 @@ class ControllerUser():
         self.view = ViewUser()
 
     def change_first_name(self, member):
-        new_first_name = self.validate_input("Pass new first name: ")
+        new_first_name = self.validate_input_name("Pass new first name: ")
         member.set_first_name(new_first_name)
         self.view.freeze_until_key_pressed("First name has been changed!")
 
     def change_last_name(self, member):
-        new_last_name = self.validate_input("Pass new last name: ")
+        new_last_name = self.validate_input_name("Pass new last name: ")
         member.set_last_name(new_last_name)
         self.view.freeze_until_key_pressed("Last name has been changed!")
 
     def change_password(self, member):
-        new_password = self.validate_input("Pass new password (not shorter than 6 chars): ")
+        new_password = self.validate_input("Pass new password: ")
         member.set_password(new_password)
         self.view.freeze_until_key_pressed("Password has been changed!")
 
@@ -35,13 +35,15 @@ class ControllerUser():
     def validate_input_name(self, message):
         user_input_is_correct = False
         while not user_input_is_correct:
-            user_input = self.validate_input(message)
             user_input_is_correct = True
-            for element in user_input:
-                if not element.isalpha():
-                    user_input_is_correct = False
+            user_input = self.validate_input(message)
+            if len(user_input) < 2:
+                user_input_is_correct = False
+            else:
+                for element in user_input:
+                    if not element.isalpha():
+                        user_input_is_correct = False
         return user_input.capitalize()
-
 
     def get_member_id(self, member):
         return member.get_id()
