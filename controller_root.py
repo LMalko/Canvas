@@ -18,6 +18,7 @@ from controller_student import ControllerStudent
 import view_root
 from model_root import ModelRoot
 
+
 class ControllerRoot:
 
     def __init__(self):
