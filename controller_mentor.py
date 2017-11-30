@@ -89,13 +89,8 @@ class ControllerMentor(ControllerUser):
             elif user_choice == '1':
                 chosen_task = self.controller_task_container.take_and_validate_particular_task_choice()
                 self.controller_task_container.grade_task(chosen_task)
-<<<<<<< HEAD
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
             
-=======
-                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
-
->>>>>>> b58223d056d3c5e33fc5dc80c9567b07dd993d59
             elif user_choice == '2':
                 all_students = self.controller_member_container.get_members_by_role('student')
                 self.controller_member_container.get_members_display(all_students)
@@ -104,24 +99,15 @@ class ControllerMentor(ControllerUser):
                 studen_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_task_id(studen_tasks)
                 self.controller_task_container.grade_task(chosen_task)
-<<<<<<< HEAD
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
             
-=======
-                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
-
->>>>>>> b58223d056d3c5e33fc5dc80c9567b07dd993d59
             elif user_choice == '3':
                 task_id = self.controller_task_container.get_task_id_by_genre()
                 tasks_of_chosen_genre = self.controller_task_container.cherry_pick_tasks_by_task_id(task_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_user_id(tasks_of_chosen_genre)
                 self.controller_task_container.grade_task(chosen_task)
-<<<<<<< HEAD
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
                 
-=======
-                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
->>>>>>> b58223d056d3c5e33fc5dc80c9567b07dd993d59
 
     def grade_attendance(self):
         group_of_students = self.controller_member_container.get_students_by_group()
