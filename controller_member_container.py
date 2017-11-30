@@ -49,7 +49,8 @@ class ControllerMemberContainer():
             students_are_filtered = False
             while not students_are_filtered:
                 student_group = self.view_member_container.get_user_input("\nChoose group: ")
-                students_from_student_group = [student for student in students if student.get_my_group() == student_group]
+                students_from_student_group = [student for student in students
+                                               if student.get_my_group() == student_group]
                 if students_from_student_group:
                     students_are_filtered = True
                     return students_from_student_group
