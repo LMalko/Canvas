@@ -57,10 +57,11 @@ class ControllerTaskContainer():
         all_tasks = self.container_task.get_all_tasks()
         if not self.is_collection_empty(all_tasks):
             all_student_tasks = self.cherry_pick_tasks_by_user_id(student_id)
-        if not self.is_collection_empty(all_student_tasks):
-            task = self.take_and_validate_task_choice_by_task_id(all_student_tasks)
-            self.sumbit_task_link(task)
-            task.change_delivery_status()
+            if not self.is_collection_empty(all_student_tasks):
+                task = self.take_and_validate_task_choice_by_task_id(all_student_tasks)
+                self.sumbit_task_link(task)
+                task.change_delivery_status()
+                return True
 
     def grade_task(self, task):
         if not task.get_delivery_status():
@@ -82,13 +83,14 @@ class ControllerTaskContainer():
                 self.view_task_container.display_message('\nChoice not in possible choices\n')
 
     def rename_task(self):
-        chosen_task_id = self.get_task_id_by_genre()
-        new_task_name = self.get_valid_input("\nPass new task name: ")
+        if not self.container_task.get_all_tasks():
+            chosen_task_id = self.get_task_id_by_genre()
+            new_task_name = self.get_valid_input("\nPass new task name: ")
 
-        all_tasks = self.container_task.get_all_tasks()
-        for task in all_tasks:
-            if task.get_task_id() == chosen_task_id:
-                task.rename_task(new_task_name)
+            all_tasks = self.container_task.get_all_tasks()
+            for task in all_tasks:
+                if task.get_task_id() == chosen_task_id:
+                    task.rename_task(new_task_name)
 
     def create_and_deploy_task(self, target_group):
         task_id = self.get_max_task_id()
