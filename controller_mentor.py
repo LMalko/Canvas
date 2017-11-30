@@ -131,7 +131,7 @@ class ControllerMentor(ControllerUser):
             elif user_choice == '1':
                 chosen_task = self.controller_task_container.take_and_validate_particular_task_choice()
                 self.controller_task_container.grade_task(chosen_task)
-                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+                self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
             
             elif user_choice == '2':
                 all_students = self.controller_member_container.get_members_by_role('student')
@@ -141,14 +141,14 @@ class ControllerMentor(ControllerUser):
                 studen_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_task_id(studen_tasks)
                 self.controller_task_container.grade_task(chosen_task)
-                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+                self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
             
             elif user_choice == '3':
                 task_id = self.controller_task_container.get_task_id_by_genre()
                 tasks_of_chosen_genre = self.controller_task_container.cherry_pick_tasks_by_task_id(task_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_user_id(tasks_of_chosen_genre)
                 self.controller_task_container.grade_task(chosen_task)
-                self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
+                self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
                 
 
     def grade_attendance(self):
