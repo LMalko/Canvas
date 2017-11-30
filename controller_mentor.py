@@ -70,52 +70,6 @@ class ControllerMentor(ControllerUser):
                 elif user_input == "0":
                     to_continue = False
 
-    def tasks_menu(self):
-        choices = [
-                    "1. View all tasks",
-                    "2. View tasks by genre",
-                    "3. View tasks by student",
-                    "4. Add & deploy task",
-                    "5. Delete task",
-                    "6. Rename task",
-                    "7. Grade task",
-                    "0. Log out"]
-
-        message = "\nPlease, type Your choice: "
-        to_continue = True
-        while to_continue:
-            self.view.clear_screen()
-            self.view.display_collection(choices)
-            user_choice = self.view.get_user_input(message)
-            if user_choice == '0':
-                to_continue = False
-            elif user_choice == '1':
-                self.controller_task_container.get_all_tasks()
-                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-            elif user_choice == '2':
-                self.controller_task_container.get_tasks_by_genre()
-                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-            elif user_choice == '3':
-                all_students = self.controller_member_container.get_members_by_role('student')
-                self.controller_member_container.get_members_display(all_students)
-                student = self.controller_member_container.get_user()
-                student_id = self.controller_member_container.get_member_id(student)
-                student_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(student_id)
-                self.controller_task_container.get_all_tasks(student_tasks)
-                self.view.freeze_until_key_pressed("Press any key to go back to tasks menu ")
-            elif user_choice == '4':
-                target_group = self.controller_member_container.get_students_by_group()
-                self.controller_task_container.create_and_deploy_task(target_group)
-                self.view.freeze_until_key_pressed("Task added and deployed!\nPress any key to go back to tasks menu ")
-            elif user_choice == '5':
-                self.controller_task_container.del_task_from_container()
-                self.view.freeze_until_key_pressed("Task deleted!\nPress any key to go back to tasks menu ")
-            elif user_choice == '6':
-                self.controller_task_container.rename_task()
-                self.view.freeze_until_key_pressed("Task renamed!\nPress any key to go back to tasks menu ")
-            elif user_choice == '7':
-                self.grade_task_menu()
-
     def grade_task_menu(self):
         choices = [
                     "1. Choose from all tasks and students",
@@ -316,7 +270,7 @@ class ControllerMentor(ControllerUser):
     def tasks_menu(self):
         choices = [
                     '1. View all tasks',
-                    '2. View tasks by genre'
+                    '2. View tasks by genre',
                     '3. View tasks by student',
                     '4. Add & deploy task',
                     '5. Del task',
