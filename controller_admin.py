@@ -72,13 +72,6 @@ class ControllerAdmin(ControllerUser):
     def get_students_list_to_display(self):
         self.get_members_list_to_display(self.controller_member_container.get_members_by_role("student"))
 
-    def get_members_list_to_display(self, members_collection):
-        if members_collection:
-            self.controller_member_container.get_members_display(members_collection)
-            self.view.freeze_until_key_pressed()
-        else:
-            self.view.freeze_until_key_pressed("There is no one to show.")
-
     def remove_mentor(self):
         mentors = self.controller_member_container.get_members_by_role("mentor")
         if not mentors:
