@@ -288,7 +288,7 @@ class ControllerMentor(ControllerUser):
             self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
 
     def get_random_groups(self, size=2):
-        self.view.display_collection(self.get_random_student_group(size))
+        self.view.display_nested_collection(self.get_random_student_group(size))
         self.view.freeze_until_key_pressed("Groups selected")
 
     def get_random_student_group(self, size=2):
@@ -310,7 +310,7 @@ class ControllerMentor(ControllerUser):
                              [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0]))]
         return "No such option"
 
-        def tasks_menu(self):
+    def tasks_menu(self):
             choices = [
                         '1. View all tasks',
                         '2. View tasks by genre'
