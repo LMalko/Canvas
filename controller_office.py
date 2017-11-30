@@ -14,9 +14,9 @@ class ControllerOffice(ControllerUser):
     def start(self):
         self.view.clear_screen()
         choices = [
-                    '1: View my data',
-                    '2: View student list',
-                    '0: Log out']
+                    ' 1: View my data',
+                    ' 2: View student list',
+                    ' 0: Log out']
         correct_choices = [str(x) for x in range(0, len(choices))]
         message = '\nPlease, type Your choice: '
         to_continue = True
