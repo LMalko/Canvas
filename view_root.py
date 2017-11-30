@@ -7,6 +7,7 @@ class ViewRoot():
     def get_login_credentials(self, login_prompt='', password_prompt=''):
         '''Return login, password in tuple.'''
         _new_lines = '\n' * 4
+        self.clear_screen()
         self.display_message("Type X as login to quit the program.")
 
         if not login_prompt and not password_prompt:

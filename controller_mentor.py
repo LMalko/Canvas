@@ -216,8 +216,11 @@ class ControllerMentor(ControllerUser):
         self.view.display_message("\n\nLet's recruit student..\n\n")
         user_inputs = []
         messages = ["Enter first name: ", "Enter last name: ", "Specify password: ", "Specify group: "]
-        for statement in messages:
-            user_input = self.validate_input(statement)
+        for num, statement in enumerate(messages):
+            if num in (0, 1):
+                user_input = self.validate_input_name(statement)
+            else:
+                user_input = self.validate_input(statement)
             user_inputs.append(user_input)
         user = self.create_student(user_inputs[0],
                                    user_inputs[1],
