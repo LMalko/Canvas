@@ -290,24 +290,27 @@ class ControllerMentor(ControllerUser):
             self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
 
     def get_random_groups(self, size=2):
-        self.view.display_collection(self.get_random_student_group(size))
+        self.view.display_nested_collection(self.get_random_student_group(size))
         self.view.freeze_until_key_pressed("Groups selected")
 
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container.get_all_members() if x.role == 'student']
         if students:
             shuffle(students)
-            groups_of_two = list(zip_longest([member.uid for member in students
+            groups_of_two = list(zip_longest(["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                                 for member in students
                                  if students.index(member) % 2 == 0],
-                                 [member.uid for member in students
+                                 ["{} {} {}".format(member.uid, member.first_name, member.last_name)
+                                 for member in students
                                  if students.index(member) % 2 != 0],
-                                 fillvalue="Should join other group(s)"))
+                                 fillvalue="Should join other group"))
             if size == 2:
                 return groups_of_two
             if size == 4:
                 return [list(chain.from_iterable(group_of_four)) for group_of_four in
-                        list(zip([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
-                             [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0]))]
+                        list(zip_longest([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
+                                         [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0],
+                                         fillvalue=["Should join other groups"]))]
         return "No such option"
 
     def tasks_menu(self):
