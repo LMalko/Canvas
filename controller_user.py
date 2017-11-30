@@ -37,3 +37,8 @@ class ControllerUser():
 
     def get_member_display(self, member):
         return member.get_member_display()
+
+    def execute_member_display(self, member):
+        self.view.clear_screen()
+        self.view.display_message('\n' + member.get_full_data())
+        self.view.freeze_until_key_pressed()

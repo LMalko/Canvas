@@ -1,7 +1,7 @@
 from model_student import ModelStudent
 from controller_task_container import ControllerTaskContainer
 from view_student import ViewStudent
-from controller_user import*
+from controller_user import ControllerUser
 
 
 class ControllerStudent(ControllerUser):
@@ -14,8 +14,12 @@ class ControllerStudent(ControllerUser):
 
     def start(self):
         self.view.clear_screen()
-        choices = ["1: Submit task", "2: View Your grades", "3: Log out"]
-        correct_choices = [str(x+1) for x in range(1, len(choices))]
+        choices = [
+                    "1: View my data",
+                    "2: Submit task",
+                    "3: View Your grades",
+                    "0: Log out"]
+        correct_choices = [str(x) for x in range(0, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -24,12 +28,14 @@ class ControllerStudent(ControllerUser):
                 self.view.clear_screen()
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
-                if user_input == "1":
-                    self.submit_task()
+                if user_input == '1':
+                    self.execute_member_display(self.associated_user)
                 elif user_input == "2":
+                    self.submit_task()
+                elif user_input == "3":
                     self.view_grades()
                     self.view.freeze_until_key_pressed("\n\nThese are Your grades.")
-                elif user_input == "3":
+                elif user_input == "0":
                     to_continue = False
 
     def submit_task(self):
