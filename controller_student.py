@@ -38,6 +38,7 @@ class ControllerStudent(ControllerUser):
                     to_continue = False
 
     def submit_task(self):
+        self.view.clear_screen()
         self.controller_task_container.change_task_delivery_status(
              self.controller_user.get_member_id(self.associated_user))
 
