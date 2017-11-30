@@ -7,22 +7,21 @@ class ViewMemberContainer():
         pass
 
     def display_message(self, message):
-        print("\n\n" + message + "\n\n")
+        print("\n" + message + "\n")
 
-    def take_user_input(self, message):
+    def get_user_input(self, message='==> '):
+        message = '\n' + message
         return input(message)
 
     def freeze_until_key_pressed(self, message='Press any key to continue.. '):
-        message = '\n' + message
-        freeze_message = input(message)
-        return None
+        message = '\n' + message + '\n'
+        input(message)
 
     def display_collection(self, collection):
+        print('\n')
         for item in collection:
             print(item)
+        print('\n')
 
     def clear_screen(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-
-    def get_user_input(self, message):
-        return input(message)

@@ -1,7 +1,6 @@
-from model_task import*
-from model_attendance_container import*
-from view_controller_task_container import*
-from controller_user import*
+from model_task import ModelTask
+from view_controller_task_container import ViewControllerTaskContainer
+from controller_user import ControllerUser
 
 
 class ControllerTaskContainer():
@@ -15,8 +14,7 @@ class ControllerTaskContainer():
         if not collection:
             self.view_task_container.display_message("\nTask list is empty. Nothing to display.")
             return True
-        else:
-            return False
+        return False
 
     def add_task_to_container(self, task):
         self.container_task.add_task(task)
@@ -33,9 +31,8 @@ class ControllerTaskContainer():
 
     def get_tasks_by_genre(self):
         all_tasks = self.container_task.get_all_tasks()
-        if self.is_collection_empty(all_tasks):
-            return
-        chosen_task_id = self.get_task_id_by_genre()
+        if not self.is_collection_empty(all_tasks):
+            chosen_task_id = self.get_task_id_by_genre()
 
         for task in all_tasks:
             if task.get_task_id() == chosen_task_id:
@@ -45,11 +42,9 @@ class ControllerTaskContainer():
         if not all_tasks:
             all_tasks = self.container_task.get_all_tasks()
 
-        if self.is_collection_empty(all_tasks):
-            return
-
-        for task in all_tasks:
-            self.view_task_container.display_message(task.get_detailed_task_display())
+        if not self.is_collection_empty(all_tasks):
+            for task in all_tasks:
+                self.view_task_container.display_message(task.get_detailed_task_display())
 
     def sumbit_task_link(self, task):
         link = self.get_valid_input("\nPass tasks link: ")
@@ -60,14 +55,12 @@ class ControllerTaskContainer():
 
     def change_task_delivery_status(self, student_id=None):
         all_tasks = self.container_task.get_all_tasks()
-        if self.is_collection_empty(all_tasks):
-            return
-        all_student_tasks = self.cherry_pick_tasks_by_user_id(student_id)
-        if self.is_collection_empty(all_student_tasks):
-            return
-        task = self.take_and_validate_task_choice_by_task_id(all_student_tasks)
-        self.sumbit_task_link(task)
-        task.change_delivery_status()
+        if not self.is_collection_empty(all_tasks):
+            all_student_tasks = self.cherry_pick_tasks_by_user_id(student_id)
+        if not self.is_collection_empty(all_student_tasks):
+            task = self.take_and_validate_task_choice_by_task_id(all_student_tasks)
+            self.sumbit_task_link(task)
+            task.change_delivery_status()
 
     def grade_task(self, task):
         if not task.get_delivery_status():
@@ -131,23 +124,21 @@ class ControllerTaskContainer():
 
     def get_task_id_by_genre(self):
         all_tasks = self.container_task.get_all_tasks()
-        if self.is_collection_empty(all_tasks):
-            return
-
-        tasks_by_id = []
-        for task in all_tasks:
-            tasks_by_id.append(task.get_short_task_display())
-
-        invalid_choice = True
-        while invalid_choice:
-            self.view_task_container.display_collection(sorted(list(set(tasks_by_id))))
-            user_choice = self.get_valid_input("\nChoose task by id: ")
+        if not self.is_collection_empty(all_tasks):
+            tasks_by_id = []
             for task in all_tasks:
-                if task.get_task_id() == user_choice:
-                    invalid_choice = False
-                    break
+                tasks_by_id.append(task.get_short_task_display())
 
-        return user_choice
+            invalid_choice = True
+            while invalid_choice:
+                self.view_task_container.display_collection(sorted(list(set(tasks_by_id))))
+                user_choice = self.get_valid_input("\nChoose task by id: ")
+                for task in all_tasks:
+                    if task.get_task_id() == user_choice:
+                        invalid_choice = False
+                        break
+
+            return user_choice
 
     def take_and_validate_task_choice_by_task_id(self, all_tasks):
         invalid_choice = True
@@ -171,7 +162,7 @@ class ControllerTaskContainer():
             self.view_task_container.display_message('\n')
             for task in all_tasks:
                 self.view_task_container.display_message(task.get_detailed_task_display())
-            
+
             user_choice = self.get_valid_input("\nChoose task by user id: ")
 
             for task in all_tasks:
@@ -218,4 +209,3 @@ class ControllerTaskContainer():
             if task.get_task_id() == task_id:
                 tasks.append(task)
         return tasks
-
