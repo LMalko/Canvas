@@ -27,17 +27,17 @@ class ControllerMentor(ControllerUser):
     def start(self):
         self.view.clear_screen()
         choices = [
-                    "1: View my data",
-                    "2: View students list",
-                    "3: Edit student",
-                    "4: Add student",
-                    "5: Remove student",
-                    "6: Task menu",
-                    "7: Grade today's attendance",
-                    "8: Display attendance",
-                    "9: Get random groups of two",
+                    " 1: View my data",
+                    " 2: View students list",
+                    " 3: Edit student",
+                    " 4: Add student",
+                    " 5: Remove student",
+                    " 6: Task menu",
+                    " 7: Grade today's attendance",
+                    " 8: Display attendance",
+                    " 9: Get random groups of two",
                     "10: Get random groups of four",
-                    "0: Log out"]
+                    " 0: Log out"]
         correct_choices = [str(x) for x in range(0, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True

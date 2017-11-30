@@ -17,13 +17,13 @@ class ControllerAdmin(ControllerUser):
     def start(self):
         self.view.clear_screen()
         choices = [
-                    "1: View my data",
-                    "2: Add mentor",
-                    "3: View mentors list",
-                    "4: Release Mentor",
-                    "5: Edit mentor's details",
-                    "6: View student list",
-                    "0: Log out"]
+                    " 1: View my data",
+                    " 2: Add mentor",
+                    " 3: View mentors list",
+                    " 4: Release Mentor",
+                    " 5: Edit mentor's details",
+                    " 6: View student list",
+                    " 0: Log out"]
         correct_choices = [str(x) for x in range(0, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
