@@ -4,12 +4,8 @@ import getpass
 
 class ViewRoot():
 
-    def __init__(self):
-        pass
-
     def get_login_credentials(self, login_prompt='', password_prompt=''):
         '''Return login, password in tuple.'''
-        #self.clear_screen()
         _new_lines = '\n' * 4
         self.display_message("Type X as login to quit the program.")
 

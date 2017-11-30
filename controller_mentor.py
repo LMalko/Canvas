@@ -75,7 +75,7 @@ class ControllerMentor(ControllerUser):
                     "1. Choose from all tasks and students",
                     "2. Choose by student",
                     "3. Choose by task",
-                    "0. Log out"]
+                    "0. Exit menu"]
 
         message = "\nPlease, type Your choice: "
         to_continue = True
@@ -90,7 +90,7 @@ class ControllerMentor(ControllerUser):
                 chosen_task = self.controller_task_container.take_and_validate_particular_task_choice()
                 self.controller_task_container.grade_task(chosen_task)
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
-            
+
             elif user_choice == '2':
                 all_students = self.controller_member_container.get_members_by_role('student')
                 self.controller_member_container.get_members_display(all_students)
@@ -100,14 +100,13 @@ class ControllerMentor(ControllerUser):
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_task_id(studen_tasks)
                 self.controller_task_container.grade_task(chosen_task)
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
-            
+
             elif user_choice == '3':
                 task_id = self.controller_task_container.get_task_id_by_genre()
                 tasks_of_chosen_genre = self.controller_task_container.cherry_pick_tasks_by_task_id(task_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_user_id(tasks_of_chosen_genre)
                 self.controller_task_container.grade_task(chosen_task)
                 self.view.freeze_until_key_pressed("\nPress any key to go back to tasks menu ")
-                
 
     def grade_attendance(self):
         group_of_students = self.controller_member_container.get_students_by_group()
@@ -137,9 +136,7 @@ class ControllerMentor(ControllerUser):
                                                                 user_choices_to_presence_value[user_choice])
 
     def get_students_list_to_display(self):
-        self.controller_member_container.get_members_display(
-            self.controller_member_container.get_members_by_role("student"))
-        self.view.freeze_until_key_pressed()
+        self.get_members_list_to_display(self.controller_member_container.get_members_by_role("student"))
 
     def get_attendance_to_display(self):
         group_of_students = self.controller_member_container.get_students_by_group()

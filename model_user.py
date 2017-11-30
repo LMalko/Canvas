@@ -23,7 +23,7 @@ class ModelUser():
         return "{} {} {} {}".format("{:>4}".format(self.uid), self.first_name, self.last_name, self.role)
 
     def get_full_data(self):
-        return 'id: {}\nname: {}\nmail: {}\npassword: {}'.format(
+        return ' id: {}\n name: {}\n mail: {}\n password: {}'.format(
                                                                 self.uid,
                                                                 self.get_fullname(),
                                                                 self.get_email(),

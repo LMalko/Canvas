@@ -17,7 +17,7 @@ class ModelMentor(ModelUser):
         return self.my_group
 
     def get_full_data(self):
-        return '{}\ngroup: {}'.format(super().get_full_data(), self.my_group)
+        return '{}\n group: {}'.format(super().get_full_data(), self.my_group)
 
     def get_data_for_export(self):
         return [self.role, self.uid, self.first_name, self.last_name, self.password, self.my_group]
