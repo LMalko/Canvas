@@ -1,30 +1,29 @@
 class ModelTask():
 
-    def __init__(self, name, task_ID, user_ID, grade=None, is_done=0, is_graded=0):
+    def __init__(self, name, task_ID, user_ID, grade=None, is_done=0, task_link=None):
 
         self.name = name
         self.task_ID = task_ID
         self.user_ID = user_ID
         self.grade = grade
         self.is_done = is_done
-        self.is_graded = is_graded
+        self.task_link = task_link
 
     def change_delivery_status(self):
-        
-        self.is_done = True
-        # self.is_done = 1 if not self.is_done else 0
-        # if self.is_done == 0:
-        #     self.grade = None
-        #     self.is_graded = 0
-
-    def mark_as_graded(self):
-        self.is_graded = 1
+        self.is_done = 1
+        self.grade = None
 
     def rename_task(self, new_name):
         self.name = new_name
 
     def set_grade(self, grade):
         self.grade = grade
+
+    def set_task_link(self, task_link):
+        self.task_link = task_link
+
+    def get_task_link(self):
+        return str(self.task_link)
 
     def get_task_id(self):
         return self.task_ID
@@ -55,5 +54,5 @@ class ModelTask():
                 self.user_ID,
                 str(self.grade),
                 str(self.is_done),
-                str(self.is_graded)]
+                str(self.task_link)]
 
