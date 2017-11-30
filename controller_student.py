@@ -39,14 +39,20 @@ class ControllerStudent(ControllerUser):
 
     def submit_task(self):
         self.view.clear_screen()
-        self.controller_task_container.change_task_delivery_status(
-             self.controller_user.get_member_id(self.associated_user))
+        student_id = self.controller_user.get_member_id(self.associated_user)
+        if self.controller_task_container.change_task_delivery_status(student_id):
+            self.view.freeze_until_key_pressed("\nTask has been submitted successfully!")
+        else:
+            self.view.freeze_until_key_pressed("\nNo tasks to submit!")
 
     def view_grades(self):
         user_id = self.controller_user.get_member_id(self.associated_user)
         user_tasks = self.controller_task_container.cherry_pick_tasks_by_user_id(user_id)
-        self.controller_task_container.get_all_tasks(user_tasks)
-        self.view.freeze_until_key_pressed("These are Your grades.")
+        if user_tasks:
+            self.controller_task_container.get_all_tasks(user_tasks)
+            self.view.freeze_until_key_pressed("These are Your grades.")
+        else:
+            self.view.freeze_until_key_pressed("\nNo tasks has been deployed yet. Nothing to display.")
 
     def get_my_group(self, student):
         return student.get_my_group()
