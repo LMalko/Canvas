@@ -105,7 +105,7 @@ class ControllerAdmin(ControllerUser):
                     self.view.display_message("\n\nThis user is not a mentor!\n")
             detail_to_change_is_chosen = False
             while not detail_to_change_is_chosen:
-                self.view.display_message("\n\nLet's change data of {}:".format(mentor_to_change.get_member_fullname()))
+                self.view.display_message("\n\nLet's change data of {}:".format(mentor_to_change.get_fullname()))
                 mentor_detail_to_change = self.view.get_user_input(
                                         "\nChange: first name (1) last name (2) or password (3)? ")
                 if mentor_detail_to_change == "1":

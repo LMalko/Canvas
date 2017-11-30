@@ -76,7 +76,7 @@ class ControllerMentor(ControllerUser):
                     "6. Rename task",
                     "7. Grade task",
                     "0. Log out"]
-        
+
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -118,7 +118,7 @@ class ControllerMentor(ControllerUser):
                     "2. Choose by student",
                     "3. Choose by task",
                     "0. Log out"]
-        
+
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -132,7 +132,7 @@ class ControllerMentor(ControllerUser):
                 chosen_task = self.controller_task_container.take_and_validate_particular_task_choice()
                 self.controller_task_container.grade_task(chosen_task)
                 self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
-            
+
             elif user_choice == '2':
                 all_students = self.controller_member_container.get_members_by_role('student')
                 self.controller_member_container.get_members_display(all_students)
@@ -142,14 +142,14 @@ class ControllerMentor(ControllerUser):
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_task_id(studen_tasks)
                 self.controller_task_container.grade_task(chosen_task)
                 self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
-            
+
             elif user_choice == '3':
                 task_id = self.controller_task_container.get_task_id_by_genre()
                 tasks_of_chosen_genre = self.controller_task_container.cherry_pick_tasks_by_task_id(task_id)
                 chosen_task = self.controller_task_container.take_and_validate_task_choice_by_user_id(tasks_of_chosen_genre)
                 self.controller_task_container.grade_task(chosen_task)
                 self.view.freeze_until_key_pressed("Task graded!\nPress any key to go back to tasks menu ")
-                
+
 
     def grade_attendance(self):
         group_of_students = self.controller_member_container.get_students_by_group()
@@ -247,7 +247,7 @@ class ControllerMentor(ControllerUser):
             student_detail_to_change_is_chosen = False
             while not student_detail_to_change_is_chosen:
                 self.view.clear_screen()
-                self.view.display_message("\n\nLet's change data of {}:".format(student_to_change.get_member_fullname()))
+                self.view.display_message("\n\nLet's change data of {}:".format(student_to_change.get_fullname()))
                 student_detail_to_change = self.view.get_user_input(
                                 "\n\nChange: first name (1) last name (2) or password (3)? ")
                 if student_detail_to_change == "1":
