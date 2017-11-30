@@ -32,6 +32,17 @@ class ControllerUser():
                 self.view.display_message("Invalid input. Try again. ")
         return user_input
 
+    def validate_input_name(self, message):
+        user_input_is_correct = False
+        while not user_input_is_correct:
+            user_input = self.validate_input(message)
+            user_input_is_correct = True
+            for element in user_input:
+                if not element.isalpha():
+                    user_input_is_correct = False
+        return user_input.capitalize()
+
+
     def get_member_id(self, member):
         return member.get_id()
 

@@ -54,8 +54,11 @@ class ControllerAdmin(ControllerUser):
         self.view.display_message("Let's hire Mentor..")
         user_inputs = []
         messages = ["Enter first name: ", "Enter last name: ", "Specify password: ", "Specify group: "]
-        for statement in messages:
-            user_input = self.validate_input(statement)
+        for num, statement in enumerate(messages):
+            if num in (0, 1):
+                user_input = self.validate_input_name(statement)
+            else:
+                user_input = self.validate_input(statement)
             user_inputs.append(user_input)
         user = self.controller_mentor.create_mentor(user_inputs[0],
                                                     user_inputs[1],
@@ -71,13 +74,6 @@ class ControllerAdmin(ControllerUser):
 
     def get_students_list_to_display(self):
         self.get_members_list_to_display(self.controller_member_container.get_members_by_role("student"))
-
-    def get_members_list_to_display(self, members_collection):
-        if members_collection:
-            self.controller_member_container.get_members_display(members_collection)
-            self.view.freeze_until_key_pressed()
-        else:
-            self.view.freeze_until_key_pressed("There is no one to show.")
 
     def remove_mentor(self):
         mentors = self.controller_member_container.get_members_by_role("mentor")
