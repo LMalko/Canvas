@@ -31,7 +31,6 @@ class DAOAttendance():
 
     def __pack_data_for_export(self, attendance_collection):
         data_to_export = []
-        print(attendance_collection)
         for attendance in attendance_collection:
             data = "|".join(attendance.get_data_to_export()) + '\n'
             data_to_export.append(data)
