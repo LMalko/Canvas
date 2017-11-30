@@ -261,12 +261,16 @@ class ControllerMentor(ControllerUser):
             self.view.freeze_until_key_pressed("Done! Press anything to continue. ")
 
     def get_random_groups(self, size=2):
-        self.view.display_nested_collection(self.get_random_student_group(size))
-        self.view.freeze_until_key_pressed("Groups selected")
+        groups = self.get_random_student_group(size)
+        if groups:
+            self.view.display_nested_collection(groups)
+            self.view.freeze_until_key_pressed("Groups selected")
 
     def get_random_student_group(self, size=2):
         students = [x for x in self.controller_member_container.get_all_members() if x.role == 'student']
-        if students:
+        if not students:
+            self.view.freeze_until_key_pressed('We should recruit students first...')
+        else:
             shuffle(students)
             groups_of_two = list(zip_longest(["{} {} {}".format(member.uid, member.first_name, member.last_name)
                                  for member in students
@@ -282,7 +286,6 @@ class ControllerMentor(ControllerUser):
                         list(zip_longest([group for group in groups_of_two if groups_of_two.index(group) % 2 == 0],
                                          [group for group in groups_of_two if groups_of_two.index(group) % 2 != 0],
                                          fillvalue=["Should join other groups"]))]
-        return "No such option"
 
     def tasks_menu(self):
         choices = [
