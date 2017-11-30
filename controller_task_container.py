@@ -83,8 +83,8 @@ class ControllerTaskContainer():
                 self.view_task_container.display_message('\nChoice not in possible choices\n')
 
     def rename_task(self):
-        chosen_task_id = self.get_task_id_by_genre()
-        if not chosen_task_id:
+        if not self.container_task.get_all_tasks():
+            chosen_task_id = self.get_task_id_by_genre()
             new_task_name = self.get_valid_input("\nPass new task name: ")
 
             all_tasks = self.container_task.get_all_tasks()
