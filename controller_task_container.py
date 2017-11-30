@@ -39,7 +39,7 @@ class ControllerTaskContainer():
 
         for task in all_tasks:
             if task.get_task_id() == chosen_task_id:
-                self.view_task_container.display_message(task.get_mentor_task_display())
+                self.view_task_container.display_message(task.get_detailed_task_display())
 
     def get_all_tasks(self, all_tasks=None):
         if not all_tasks:
@@ -49,7 +49,7 @@ class ControllerTaskContainer():
             return
 
         for task in all_tasks:
-            self.view_task_container.display_message(task.get_mentor_task_display())
+            self.view_task_container.display_message(task.get_detailed_task_display())
 
     def sumbit_task_link(self, task):
         link = self.get_valid_input("\nPass tasks link: ")
@@ -155,7 +155,7 @@ class ControllerTaskContainer():
         while invalid_choice:
             self.view_task_container.display_message('\n')
             for task in all_tasks:
-                self.view_task_container.display_message(task.get_student_task_display())
+                self.view_task_container.display_message(task.get_generic_task_display())
             user_choice = self.get_valid_input("\nChoose task by task id: ")
             for task in all_tasks:
                 if task.get_task_id() == user_choice:
@@ -170,7 +170,7 @@ class ControllerTaskContainer():
         while invalid_choice:
             self.view_task_container.display_message('\n')
             for task in all_tasks:
-                self.view_task_container.display_message(task.get_mentor_task_display())
+                self.view_task_container.display_message(task.get_detailed_task_display())
             
             user_choice = self.get_valid_input("\nChoose task by user id: ")
 
@@ -191,7 +191,7 @@ class ControllerTaskContainer():
         while invalid_choice:
             self.view_task_container.display_message('\n')
             for task in all_tasks:
-                self.view_task_container.display_message(task.get_mentor_task_display())
+                self.view_task_container.display_message(task.get_detailed_task_display())
 
             task_id_choice = self.view_task_container.get_user_input("\nChoose task by task id: ")
             user_id_choice = self.view_task_container.get_user_input("\nChoose task by user id: ")
