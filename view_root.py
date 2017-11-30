@@ -11,6 +11,8 @@ class ViewRoot():
         '''Return login, password in tuple.'''
         #self.clear_screen()
         _new_lines = '\n' * 4
+        self.display_message("Type X as login to quit the program.")
+
         if not login_prompt and not password_prompt:
             login_prompt = _new_lines + 'Enter login --> '
             password_prompt = _new_lines + 'Enter password --> '
