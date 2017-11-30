@@ -39,15 +39,22 @@ class ModelTask():
 
     def get_detailed_task_display(self):
         done = 'DELIVERED' if self.is_done else 'NOT DELIVERED'
-        return "Task: {:15}, ID: {:>4}, student: {:>4}, grade: {:>4}, status: {:>13}".format(self.name, self.task_ID, self.user_ID, str(self.grade), done)
-    
+        return "Task: {:15}, ID: {:>4}, student: {:>4}, grade: {:>4}, status: {:>13}".format(self.name,
+                                                                                             self.task_ID,
+                                                                                             self.user_ID,
+                                                                                             str(self.grade),
+                                                                                             done)
+
     def get_generic_task_display(self):
         done = 'DELIVERED' if self.is_done else 'NOT DELIVERED'
-        return "Task: {:15}, ID: {:>4}, grade: {:>4}, status: {:>13}".format(self.name, self.task_ID, str(self.grade), done)
-    
+        return "Task: {:15}, ID: {:>4}, grade: {:>4}, status: {:>13}".format(self.name,
+                                                                             self.task_ID,
+                                                                             str(self.grade),
+                                                                             done)
+
     def get_short_task_display(self):
         return "{:>4}: {}".format(self.task_ID, self.name)
-    
+
     def get_data_to_export(self):
         return [self.name,
                 self.task_ID,
@@ -55,4 +62,3 @@ class ModelTask():
                 str(self.grade),
                 str(self.is_done),
                 str(self.task_link)]
-
