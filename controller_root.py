@@ -131,7 +131,7 @@ class ControllerRoot:
             if user_obj is not None:
                 self.engage_user_controller(user_obj)
             else:
-                self.view.display_message("Invalid credentials or account does not exist")
+                self.view.freeze_until_key_pressed("Invalid credentials or account does not exist")
             login_credentials = self.view.get_login_credentials()
 
         # we are about to exit - save the containers
