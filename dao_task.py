@@ -18,14 +18,14 @@ class DAOTask():
 
         grade_attribute_index = 3
         is_done_attribute_index = 4
-        is_graded_attribute_index = 5
+        task_link_attribute = 5
 
         tasks_collection = []
         for line in imported_data:
-            data = line.split('|')
+            data = line.strip().split('|')
             data[grade_attribute_index] = None if data[grade_attribute_index] == 'None' else data[grade_attribute_index]
-            data[4] = int(data[is_done_attribute_index])
-            data[5] = int(data[is_graded_attribute_index])
+            data[is_done_attribute_index] = int(data[is_done_attribute_index])
+            data[task_link_attribute] = None if data[task_link_attribute] == 'None' else data[task_link_attribute]
             tasks_collection.append(ModelTask(*data))
         return tasks_collection
 
