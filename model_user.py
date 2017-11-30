@@ -22,11 +22,25 @@ class ModelUser():
     def get_member_display(self):
         return "{} {} {} {}".format("{:>4}".format(self.uid), self.first_name, self.last_name, self.role)
 
-    def get_member_fullname(self):
+    def get_full_data(self):
+        return 'id: {}\nname: {}\nmail: {}\npassword: {}'.format(
+                                                                self.uid,
+                                                                self.get_fullname(),
+                                                                self.get_email(),
+                                                                self.get_password())
+
+    def get_fullname(self):
         return "{} {}".format(self.first_name, self.last_name)
 
     def get_id(self):
         return self.uid
+
+    def get_password(self):
+        return self.password
+
+    def get_email(self):
+        self.set_email()
+        return self.email
 
     @classmethod
     def get_role_attribute(cls):

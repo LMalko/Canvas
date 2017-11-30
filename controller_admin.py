@@ -17,13 +17,14 @@ class ControllerAdmin(ControllerUser):
     def start(self):
         self.view.clear_screen()
         choices = [
-                    "1: Add mentor",
-                    "2: View mentors list",
-                    "3: Release Mentor",
-                    "4: Edit mentor's details",
-                    "5: View student list",
-                    "6: Log out"]
-        correct_choices = [str(x+1) for x in range(1, len(choices))]
+                    "1: View my data",
+                    "2: Add mentor",
+                    "3: View mentors list",
+                    "4: Release Mentor",
+                    "5: Edit mentor's details",
+                    "6: View student list",
+                    "0: Log out"]
+        correct_choices = [str(x) for x in range(0, len(choices))]
         message = "\nPlease, type Your choice: "
         to_continue = True
         while to_continue:
@@ -33,16 +34,18 @@ class ControllerAdmin(ControllerUser):
                 self.view.display_collection(choices)
                 user_input = self.view.get_user_input(message)
                 if user_input == "1":
+                    self.execute_member_display(self.associated_user)
+                if user_input == "2":
                     self.add_mentor()
-                elif user_input == "2":
-                    self.get_mentors_list_to_display()
                 elif user_input == "3":
-                    self.remove_mentor()
+                    self.get_mentors_list_to_display()
                 elif user_input == "4":
-                    self.edit_mentor()
+                    self.remove_mentor()
                 elif user_input == "5":
-                    self.get_students_list_to_display()
+                    self.edit_mentor()
                 elif user_input == "6":
+                    self.get_students_list_to_display()
+                elif user_input == "0":
                     self.view.clear_screen()
                     to_continue = False
 
@@ -105,7 +108,7 @@ class ControllerAdmin(ControllerUser):
                     self.view.display_message("\n\nThis user is not a mentor!\n")
             detail_to_change_is_chosen = False
             while not detail_to_change_is_chosen:
-                self.view.display_message("\n\nLet's change data of {}:".format(mentor_to_change.get_member_fullname()))
+                self.view.display_message("\n\nLet's change data of {}:".format(mentor_to_change.get_fullname()))
                 mentor_detail_to_change = self.view.get_user_input(
                                         "\nChange: first name (1) last name (2) or password (3)? ")
                 if mentor_detail_to_change == "1":
