@@ -25,6 +25,11 @@ class ViewRoot():
     def display_message(self, message):
         print('\n\n' + message + '\n\n')
 
+    def freeze_until_key_pressed(self, message='Press any key to continue.. '):
+        message = '\n' + message
+        freeze_message = input(message)
+        return None
+
     def display_start_screen(self, text=''):
         self.clear_screen()
         if not text:
