@@ -42,3 +42,10 @@ class ControllerUser():
         self.view.clear_screen()
         self.view.display_message('\n' + member.get_full_data())
         self.view.freeze_until_key_pressed()
+
+    def get_members_list_to_display(self, members_collection):
+        if members_collection:
+            self.controller_member_container.get_members_display(members_collection)
+            self.view.freeze_until_key_pressed()
+        else:
+            self.view.freeze_until_key_pressed("There is no one to show.")
