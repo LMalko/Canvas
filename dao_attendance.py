@@ -23,7 +23,6 @@ class DAOAttendance():
         return attendance_collection
 
     def export_data(self, attendance_collection):
-        pass
         data_to_export = self.__pack_data_for_export(attendance_collection)
         with open(self.filename, "w") as myfile:
             for line in data_to_export:
